@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "template",
+  "id": "nyatec",
   "version": "${version}",
 
-  "name": "Template",
+  "name": "NyaTec",
   "description": "",
   "authors": [
     "DanyGames2014"
   ],
 
   "license": "MIT",
-  "icon": "assets/template/icon.png",
+  "icon": "assets/nyatec/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -22,7 +22,7 @@
     ]
   },
   "mixins": [
-    "template.mixins.json"
+    "nyatec.mixins.json"
   ],
 
   "depends": {
