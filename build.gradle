@@ -108,7 +108,11 @@ dependencies {
         transitive false
     }
 
-    modImplementation("net.danygames2014:nyalib:${project.nyalib_version}") {
+    modImplementation("net.danygames2014:UniWrench:${project.uniwrench_version}") {
+        transitive false
+    }
+    
+    modImplementation("net.danygames2014:NyaLib:${project.nyalib_version}") {
         transitive false
     }
 

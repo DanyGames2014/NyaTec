@@ -1,6 +1,6 @@
 package net.danygames2014.nyatec;
 
-import net.danygames2014.nyatec.block.template.RotateableBlockTemplate;
+import net.danygames2014.nyalib.block.RotateableBlockTemplate;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
