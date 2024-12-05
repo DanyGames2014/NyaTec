@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "nyatec:block/rubber_leaves_fancy"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "nyatec:graphics": 0
+      },
+      "model": "nyatec:block/rubber_leaves_fast"
+    },
+    {
+      "predicate": {
+        "nyatec:graphics": 1
+      },
+      "model": "nyatec:block/rubber_leaves_fancy"
+    }
+  ]
+}

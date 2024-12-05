@@ -15,9 +15,11 @@
   "environment": "*",
   "entrypoints": {
     "stationapi:event_bus": [
-      "net.danygames2014.nyatec.NyaTec"
+      "net.danygames2014.nyatec.NyaTec",
+      "net.danygames2014.nyatec.init.WorldGenListener"
     ],
     "stationapi:event_bus_client": [
+      "net.danygames2014.nyatec.init.ClientListener"
     ],
     "stationapi:event_bus_server": [
     ]
@@ -25,6 +27,7 @@
   "mixins": [
     "nyatec.mixins.json"
   ],
+  "accessWidener": "nyatec.accesswidener",
 
   "depends": {
     "minecraft": "1.0.0-beta.7.3"
