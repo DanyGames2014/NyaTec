@@ -4,7 +4,6 @@ import net.danygames2014.nyatec.NyaTec;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.block.States;
@@ -47,24 +46,34 @@ public class RubberLeavesBlock extends TemplateBlock {
         }
     }
 
+//    @Override
+//    public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
+//        if (!world.isRemote) {
+//            updateDecay(world, x, y, z, world.random, false);
+//            return true;
+//        }
+//        return false;
+//        new RubberTreeFeature(world, 0).structure.generate(world, x, y, z, 7);
+//        return true;
+//    }
+
+
     @Override
-    public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
+    public void onBlockPlaced(World world, int x, int y, int z, BlockState replacedState) {
         if (!world.isRemote) {
-            updateDecay(world, x, y, z, world.random, false);
-            return true;
+            updateDecay(world, x, y, z, world.random, true);
         }
-        return false;
     }
 
     @Override
     public void onPlaced(World world, int x, int y, int z, LivingEntity placer) {
         if (!world.isRemote) {
             // If the player is sneaking, make the leaves immune to decay
-            if(placer.isSneaking()){
-                world.setBlockMetaWithoutNotifyingNeighbors(x,y,z,15);
+            if (placer.isSneaking()) {
+                world.setBlockMetaWithoutNotifyingNeighbors(x, y, z, 15);
                 return;
             }
-            
+
             updateDecay(world, x, y, z, world.random, true);
         }
     }
@@ -74,7 +83,7 @@ public class RubberLeavesBlock extends TemplateBlock {
         int decayValue = 0;
 
         // 15 means this leaf is immune from decay
-        if(prevDecayValue == 15){
+        if (prevDecayValue == 15) {
             return;
         }
 
@@ -104,11 +113,11 @@ public class RubberLeavesBlock extends TemplateBlock {
         }
 
         // If the decay value hasnt changed, dont bother
-        if(prevDecayValue != decayValue) {
+        if (prevDecayValue != decayValue) {
             world.setBlockMetaWithoutNotifyingNeighbors(x, y, z, decayValue);
         }
     }
-    
+
     public void decay(World world, int x, int y, int z, Random random) {
         world.setBlockStateWithNotify(x, y, z, States.AIR.get());
     }
