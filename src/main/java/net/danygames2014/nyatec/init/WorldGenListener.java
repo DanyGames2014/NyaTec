@@ -3,11 +3,18 @@ package net.danygames2014.nyatec.init;
 import net.danygames2014.nyatec.world.feature.RubberTreeFeature;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.world.biome.Biome;
+import net.modificationstation.stationapi.api.event.world.WorldEvent;
 import net.modificationstation.stationapi.api.event.worldgen.biome.BiomeModificationEvent;
 import net.modificationstation.stationapi.api.worldgen.feature.HeightScatterFeature;
 
 public class WorldGenListener {
+    public static RubberTreeFeature rubberTreeFeature;
 
+    @EventListener
+    public void initFeatures(WorldEvent.Init event) {
+        rubberTreeFeature = new RubberTreeFeature(event.world, 1);
+    }
+    
     @EventListener
     public void registerFeatures(BiomeModificationEvent event) {
         int rarity = 10000;

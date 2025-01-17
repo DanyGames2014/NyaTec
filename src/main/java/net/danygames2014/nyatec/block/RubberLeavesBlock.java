@@ -21,7 +21,7 @@ public class RubberLeavesBlock extends TemplateBlock {
 
     @Override
     public int getDroppedItemId(int blockMeta, Random random) {
-        return NyaTec.rubberLeaves.asItem().id;
+        return NyaTec.rubberSapling.asItem().id;
     }
 
     @Override
