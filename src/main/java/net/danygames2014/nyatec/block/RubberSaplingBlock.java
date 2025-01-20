@@ -34,8 +34,10 @@ public class RubberSaplingBlock extends TemplateBlock {
             world.setBlockState(x, y, z, States.AIR.get());
             return;
         }
-
-        generateTree(world, random, x, y, z);
+        
+        if(world.getLightLevel(x, y + 1, z) >= 9 && random.nextInt(30) == 0) {
+            generateTree(world, random, x, y, z);
+        }
     }
 
     public boolean generateTree(World world, Random random, int x, int y, int z) {
