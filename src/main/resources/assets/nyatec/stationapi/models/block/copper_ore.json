@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "nyatec:block/copper_ore1", 
+    "down": "nyatec:block/copper_ore1",
+    "up": "nyatec:block/copper_ore2",
+    "north": "nyatec:block/copper_ore1",
+    "east": "nyatec:block/copper_ore1",
+    "south": "nyatec:block/copper_ore2",
+    "west": "nyatec:block/copper_ore1"
+  }
+}
