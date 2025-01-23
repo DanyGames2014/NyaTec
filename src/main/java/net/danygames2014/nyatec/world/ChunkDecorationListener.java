@@ -18,7 +18,7 @@ public class ChunkDecorationListener {
     }
 
     public void decorateOverworld(WorldGenEvent.ChunkDecoration event) {
-        copperOreFeature.generate(event.world, event.random, event.x, event.random.nextInt(20) + 63, event.z);
+        copperOreFeature.generate(event.world, event.random, event.x, event.random.nextInt(20) + 70, event.z);
     }
 
     @EventListener
