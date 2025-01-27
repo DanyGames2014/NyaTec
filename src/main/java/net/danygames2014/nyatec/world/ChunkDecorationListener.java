@@ -3,12 +3,20 @@ package net.danygames2014.nyatec.world;
 import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.world.feature.OreFeature;
 import net.mine_diver.unsafeevents.listener.EventListener;
+import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.event.world.WorldEvent;
 import net.modificationstation.stationapi.api.event.world.gen.WorldGenEvent;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import static net.danygames2014.nyatec.NyaTec.WORLDGEN_CONFIG;
+
 public class ChunkDecorationListener {
+    public static ArrayList<OreGenEntry> oreGenEntries;
+
     public static OreFeature copperOreFeature;
-    
+
     @EventListener
     public void decorate(WorldGenEvent.ChunkDecoration event) {
         if (event.world.dimension.id == 0) {
@@ -17,11 +25,58 @@ public class ChunkDecorationListener {
     }
 
     public void decorateOverworld(WorldGenEvent.ChunkDecoration event) {
-        copperOreFeature.generate(event.world, event.random, event.x, event.random.nextInt(20) + 70, event.z);
+        for (var entry : oreGenEntries) {
+            entry.generate(event.world, event.random, event.x, event.z);
+        }
+        if (event.random.nextInt(2) == 0) {
+            copperOreFeature.generate(event.world, event.random, event.x, event.random.nextInt(40) + 30, event.z);
+        }
     }
 
     @EventListener
     public void initFeatures(WorldEvent.Init event) {
-        copperOreFeature = new OreFeature(NyaTec.copperOre, 16);
+        oreGenEntries = new ArrayList<OreGenEntry>();
+
+        if (WORLDGEN_CONFIG.copperOre.generateCopperOre) {
+            copperOreFeature = new OreFeature(NyaTec.copperOre, WORLDGEN_CONFIG.copperOre.oreCount);
+            oreGenEntries.add(new OreGenEntry(copperOreFeature, WORLDGEN_CONFIG.copperOre.oreCount, WORLDGEN_CONFIG.copperOre.oreVeinsPerChunk, WORLDGEN_CONFIG.copperOre.minimumYLevel, WORLDGEN_CONFIG.copperOre.maximumYLevel));
+        }
+    }
+
+    public static class OreGenEntry {
+        public OreFeature oreFeature;
+        public int oreCount;
+        public int veinsPerChunk;
+        public int minY;
+        public int randomSpread;
+
+        public OreGenEntry(OreFeature oreFeature, int oreCount, int veinsPerChunk, int minY, int maxY) {
+            this.oreFeature = oreFeature;
+            this.oreCount = oreCount;
+            this.veinsPerChunk = veinsPerChunk;
+            this.minY = minY;
+
+            if (maxY >= minY) {
+                this.randomSpread = (maxY - minY) + 1;
+            } else {
+                throw new IllegalArgumentException("maxY must be greater or equal to minY for ore feature of type " + oreFeature);
+            }
+        }
+
+        public void generate(World world, Random random, int x, int z) {
+            if (this.minY < world.getBottomY()) {
+                NyaTec.LOGGER.warn("Tried to generate an ore of type " + oreFeature + " but the minY " + this.minY + " is lower than the world bottom height " + world.getBottomY());
+                return;
+            }
+            
+            if (this.minY + randomSpread > world.getHeight()) {
+                NyaTec.LOGGER.warn("Tried to generate an ore of type " + oreFeature + " but the maxY " + (this.minY + randomSpread) + " is higher than the world height " + world.getHeight());
+                return;
+            }
+
+            for (int i = 0; i < this.veinsPerChunk; i++) {
+                this.oreFeature.generate(world, random, x + random.nextInt(16), minY + random.nextInt(randomSpread), z + random.nextInt(16));
+            }
+        }
     }
 }

@@ -23,6 +23,9 @@
       "net.danygames2014.nyatec.init.ClientListener"
     ],
     "stationapi:event_bus_server": [
+    ],
+    "gcapi3": [
+      "net.danygames2014.nyatec.NyaTec"
     ]
   },
   "mixins": [

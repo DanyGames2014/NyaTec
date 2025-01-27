@@ -3,6 +3,7 @@ package net.danygames2014.nyatec;
 import net.danygames2014.nyalib.block.RotateableBlockTemplate;
 import net.danygames2014.nyatec.block.RubberLeavesBlock;
 import net.danygames2014.nyatec.block.RubberSaplingBlock;
+import net.glasslauncher.mods.gcapi3.api.ConfigRoot;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,6 +21,9 @@ public class NyaTec {
 
     @Entrypoint.Logger
     public static Logger LOGGER = Null.get();
+    
+    @ConfigRoot(value = "worldgen", visibleName = "World Generation")
+    public static final Config.WorldgenConfig WORLDGEN_CONFIG = new Config.WorldgenConfig();
     
     public static Block rubberLog;
     public static Block rubberPlanks;
