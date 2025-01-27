@@ -1,7 +1,6 @@
 package net.danygames2014.nyatec.world;
 
 import net.danygames2014.nyatec.NyaTec;
-import net.danygames2014.nyatec.world.feature.OldOreFeature;
 import net.danygames2014.nyatec.world.feature.OreFeature;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.world.WorldEvent;
@@ -23,6 +22,6 @@ public class ChunkDecorationListener {
 
     @EventListener
     public void initFeatures(WorldEvent.Init event) {
-        copperOreFeature = new OreFeature(NyaTec.copperOre, 8);
+        copperOreFeature = new OreFeature(NyaTec.copperOre, 16);
     }
 }
