@@ -4,6 +4,7 @@ import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.world.feature.OreFeature;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.Feature;
 import net.modificationstation.stationapi.api.event.world.WorldEvent;
 import net.modificationstation.stationapi.api.event.world.gen.WorldGenEvent;
 
@@ -35,7 +36,7 @@ public class ChunkDecorationListener {
 
     @EventListener
     public void initFeatures(WorldEvent.Init event) {
-        oreGenEntries = new ArrayList<OreGenEntry>();
+        oreGenEntries = new ArrayList<>();
 
         if (WORLDGEN_CONFIG.copperOre.generateCopperOre) {
             copperOreFeature = new OreFeature(NyaTec.copperOre, WORLDGEN_CONFIG.copperOre.oreCount);
@@ -44,13 +45,13 @@ public class ChunkDecorationListener {
     }
 
     public static class OreGenEntry {
-        public OreFeature oreFeature;
+        public Feature oreFeature;
         public int oreCount;
         public int veinsPerChunk;
         public int minY;
         public int randomSpread;
 
-        public OreGenEntry(OreFeature oreFeature, int oreCount, int veinsPerChunk, int minY, int maxY) {
+        public OreGenEntry(Feature oreFeature, int oreCount, int veinsPerChunk, int minY, int maxY) {
             this.oreFeature = oreFeature;
             this.oreCount = oreCount;
             this.veinsPerChunk = veinsPerChunk;

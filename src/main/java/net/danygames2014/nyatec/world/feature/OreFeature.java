@@ -35,13 +35,13 @@ public class OreFeature extends Feature {
         double yMin = y + random.nextInt(3) + 2;
         double yMax = y + random.nextInt(3) + 2;
 
-        for (int var19 = 0; var19 <= this.oreCount; ++var19) {
-            double centerX = xMin + (xMax - xMin) * (double) var19 / (double) this.oreCount;
-            double centerY = yMin + (yMax - yMin) * (double) var19 / (double) this.oreCount;
-            double centerZ = zMin + (zMax - zMin) * (double) var19 / (double) this.oreCount;
+        for (int oreIndex = 0; oreIndex <= this.oreCount; ++oreIndex) {
+            double centerX = xMin + (xMax - xMin) * (double) oreIndex / (double) this.oreCount;
+            double centerY = yMin + (yMax - yMin) * (double) oreIndex / (double) this.oreCount;
+            double centerZ = zMin + (zMax - zMin) * (double) oreIndex / (double) this.oreCount;
             double size = random.nextDouble() * (double) this.oreCount / (double) 16.0F;
-            double horizontalModifier = (double) (MathHelper.sin((float) var19 * (float) Math.PI / (float) this.oreCount) + 1.0F) * size + (double) 1.0F;
-            double verticalModifier = (double) (MathHelper.sin((float) var19 * (float) Math.PI / (float) this.oreCount) + 1.0F) * size + (double) 1.0F;
+            double horizontalModifier = (double) (MathHelper.sin((float) oreIndex * (float) Math.PI / (float) this.oreCount) + 1.0F) * size + (double) 1.0F;
+            double verticalModifier = (double) (MathHelper.sin((float) oreIndex * (float) Math.PI / (float) this.oreCount) + 1.0F) * size + (double) 1.0F;
             int startX = MathHelper.floor(centerX - horizontalModifier / (double) 2.0F);
             int startY = MathHelper.floor(centerY - verticalModifier / (double) 2.0F);
             int startZ = MathHelper.floor(centerZ - horizontalModifier / (double) 2.0F);
