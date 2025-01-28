@@ -1,7 +1,7 @@
 package net.danygames2014.nyatec.world;
 
 import net.danygames2014.nyatec.NyaTec;
-import net.danygames2014.nyatec.world.feature.OreFeature;
+import net.danygames2014.nyatec.world.feature.VanillaOreFeature;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.Feature;
@@ -16,7 +16,7 @@ import static net.danygames2014.nyatec.NyaTec.WORLDGEN_CONFIG;
 public class ChunkDecorationListener {
     public static ArrayList<OreGenEntry> oreGenEntries;
 
-    public static OreFeature copperOreFeature;
+    public static VanillaOreFeature copperVanillaOreFeature;
 
     @EventListener
     public void decorate(WorldGenEvent.ChunkDecoration event) {
@@ -29,9 +29,6 @@ public class ChunkDecorationListener {
         for (var entry : oreGenEntries) {
             entry.generate(event.world, event.random, event.x, event.z);
         }
-        if (event.random.nextInt(2) == 0) {
-            copperOreFeature.generate(event.world, event.random, event.x, event.random.nextInt(40) + 30, event.z);
-        }
     }
 
     @EventListener
@@ -39,8 +36,8 @@ public class ChunkDecorationListener {
         oreGenEntries = new ArrayList<>();
 
         if (WORLDGEN_CONFIG.copperOre.generateCopperOre) {
-            copperOreFeature = new OreFeature(NyaTec.copperOre, WORLDGEN_CONFIG.copperOre.oreCount);
-            oreGenEntries.add(new OreGenEntry(copperOreFeature, WORLDGEN_CONFIG.copperOre.oreCount, WORLDGEN_CONFIG.copperOre.oreVeinsPerChunk, WORLDGEN_CONFIG.copperOre.minimumYLevel, WORLDGEN_CONFIG.copperOre.maximumYLevel));
+            copperVanillaOreFeature = new VanillaOreFeature(NyaTec.copperOre, WORLDGEN_CONFIG.copperOre.oreCount);
+            oreGenEntries.add(new OreGenEntry(copperVanillaOreFeature, WORLDGEN_CONFIG.copperOre.oreCount, WORLDGEN_CONFIG.copperOre.oreVeinsPerChunk, WORLDGEN_CONFIG.copperOre.minimumYLevel, WORLDGEN_CONFIG.copperOre.maximumYLevel));
         }
     }
 

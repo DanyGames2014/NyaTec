@@ -12,11 +12,11 @@ import net.modificationstation.stationapi.api.tag.TagKey;
 import java.util.Random;
 
 @SuppressWarnings("DuplicatedCode")
-public class OreFeature extends Feature {
+public class VanillaOreFeature extends Feature {
     private final BlockState oreBlockState;
     private final int oreCount;
 
-    public OreFeature(Block oreBlock, int oreCount) {
+    public VanillaOreFeature(Block oreBlock, int oreCount) {
         this.oreBlockState = oreBlock.getDefaultState();
         this.oreCount = oreCount;
     }
