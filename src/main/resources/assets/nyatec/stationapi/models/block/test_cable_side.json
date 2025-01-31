@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"0": "nyatec:block/test_cable_side",
+		"particle": "nyatec:block/test_cable_side"
+	},
+	"elements": [
+		{
+			"from": [0, 5.5, 5.5],
+			"to": [5.5, 10.5, 10.5],
+			"faces": {
+				"north": {"uv": [0, 0, 5, 5], "texture": "#0"},
+				"east": {"uv": [5, 0, 10, 5], "texture": "#0"},
+				"south": {"uv": [0, 0, 5, 5], "texture": "#0"},
+				"west": {"uv": [5, 0, 10, 5], "texture": "#0"},
+				"up": {"uv": [5, 5, 0, 0], "texture": "#0"},
+				"down": {"uv": [5, 0, 0, 5], "texture": "#0"}
+			}
+		}
+	],
+	"display": {}
+}

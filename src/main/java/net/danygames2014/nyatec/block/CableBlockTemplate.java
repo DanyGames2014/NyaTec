@@ -1,10 +1,9 @@
 package net.danygames2014.nyatec.block;
 
-import net.danygames2014.nyalib.network.Network;
-import net.danygames2014.nyalib.network.NetworkNodeComponent;
-import net.danygames2014.nyalib.network.NetworkType;
+import net.danygames2014.nyalib.network.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.item.ItemPlacementContext;
@@ -15,6 +14,7 @@ import net.modificationstation.stationapi.api.util.Identifier;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
@@ -61,13 +61,20 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     @Override
     public void neighborUpdate(World world, int x, int y, int z, int id) {
         super.neighborUpdate(world, x, y, z, id);
+        updateConnections(world, x, y, z);
+    }
+
+    @Override
+    public void onPlaced(World world, int x, int y, int z) {
+        super.onPlaced(world, x, y, z);
+        updateConnections(world, x, y, z);
     }
 
     public void updateConnections(World world, int x, int y, int z) {
         BlockState state = world.getBlockState(x, y, z);
 
         for (Direction side : Direction.values()) {
-            state.with(PROPERTY_LOOKUP.get(side), canConnectTo(world, x, y, z, side));
+            state = state.with(PROPERTY_LOOKUP.get(side), this.canConnectTo(world, x, y, z, null, side));
         }
 
         world.setBlockState(x, y, z, state);
@@ -76,25 +83,36 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     // Network Node Component
     @Override
     public boolean canConnectTo(World world, int x, int y, int z, @Nullable Network network, Direction direction) {
-        return this.canConnectTo(world, x, y, z, direction);
-    }
-
-    /**
-     * @param world The world
-     * @param x     The x coordinate of this block
-     * @param y     The y coordinate of this block
-     * @param z     The z coordinate of this block
-     * @param side  The side the other block is on
-     * @return If this cable can connect to the other one
-     */
-    public boolean canConnectTo(World world, int x, int y, int z, Direction side) {
-        BlockState other = world.getBlockState(x + side.getOffsetX(), y + side.getOffsetY(), z + side.getOffsetZ());
-        
+        BlockState other = world.getBlockState(x + direction.getOffsetX(), y + direction.getOffsetY(), z + direction.getOffsetZ());
         return other.getBlock() instanceof CableBlockTemplate;
     }
 
     @Override
     public NetworkType getNetworkType() {
         return NetworkType.ENERGY;
+    }
+
+    @Override
+    public boolean isFullCube() {
+        return false;
+    }
+
+    @Override
+    public boolean isOpaque() {
+        return false;
+    }
+
+    @Override
+    public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
+        if(player.isSneaking()) {
+            ArrayList<Network> networks = NetworkManager.getAt(world.dimension, x, y, z, this.getNetworkTypes());
+            player.sendMessage("This block is in networks:");
+            for (var net : networks){
+                player.sendMessage("NET " + net.getId() + " HASHCODE: " + net.hashCode());
+            }
+            return true;
+        }
+        
+        return super.onUse(world, x, y, z, player);
     }
 }
