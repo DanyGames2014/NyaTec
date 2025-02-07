@@ -1,6 +1,9 @@
 package net.danygames2014.nyatec.block;
 
-import net.danygames2014.nyalib.network.*;
+import net.danygames2014.nyalib.network.Network;
+import net.danygames2014.nyalib.network.NetworkManager;
+import net.danygames2014.nyalib.network.NetworkNodeComponent;
+import net.danygames2014.nyalib.network.NetworkType;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
@@ -82,8 +85,8 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
 
     // Network Node Component
     @Override
-    public boolean canConnectTo(World world, int x, int y, int z, @Nullable Network network, Direction direction) {
-        BlockState other = world.getBlockState(x + direction.getOffsetX(), y + direction.getOffsetY(), z + direction.getOffsetZ());
+    public boolean canConnectTo(World world, int x, int y, int z, @Nullable Network network, Direction dir) {
+        BlockState other = world.getBlockState(x + dir.getOffsetX(), y + dir.getOffsetY(), z + dir.getOffsetZ());
         return other.getBlock() instanceof CableBlockTemplate;
     }
 
@@ -104,15 +107,17 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
 
     @Override
     public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
-        if(player.isSneaking()) {
+        if (!player.isSneaking()) {
             ArrayList<Network> networks = NetworkManager.getAt(world.dimension, x, y, z, this.getNetworkTypes());
-            player.sendMessage("This block is in networks:");
-            for (var net : networks){
-                player.sendMessage("NET " + net.getId() + " HASHCODE: " + net.hashCode());
+            StringBuilder sb = new StringBuilder();
+            sb.append("This block (x:" + x + " y:" + y + " z:" + z + ") is in networks:");
+            for (var net : networks) {
+                sb.append(" " + net.getId());
             }
+            player.sendMessage(sb.toString());
             return true;
         }
-        
+
         return super.onUse(world, x, y, z, player);
     }
 }
