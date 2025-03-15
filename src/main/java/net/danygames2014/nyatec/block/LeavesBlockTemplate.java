@@ -1,5 +1,7 @@
 package net.danygames2014.nyatec.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -58,7 +60,8 @@ public class LeavesBlockTemplate extends TemplateBlock {
     public boolean isFullCube() {
         return false;
     }
-
+    
+    @Environment(EnvType.CLIENT)
     @Override
     public boolean isOpaque() {
         return !Minecraft.isFancyGraphicsEnabled();
