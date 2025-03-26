@@ -1,17 +1,26 @@
 package net.danygames2014.nyatec;
 
 import net.danygames2014.nyalib.block.RotateableBlockTemplate;
-import net.danygames2014.nyalib.network.NetworkComponent;
 import net.danygames2014.nyatec.block.CableBlockTemplate;
+import net.danygames2014.nyatec.block.GeneratorBlock;
 import net.danygames2014.nyatec.block.RubberLeavesBlock;
 import net.danygames2014.nyatec.block.RubberSaplingBlock;
+import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
+import net.danygames2014.nyatec.screen.GeneratorScreen;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.glasslauncher.mods.gcapi3.api.ConfigRoot;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.modificationstation.stationapi.api.client.gui.screen.GuiHandler;
+import net.modificationstation.stationapi.api.event.block.entity.BlockEntityRegisterEvent;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
-import net.modificationstation.stationapi.api.event.world.BlockSetEvent;
+import net.modificationstation.stationapi.api.event.registry.GuiHandlerRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.template.block.TemplateBlock;
 import net.modificationstation.stationapi.api.util.Namespace;
@@ -35,6 +44,7 @@ public class NyaTec {
 
     public static Block copperOre;
 
+    public static Block generatorBlock;
     public static Block testCable;
 
     @EventListener
@@ -47,22 +57,22 @@ public class NyaTec {
         copperOre = new TemplateBlock(NAMESPACE.id("copper_ore"), Material.STONE).setTranslationKey(NAMESPACE, "copper_ore").setHardness(3.0F).setResistance(5.0F).setSoundGroup(Block.STONE_SOUND_GROUP);
 
         testCable = new CableBlockTemplate(NAMESPACE.id("test_cable"), Material.WOOL).setTranslationKey(NAMESPACE, "test_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
+        generatorBlock = new GeneratorBlock(NAMESPACE.id("generator"), Material.METAL).setTranslationKey(NAMESPACE, "generator").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
     }
 
-//    @EventListener
-//    public void blockSetListener(BlockSetEvent event) {
-//        // Override State is Not Null
-//        // Override State is a Network Component
-//        if (event.overrideState != null && event.overrideState.getBlock() instanceof NetworkComponent) {
-//            System.out.println("Cable Placed");
-//        }
-//
-//        // Current Block State is Not Null
-//        // Current Block State is a Network Component
-//        // Override State is Not Null
-//        // Override State is Not a Network Component
-//        if (event.blockState.getBlock() != null && event.blockState.getBlock() instanceof NetworkComponent && (event.overrideState == null || !(event.overrideState.getBlock() instanceof NetworkComponent))) {
-//            System.out.println("Cable Removed");
-//        }
-//    }
+    @EventListener
+    public void registerBlockEntities(BlockEntityRegisterEvent event) {
+        event.register(GeneratorBlockEntity.class, NAMESPACE.id("generator").toString());
+    }
+    
+    @Environment(EnvType.CLIENT)
+    @EventListener
+    public void registerScreenHandlers(GuiHandlerRegistryEvent event) {
+        event.register(NAMESPACE.id("generator"), new GuiHandler((GuiHandler.ScreenFactoryNoMessage) this::openGenerator, GeneratorBlockEntity::new));
+    }
+
+    @Environment(EnvType.CLIENT)
+    private Screen openGenerator(PlayerEntity player, Inventory inventory) {
+        return new GeneratorScreen(player, (GeneratorBlockEntity) inventory);
+    }
 }
