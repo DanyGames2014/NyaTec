@@ -4,6 +4,8 @@ import net.danygames2014.nyalib.energy.template.block.entity.EnergySourceBlockEn
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.modificationstation.stationapi.api.recipe.FuelRegistry;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,6 +44,32 @@ public class GeneratorBlockEntity extends EnergySourceBlockEntityTemplate implem
         return 1100;
     }
 
+    int burnCooldown = 0;
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (burnCooldown > 0) {
+            burnCooldown--;
+        } else {
+            if (stack != null && stack.count > 0) {
+                int fuelTime = FuelRegistry.getFuelTime(stack);
+
+                if (fuelTime > 0) {
+                    stack.count--;
+                    if (stack.count == 0) {
+                        stack = null;
+                    }
+                    markDirty();
+                    addEnergy(fuelTime);
+                }
+            }
+
+            burnCooldown = 100;
+        }
+    }
+
     // Inventory
     ItemStack stack;
 
@@ -61,7 +89,7 @@ public class GeneratorBlockEntity extends EnergySourceBlockEntityTemplate implem
     public ItemStack removeStack(int slot, int amount) {
         if (stack != null) {
             ItemStack itemStack;
-            
+
             if (stack.count <= amount) {
                 itemStack = stack.copy();
                 stack = null;
@@ -98,5 +126,22 @@ public class GeneratorBlockEntity extends EnergySourceBlockEntityTemplate implem
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
         return true;
+    }
+
+    // NBT
+    @Override
+    public void writeNbt(NbtCompound nbt) {
+        if (stack != null) {
+            nbt.put("Item", stack.writeNbt(new NbtCompound()));
+        }
+        super.writeNbt(nbt);
+    }
+
+    @Override
+    public void readNbt(NbtCompound nbt) {
+        if (nbt.contains("Item")) {
+            stack = new ItemStack(nbt.getCompound("Item"));
+        }
+        super.readNbt(nbt);
     }
 }

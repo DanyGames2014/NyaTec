@@ -11,12 +11,13 @@ public class GeneratorScreen extends HandledScreen {
 
     public GeneratorScreen(PlayerEntity player, GeneratorBlockEntity blockEntity) {
         super(new GeneratorScreenHandler(player, blockEntity));
+        this.blockEntity = blockEntity;
         this.backgroundHeight = 165;
     }
 
     @Override
     protected void drawForeground() {
-        int energy = blockEntity.getEnergyStored();
+        int energy = blockEntity != null ? blockEntity.getEnergyStored() : 69;
         textRenderer.draw("Energy : " + energy, 7, 28, 0x404040);
     }
 
