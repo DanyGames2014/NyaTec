@@ -1,9 +1,6 @@
 package net.danygames2014.nyatec.block;
 
-import net.danygames2014.nyalib.network.Network;
-import net.danygames2014.nyalib.network.NetworkManager;
-import net.danygames2014.nyalib.network.NetworkNodeComponent;
-import net.danygames2014.nyalib.network.NetworkType;
+import net.danygames2014.nyalib.network.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
@@ -87,7 +84,10 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     @Override
     public boolean canConnectTo(World world, int x, int y, int z, @Nullable Network network, Direction dir) {
         BlockState other = world.getBlockState(x + dir.getOffsetX(), y + dir.getOffsetY(), z + dir.getOffsetZ());
-        return other.getBlock() instanceof CableBlockTemplate;
+        if (other.getBlock() instanceof NetworkComponent component) {
+            return component.getNetworkTypes().contains(NetworkType.ENERGY);
+        }
+        return false;
     }
 
     @Override

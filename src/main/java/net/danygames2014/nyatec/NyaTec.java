@@ -1,10 +1,8 @@
 package net.danygames2014.nyatec;
 
 import net.danygames2014.nyalib.block.RotateableBlockTemplate;
-import net.danygames2014.nyatec.block.CableBlockTemplate;
-import net.danygames2014.nyatec.block.GeneratorBlock;
-import net.danygames2014.nyatec.block.RubberLeavesBlock;
-import net.danygames2014.nyatec.block.RubberSaplingBlock;
+import net.danygames2014.nyatec.block.*;
+import net.danygames2014.nyatec.block.entity.EnergyTrashCanBlockEntity;
 import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
 import net.danygames2014.nyatec.screen.GeneratorScreen;
 import net.fabricmc.api.EnvType;
@@ -45,6 +43,7 @@ public class NyaTec {
     public static Block copperOre;
 
     public static Block generatorBlock;
+    public static Block energyTrashCanBlock;
     public static Block testCable;
 
     @EventListener
@@ -57,12 +56,14 @@ public class NyaTec {
         copperOre = new TemplateBlock(NAMESPACE.id("copper_ore"), Material.STONE).setTranslationKey(NAMESPACE, "copper_ore").setHardness(3.0F).setResistance(5.0F).setSoundGroup(Block.STONE_SOUND_GROUP);
 
         testCable = new CableBlockTemplate(NAMESPACE.id("test_cable"), Material.WOOL).setTranslationKey(NAMESPACE, "test_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
+        energyTrashCanBlock = new EnergyTrashCanBlock(NAMESPACE.id("energy_trash_can"), Material.METAL).setTranslationKey(NAMESPACE, "energy_trash_can").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         generatorBlock = new GeneratorBlock(NAMESPACE.id("generator"), Material.METAL).setTranslationKey(NAMESPACE, "generator").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
     }
 
     @EventListener
     public void registerBlockEntities(BlockEntityRegisterEvent event) {
         event.register(GeneratorBlockEntity.class, NAMESPACE.id("generator").toString());
+        event.register(EnergyTrashCanBlockEntity.class, NAMESPACE.id("energy_trash_can").toString());
     }
     
     @Environment(EnvType.CLIENT)
