@@ -14,6 +14,10 @@ public class EnergyTrashCanBlockEntity extends EnergyConsumerBlockEntityTemplate
 
     @Override
     public int getMaxEnergyInput(@Nullable Direction direction) {
+        if (powered) {
+            return 0;
+        }
+
         return fastMode ? 10000 : 10;
     }
 
@@ -37,16 +41,26 @@ public class EnergyTrashCanBlockEntity extends EnergyConsumerBlockEntityTemplate
         return Integer.MAX_VALUE;
     }
 
+    boolean powered;
+
     @Override
     public void tick() {
         super.tick();
-        this.setEnergy(0);
+
+        powered = false;
+        for (Direction side : Direction.values()) {
+            if (world.isEmittingRedstonePower(x + side.getOffsetX(), y + side.getOffsetY(), z + side.getOffsetZ())) {
+                powered = true;
+            }
+        }
+
+        setEnergy(0);
     }
 
     public void switchMode() {
         fastMode = !fastMode;
     }
-    
+
     public boolean isFastMode() {
         return fastMode;
     }

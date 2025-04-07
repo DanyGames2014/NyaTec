@@ -1,11 +1,15 @@
 package net.danygames2014.nyatec.block;
 
+import net.danygames2014.nyalib.energy.EnergyConductor;
 import net.danygames2014.nyalib.network.*;
+import net.danygames2014.nyalib.particle.ParticleHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
+import net.modificationstation.stationapi.api.block.States;
 import net.modificationstation.stationapi.api.item.ItemPlacementContext;
 import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.BooleanProperty;
@@ -18,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
-public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComponent {
+public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComponent, EnergyConductor {
     public static final BooleanProperty UP = BooleanProperty.of("up");
     public static final BooleanProperty DOWN = BooleanProperty.of("down");
     public static final BooleanProperty NORTH = BooleanProperty.of("north");
@@ -119,5 +123,30 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
         }
 
         return super.onUse(world, x, y, z, player);
+    }
+    
+    // Energy Conductor
+    @Override
+    public int getBreakdownVoltage(World world, NetworkComponentEntry networkComponentEntry) {
+        return 500;
+    }
+
+    @Override
+    public int getBreakdownPower(World world, NetworkComponentEntry networkComponentEntry) {
+        return 2000;
+    }
+
+    @Override
+    public void onBreakdownVoltage(World world, NetworkComponentEntry networkComponentEntry, int voltage) {
+        
+    }
+
+    @Override
+    public void onBreakdownPower(World world, NetworkComponentEntry networkComponentEntry, int voltage, int power) {
+        for (int particle = 0; particle < 4; particle++) {
+            Vec3i pos = networkComponentEntry.pos();
+            ParticleHelper.addParticle(world, "smoke", pos.x + 0.5D + (world.random.nextDouble() - 0.5D), pos.y + 0.5D, pos.z + 0.5D + (world.random.nextDouble() - 0.5D));
+            world.setBlockState(pos.x, pos.y, pos.z, States.AIR.get());
+        }
     }
 }

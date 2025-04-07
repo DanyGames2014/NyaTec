@@ -4,6 +4,7 @@ import net.danygames2014.nyalib.block.RotateableBlockTemplate;
 import net.danygames2014.nyatec.block.*;
 import net.danygames2014.nyatec.block.entity.EnergyTrashCanBlockEntity;
 import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
+import net.danygames2014.nyatec.item.MultimeterItem;
 import net.danygames2014.nyatec.screen.GeneratorScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,11 +15,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.client.gui.screen.GuiHandler;
 import net.modificationstation.stationapi.api.event.block.entity.BlockEntityRegisterEvent;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
 import net.modificationstation.stationapi.api.event.registry.GuiHandlerRegistryEvent;
+import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.template.block.TemplateBlock;
 import net.modificationstation.stationapi.api.util.Namespace;
@@ -45,6 +48,13 @@ public class NyaTec {
     public static Block generatorBlock;
     public static Block energyTrashCanBlock;
     public static Block testCable;
+    
+    public static Item multimeter;
+
+    @EventListener
+    public void registerItems(ItemRegistryEvent event) {
+        multimeter = new MultimeterItem(NAMESPACE.id("multimeter")).setTranslationKey(NAMESPACE, "multimeter");
+    }
 
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
@@ -65,7 +75,7 @@ public class NyaTec {
         event.register(GeneratorBlockEntity.class, NAMESPACE.id("generator").toString());
         event.register(EnergyTrashCanBlockEntity.class, NAMESPACE.id("energy_trash_can").toString());
     }
-    
+
     @Environment(EnvType.CLIENT)
     @EventListener
     public void registerScreenHandlers(GuiHandlerRegistryEvent event) {
