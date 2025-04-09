@@ -4,17 +4,21 @@ import net.danygames2014.nyalib.network.Network;
 import net.danygames2014.nyalib.network.NetworkManager;
 import net.danygames2014.nyalib.network.NetworkType;
 import net.danygames2014.nyalib.network.energy.EnergyNetwork;
+import net.danygames2014.nyatec.init.WrenchModeListener;
+import net.danygames2014.uniwrench.item.WrenchBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.template.item.TemplateItem;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-public class MultimeterItem extends TemplateItem {
+public class MultimeterItem extends WrenchBase {
     public MultimeterItem(Identifier identifier) {
         super(identifier);
+        this.addWrenchMode(WrenchModeListener.FLOW_MODE);
+        this.addWrenchMode(WrenchModeListener.BATTERY_MODE);
     }
-
+    
     @Override
     public boolean useOnBlock(ItemStack stack, PlayerEntity user, World world, int x, int y, int z, int side) {
         if (!world.isRemote) {

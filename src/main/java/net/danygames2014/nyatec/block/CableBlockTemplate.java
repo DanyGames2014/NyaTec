@@ -3,6 +3,7 @@ package net.danygames2014.nyatec.block;
 import net.danygames2014.nyalib.energy.EnergyConductor;
 import net.danygames2014.nyalib.network.*;
 import net.danygames2014.nyalib.particle.ParticleHelper;
+import net.danygames2014.uniwrench.api.Wrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
-public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComponent, EnergyConductor {
+public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComponent, EnergyConductor, Wrenchable {
     public static final BooleanProperty UP = BooleanProperty.of("up");
     public static final BooleanProperty DOWN = BooleanProperty.of("down");
     public static final BooleanProperty NORTH = BooleanProperty.of("north");
