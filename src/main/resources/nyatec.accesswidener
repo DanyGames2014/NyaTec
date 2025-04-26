@@ -1,3 +1,5 @@
 accessWidener v2 named
 
 accessible field net/minecraft/client/Minecraft INSTANCE Lnet/minecraft/client/Minecraft;
+
+accessible method net/minecraft/block/material/Material setTransparent ()Lnet/minecraft/block/material/Material;

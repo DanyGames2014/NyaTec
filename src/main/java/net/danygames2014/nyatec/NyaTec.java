@@ -4,6 +4,7 @@ import net.danygames2014.nyalib.block.RotateableBlockTemplate;
 import net.danygames2014.nyatec.block.*;
 import net.danygames2014.nyatec.block.entity.EnergyTrashCanBlockEntity;
 import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
+import net.danygames2014.nyatec.block.material.CableMaterial;
 import net.danygames2014.nyatec.item.MultimeterItem;
 import net.danygames2014.nyatec.screen.GeneratorScreen;
 import net.fabricmc.api.EnvType;
@@ -11,6 +12,7 @@ import net.fabricmc.api.Environment;
 import net.glasslauncher.mods.gcapi3.api.ConfigRoot;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,6 +51,8 @@ public class NyaTec {
     public static Block energyTrashCanBlock;
     public static Block testCable;
     
+    public static Material cableMaterial = new CableMaterial(MapColor.LIGHT_GRAY).setTransparent();
+    
     public static Item multimeter;
 
     @EventListener
@@ -65,7 +69,7 @@ public class NyaTec {
 
         copperOre = new TemplateBlock(NAMESPACE.id("copper_ore"), Material.STONE).setTranslationKey(NAMESPACE, "copper_ore").setHardness(3.0F).setResistance(5.0F).setSoundGroup(Block.STONE_SOUND_GROUP);
 
-        testCable = new CableBlockTemplate(NAMESPACE.id("test_cable"), Material.WOOL).setTranslationKey(NAMESPACE, "test_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
+        testCable = new CableBlockTemplate(NAMESPACE.id("test_cable"), cableMaterial).setTranslationKey(NAMESPACE, "test_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
         energyTrashCanBlock = new EnergyTrashCanBlock(NAMESPACE.id("energy_trash_can"), Material.METAL).setTranslationKey(NAMESPACE, "energy_trash_can").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         generatorBlock = new GeneratorBlock(NAMESPACE.id("generator"), Material.METAL).setTranslationKey(NAMESPACE, "generator").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
     }

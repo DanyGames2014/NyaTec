@@ -6,6 +6,7 @@ import net.danygames2014.nyalib.particle.ParticleHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
@@ -84,6 +85,83 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
         world.setBlockState(x, y, z, state);
     }
 
+    @Override
+    public Box getBoundingBox(World world, int x, int y, int z) {
+        BlockState state = world.getBlockState(x, y, z);
+
+        float minX = 0.34375F;
+        float minY = 0.34375F;
+        float minZ = 0.34375F;
+
+        float maxX = 0.65625F;
+        float maxY = 0.65625F;
+        float maxZ = 0.65625F;
+
+        if (state.get(UP)) {
+            maxY = 1.0F;
+        }
+
+        if (state.get(DOWN)) {
+            minY = 0.0F;
+        }
+
+        if (state.get(WEST)) {
+            maxZ = 1.0F;
+        }
+
+        if (state.get(EAST)) {
+            minZ = 0.0F;
+        }
+
+        if (state.get(NORTH)) {
+            minX = 0.0F;
+        }
+
+        if (state.get(SOUTH)) {
+            maxX = 1.0F;
+        }
+
+        return Box.createCached(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+    }
+
+    @Override
+    public void addIntersectingBoundingBox(World world, int x, int y, int z, Box box, ArrayList boxes) {
+        BlockState state = world.getBlockState(x, y, z);
+
+        if (state.get(UP)) {
+            this.setBoundingBox(0.34375F, 0.34375F, 0.34375F, 0.65625F, 1.0F, 0.65625F);
+            super.addIntersectingBoundingBox(world, x, y, z, box, boxes);
+        }
+
+        if (state.get(DOWN)) {
+            this.setBoundingBox(0.34375F, 0.0F, 0.34375F, 0.65625F, 0.65625F, 0.65625F);
+            super.addIntersectingBoundingBox(world, x, y, z, box, boxes);
+        }
+
+        if (state.get(WEST)) {
+            this.setBoundingBox(0.34375F, 0.34375F, 0.34375F, 0.65625F, 0.65625F, 1.0F);
+            super.addIntersectingBoundingBox(world, x, y, z, box, boxes);
+        }
+
+        if (state.get(EAST)) {
+            this.setBoundingBox(0.34375F, 0.34375F, 0.0F, 0.65625F, 0.65625F, 0.65625F);
+            super.addIntersectingBoundingBox(world, x, y, z, box, boxes);
+        }
+
+        if (state.get(SOUTH)) {
+            this.setBoundingBox(0.34375F, 0.34375F, 0.34375F, 1.0F, 0.65625F, 0.65625F);
+            super.addIntersectingBoundingBox(world, x, y, z, box, boxes);
+        }
+
+        if (state.get(NORTH)) {
+            this.setBoundingBox(0.0F, 0.34375F, 0.34375F, 0.65625F, 0.65625F, 0.65625F);
+            super.addIntersectingBoundingBox(world, x, y, z, box, boxes);
+        }
+
+        this.setBoundingBox(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+
+    }
+
     // Network Node Component
     @Override
     public boolean canConnectTo(World world, int x, int y, int z, @Nullable Network network, Direction dir) {
@@ -108,7 +186,7 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     public boolean isOpaque() {
         return false;
     }
-
+    
     @Override
     public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
         if (!player.isSneaking()) {
@@ -124,7 +202,7 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
 
         return super.onUse(world, x, y, z, player);
     }
-    
+
     // Energy Conductor
     @Override
     public int getBreakdownVoltage(World world, NetworkComponentEntry networkComponentEntry) {
@@ -138,7 +216,7 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
 
     @Override
     public void onBreakdownVoltage(World world, NetworkComponentEntry networkComponentEntry, int voltage) {
-        
+
     }
 
     @Override
