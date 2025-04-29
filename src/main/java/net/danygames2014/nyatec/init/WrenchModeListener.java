@@ -8,10 +8,12 @@ import net.mine_diver.unsafeevents.listener.EventListener;
 public class WrenchModeListener {
     public static WrenchMode FLOW_MODE;
     public static WrenchMode BATTERY_MODE;
+    public static WrenchMode DEBUG_MODE;
     
     @EventListener
     public void registerWrenchModes(WrenchModeRegistryEvent event) {
         FLOW_MODE = new WrenchMode(NyaTec.NAMESPACE.id("flow"));
         BATTERY_MODE = new WrenchMode(NyaTec.NAMESPACE.id("battery"));
+        DEBUG_MODE = new WrenchMode(NyaTec.NAMESPACE.id("debug"));
     }
 }

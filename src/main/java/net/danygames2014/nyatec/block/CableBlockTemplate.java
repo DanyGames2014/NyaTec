@@ -3,10 +3,13 @@ package net.danygames2014.nyatec.block;
 import net.danygames2014.nyalib.energy.EnergyConductor;
 import net.danygames2014.nyalib.network.*;
 import net.danygames2014.nyalib.particle.ParticleHelper;
+import net.danygames2014.nyatec.init.WrenchModeListener;
+import net.danygames2014.uniwrench.api.WrenchMode;
 import net.danygames2014.uniwrench.api.Wrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -23,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "StringConcatenationInsideStringBufferAppend"})
 public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComponent, EnergyConductor, Wrenchable {
     public static final BooleanProperty UP = BooleanProperty.of("up");
     public static final BooleanProperty DOWN = BooleanProperty.of("down");
@@ -187,10 +190,18 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     public boolean isOpaque() {
         return false;
     }
-    
+
+    // Wrenchable
     @Override
-    public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
-        if (!player.isSneaking()) {
+    public boolean wrenchRightClick(ItemStack stack, PlayerEntity player, boolean isSneaking, World world, int x, int y, int z, int side, WrenchMode wrenchMode) {
+        if (wrenchMode == WrenchMode.MODE_WRENCH) {
+            if (player.isSneaking()) {
+                this.drop(world, x, y, z, world.getBlockState(x, y, z), world.getBlockMeta(x, y, z));
+                world.setBlockStateWithNotify(x, y, z, States.AIR.get());
+            }
+        }
+
+        if (wrenchMode == WrenchModeListener.DEBUG_MODE) {
             ArrayList<Network> networks = NetworkManager.getAt(world.dimension, x, y, z, this.getNetworkTypes());
             StringBuilder sb = new StringBuilder();
             sb.append("This block (x:" + x + " y:" + y + " z:" + z + ") is in networks:");
@@ -201,7 +212,7 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
             return true;
         }
 
-        return super.onUse(world, x, y, z, player);
+        return false;
     }
 
     // Energy Conductor
