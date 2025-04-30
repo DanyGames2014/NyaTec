@@ -17,8 +17,13 @@ public class GeneratorScreen extends HandledScreen {
 
     @Override
     protected void drawForeground() {
-        int energy = blockEntity != null ? blockEntity.getEnergyStored() : 69;
+        int energy = blockEntity != null ? blockEntity.getEnergyStored() : 0;
+        int fuel = blockEntity != null ? blockEntity.fuel : 0;
+        int currentRate = blockEntity != null ? blockEntity.currentRate : 0;
+        
         textRenderer.draw("Energy : " + energy, 7, 28, 0x404040);
+        textRenderer.draw("Fuel : " + fuel, 7, 40, 0x404040);
+        textRenderer.draw("Current Rate : " + currentRate + "EU/t", 7, 52, 0x404040);
     }
 
     protected void drawBackground(float tickDelta) {

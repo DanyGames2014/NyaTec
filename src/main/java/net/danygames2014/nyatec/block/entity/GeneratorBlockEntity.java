@@ -1,16 +1,16 @@
 package net.danygames2014.nyatec.block.entity;
 
-import net.danygames2014.nyalib.energy.template.block.entity.EnergySourceBlockEntityTemplate;
+import net.danygames2014.nyatec.util.FuelUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.modificationstation.stationapi.api.recipe.FuelRegistry;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
-public class GeneratorBlockEntity extends EnergySourceBlockEntityTemplate implements Inventory {
+public class GeneratorBlockEntity extends BaseGeneratorBlockEntity implements Inventory {
     public GeneratorBlockEntity() {
+        super(4, 2.5D, 2000);
         this.stack = null;
     }
 
@@ -44,29 +44,20 @@ public class GeneratorBlockEntity extends EnergySourceBlockEntityTemplate implem
         return 1100;
     }
 
-    int burnCooldown = 0;
-
     @Override
     public void tick() {
         super.tick();
 
-        if (burnCooldown > 0) {
-            burnCooldown--;
-        } else {
+        if (this.fuel < this.maxFuel) {
             if (stack != null && stack.count > 0) {
-                int fuelTime = FuelRegistry.getFuelTime(stack);
-
-                if (fuelTime > 0) {
+                if (addFuel(FuelUtil.getGeneratorFuelTime(stack))) {
                     stack.count--;
                     if (stack.count == 0) {
                         stack = null;
                     }
                     markDirty();
-                    addEnergy(fuelTime);
                 }
             }
-
-            burnCooldown = 100;
         }
     }
 

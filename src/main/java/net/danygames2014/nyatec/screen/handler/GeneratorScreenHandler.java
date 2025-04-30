@@ -1,23 +1,23 @@
 package net.danygames2014.nyatec.screen.handler;
 
 import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
+import net.danygames2014.nyatec.screen.slot.GeneratorFuelSlot;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.screen.slot.Slot;
 
-@SuppressWarnings("SwitchStatementWithTooFewBranches")
 public class GeneratorScreenHandler extends ScreenHandler {
     public PlayerEntity player;
     public Inventory playerInventory;
 
     public GeneratorBlockEntity blockEntity;
     private int energy;
+    private int fuel;
+    private int currentRate;
 
     public GeneratorScreenHandler(PlayerEntity player, GeneratorBlockEntity blockEntity) {
         this.player = player;
@@ -55,7 +55,7 @@ public class GeneratorScreenHandler extends ScreenHandler {
 
         // The Generator Slot
         this.addSlot(
-                new Slot(
+                new GeneratorFuelSlot(
                         blockEntity,
                         0,
                         8,
@@ -69,17 +69,29 @@ public class GeneratorScreenHandler extends ScreenHandler {
     public void addListener(ScreenHandlerListener listener) {
         super.addListener(listener);
         listener.onPropertyUpdate(this, 0, this.blockEntity.energy);
+        listener.onPropertyUpdate(this, 1, this.blockEntity.fuel);
+        listener.onPropertyUpdate(this, 2, this.blockEntity.currentRate);
     }
 
     @Override
     public void sendContentUpdates() {
         super.sendContentUpdates();
-        
+
         for (var listenerO : this.listeners) {
-            if(listenerO instanceof ScreenHandlerListener listener) {
-                if(this.energy != this.blockEntity.energy) {
+            if (listenerO instanceof ScreenHandlerListener listener) {
+                if (this.energy != this.blockEntity.energy) {
                     this.energy = this.blockEntity.energy;
                     listener.onPropertyUpdate(this, 0, this.energy);
+                }
+
+                if (this.fuel != this.blockEntity.fuel) {
+                    this.fuel = this.blockEntity.fuel;
+                    listener.onPropertyUpdate(this, 1, this.fuel);
+                }
+
+                if (this.currentRate != this.blockEntity.currentRate) {
+                    this.currentRate = this.blockEntity.currentRate;
+                    listener.onPropertyUpdate(this, 2, this.currentRate);
                 }
             }
         }
@@ -88,9 +100,15 @@ public class GeneratorScreenHandler extends ScreenHandler {
     @Environment(EnvType.CLIENT)
     @Override
     public void setProperty(int id, int value) {
-        switch (id){
+        switch (id) {
             case 0 -> {
                 this.blockEntity.energy = value;
+            }
+            case 1 -> {
+                this.blockEntity.fuel = value;
+            }
+            case 2 -> {
+                this.blockEntity.currentRate = value;
             }
         }
     }
