@@ -16,12 +16,12 @@ public abstract class BaseGeneratorBlockEntity extends EnergySourceBlockEntityTe
     // Generator Properties
     public final int fuelConsumptionRate;
     public final double energyPerFuelTick;
-    public final int maxFuel;
+    public final int fuelBuffer;
 
-    public BaseGeneratorBlockEntity(int fuelConsumptionRate, double energyPerFuelTick, int maxFuel) {
+    public BaseGeneratorBlockEntity(int fuelConsumptionRate, double energyPerFuelTick, int fuelBuffer) {
         this.fuelConsumptionRate = fuelConsumptionRate;
         this.energyPerFuelTick = energyPerFuelTick;
-        this.maxFuel = maxFuel;
+        this.fuelBuffer = fuelBuffer;
     }
 
     @Override
@@ -71,7 +71,7 @@ public abstract class BaseGeneratorBlockEntity extends EnergySourceBlockEntityTe
     }
 
     public boolean addFuel(int fuel) {
-        if (this.fuel + fuel > maxFuel) {
+        if (this.fuel + fuel > fuelBuffer) {
             // Allow overflowing when the fuel is below 100 fuel ticks 
             if (this.fuel < 100) {
                 this.fuel += fuel;

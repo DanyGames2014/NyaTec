@@ -39,6 +39,9 @@ public class NyaTec {
 
     @ConfigRoot(value = "worldgen", visibleName = "World Generation")
     public static final Config.WorldgenConfig WORLDGEN_CONFIG = new Config.WorldgenConfig();
+    
+    @ConfigRoot(value = "machine", visibleName = "Machine")
+    public static final Config.MachineConfig MACHINE_CONFIG = new Config.MachineConfig();
 
     public static Block rubberLog;
     public static Block rubberPlanks;

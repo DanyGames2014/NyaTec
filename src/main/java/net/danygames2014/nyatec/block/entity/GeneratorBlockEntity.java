@@ -1,5 +1,6 @@
 package net.danygames2014.nyatec.block.entity;
 
+import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.util.FuelUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class GeneratorBlockEntity extends BaseGeneratorBlockEntity implements Inventory {
     public GeneratorBlockEntity() {
-        super(4, 2.5D, 2000);
+        super(NyaTec.MACHINE_CONFIG.generator.fuelConsumptionRate, NyaTec.MACHINE_CONFIG.generator.energyPerFuelTick, NyaTec.MACHINE_CONFIG.generator.fuelBuffer);
         this.stack = null;
     }
 
@@ -48,7 +49,7 @@ public class GeneratorBlockEntity extends BaseGeneratorBlockEntity implements In
     public void tick() {
         super.tick();
 
-        if (this.fuel < this.maxFuel) {
+        if (this.fuel < this.fuelBuffer) {
             if (stack != null && stack.count > 0) {
                 if (addFuel(FuelUtil.getGeneratorFuelTime(stack))) {
                     stack.count--;
