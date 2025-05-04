@@ -27,6 +27,9 @@
     ],
     "gcapi3": [
       "net.danygames2014.nyatec.NyaTec"
+    ],
+    "whatsthis": [
+      "net.danygames2014.nyatec.init.ProbeInfoProviderListener"
     ]
   },
   "mixins": [

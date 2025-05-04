@@ -114,6 +114,10 @@ dependencies {
     modImplementation("net.danygames2014:NyaLib:${project.nyalib_version}") {
         transitive false
     }
+
+    modImplementation("net.danygames2014:WhatsThis:${project.whatsthis_version}") {
+        transitive false
+    }
     
     modRuntimeOnly("maven.modrinth:unitweaks:${project.unitweaks_version}-fabric,b1.7.3") {
         transitive false
