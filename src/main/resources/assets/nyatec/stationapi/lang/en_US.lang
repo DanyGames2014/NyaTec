@@ -6,3 +6,7 @@ tile.nyatec.copper_ore.name=Copper Ore
 tile.nyatec.test_cable.name=Test Cable
 tile.nyatec.energy_trsh_can.name=Energy Trash Can
 tile.nyatec.generator.name=Generator
+
+wrenchmode.nyatec.flow.name=Flow
+wrenchmode.nyatec.battery.name=Battery
+wrenchmode.nyatec.debug.name=Debug
