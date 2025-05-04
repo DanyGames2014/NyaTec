@@ -58,8 +58,8 @@ public class GeneratorScreenHandler extends ScreenHandler {
                 new GeneratorFuelSlot(
                         blockEntity,
                         0,
-                        8,
-                        8
+                        65,
+                        53
                 )
         );
     }

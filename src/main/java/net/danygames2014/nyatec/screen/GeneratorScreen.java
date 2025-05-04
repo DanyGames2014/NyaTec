@@ -20,10 +20,13 @@ public class GeneratorScreen extends HandledScreen {
         int energy = blockEntity != null ? blockEntity.getEnergyStored() : 0;
         int fuel = blockEntity != null ? blockEntity.fuel : 0;
         int currentRate = blockEntity != null ? blockEntity.currentRate : 0;
-        
+
         textRenderer.draw("Energy : " + energy, 7, 28, 0x404040);
         textRenderer.draw("Fuel : " + fuel, 7, 40, 0x404040);
         textRenderer.draw("Current Rate : " + currentRate + "EU/t", 7, 52, 0x404040);
+
+        textRenderer.draw("Generator", 60, 6, 4210752);
+        textRenderer.draw("Inventory", 8, this.backgroundHeight - 96 + 2, 4210752);
     }
 
     protected void drawBackground(float tickDelta) {
@@ -33,5 +36,10 @@ public class GeneratorScreen extends HandledScreen {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawTexture(x, y, 0, 0, backgroundWidth, backgroundHeight);
+
+        if (blockEntity.fuel > 0) {
+            int flameProgress = (int) (((float) blockEntity.fuel / (float) blockEntity.fuelBuffer) * 14F);
+            drawTexture(x + 66, y + 36 + (14 - flameProgress), 176, 14 - flameProgress, 14, flameProgress);
+        }
     }
 }
