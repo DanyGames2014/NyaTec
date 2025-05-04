@@ -12,16 +12,16 @@ public class Config {
             @ConfigEntry(name = "Generate Copper Ore")
             public Boolean generateCopperOre = true;
             
-            @ConfigEntry(name = "Ore Count", comment = "The maximum amount of ores that can generate", maxLength = 32)
+            @ConfigEntry(name = "Ore Count", comment = "The maximum amount of ores that can generate", maxValue = 32)
             public Integer oreCount = 12;
             
-            @ConfigEntry(name = "Ore veins per Chunk", maxLength = 32)
+            @ConfigEntry(name = "Ore veins per Chunk", maxValue = 32)
             public Integer oreVeinsPerChunk = 20;
             
-            @ConfigEntry(name = "Minimum Y Level", maxLength = 256)
+            @ConfigEntry(name = "Minimum Y Level", maxValue = 256)
             public Integer minimumYLevel = 40;
             
-            @ConfigEntry(name = "Maximum Y Level", maxLength = 256)
+            @ConfigEntry(name = "Maximum Y Level", maxValue = 256)
             public Integer maximumYLevel = 70;
         }
     }
@@ -37,7 +37,7 @@ public class Config {
             @ConfigEntry(name = "Energy Per Fuel Tick", description = "How much energy each fuel tick will yield")
             public Double energyPerFuelTick = 2.5D;
             
-            @ConfigEntry(name = "Fuel Buffer", description = "The fuel buffer size of the generator")
+            @ConfigEntry(name = "Fuel Buffer", description = "The fuel buffer size of the generator", maxValue = 10000)
             public Integer fuelBuffer = 2000;
         }
     }
