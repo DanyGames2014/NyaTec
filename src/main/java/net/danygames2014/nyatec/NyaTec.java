@@ -27,15 +27,14 @@ import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.template.block.TemplateBlock;
 import net.modificationstation.stationapi.api.util.Namespace;
-import net.modificationstation.stationapi.api.util.Null;
 import org.apache.logging.log4j.Logger;
 
 public class NyaTec {
     @Entrypoint.Namespace
-    public static Namespace NAMESPACE = Null.get();
+    public static Namespace NAMESPACE;
 
     @Entrypoint.Logger
-    public static Logger LOGGER = Null.get();
+    public static Logger LOGGER;
 
     @ConfigRoot(value = "worldgen", visibleName = "World Generation")
     public static final Config.WorldgenConfig WORLDGEN_CONFIG = new Config.WorldgenConfig();
