@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,6 +60,12 @@ public class GeneratorBlockEntity extends BaseGeneratorBlockEntity implements In
                     markDirty();
                 }
             }
+        }
+
+        if (this.state == GeneratorState.NOT_RUNNING && world.getBlockState(this.x, this.y, this.z).get(Properties.LIT)) {
+            world.setBlockStateWithNotify(this.x, this.y, this.z, world.getBlockState(this.x, this.y, this.z).with(Properties.LIT, false));
+        } else if ((this.state == GeneratorState.IDLING || this.state == GeneratorState.RUNNING) && !world.getBlockState(this.x, this.y, this.z).get(Properties.LIT)) {
+            world.setBlockStateWithNotify(this.x, this.y, this.z, world.getBlockState(this.x, this.y, this.z).with(Properties.LIT, true));
         }
     }
 
