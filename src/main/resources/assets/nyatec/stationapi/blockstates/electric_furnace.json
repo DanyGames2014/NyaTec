@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,lit=false": {
+      "model": "nyatec:block/electric_furnace_off"
+    },
+    "facing=east,lit=false": {
+      "model": "nyatec:block/electric_furnace_off",
+      "y": 90
+    },
+    "facing=south,lit=false": {
+      "model": "nyatec:block/electric_furnace_off",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "nyatec:block/electric_furnace_off",
+      "y": 270
+    },
+    "facing=north,lit=true": {
+      "model": "nyatec:block/electric_furnace_on"
+    },
+    "facing=east,lit=true": {
+      "model": "nyatec:block/electric_furnace_on",
+      "y": 90
+    },
+    "facing=south,lit=true": {
+      "model": "nyatec:block/electric_furnace_on",
+      "y": 180
+    },
+    "facing=west,lit=true": {
+      "model": "nyatec:block/electric_furnace_on",
+      "y": 270
+    }
+  }
+}
