@@ -28,7 +28,7 @@ public class GeneratorBlockEntity extends BaseGeneratorBlockEntity implements In
 
     @Override
     public int getMaxEnergyOutput(@Nullable Direction direction) {
-        return 1760;
+        return 200;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class GeneratorBlockEntity extends BaseGeneratorBlockEntity implements In
 
     @Override
     public int getEnergyCapacity() {
-        return 1100;
+        return 1000;
     }
 
     @Override
