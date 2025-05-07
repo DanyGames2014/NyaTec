@@ -1,0 +1,38 @@
+package net.danygames2014.nyatec.recipe.output;
+
+import net.minecraft.item.ItemStack;
+
+import java.util.Random;
+
+/**
+ * A base recipe output
+ */
+public class RecipeOutput {
+    /**
+     * The stack of the output definining what will actually be gotten from this output
+     */
+    private final ItemStack stack;
+
+    /**
+     * The type of the output
+     */
+    public final RecipeOutputType type;
+
+    public RecipeOutput(ItemStack stack, RecipeOutputType type) {
+        this.stack = stack;
+        this.type = type;
+    }
+    
+    public RecipeOutput(ItemStack stack) {
+        this(stack, RecipeOutputType.PRIMARY);
+    }
+
+    /**
+     * Returns a stack which is safe to be used directly
+     *
+     * @return A safe to use stack
+     */
+    public ItemStack getOutput(Random random) {
+        return stack.copy();
+    }
+}

@@ -1,13 +1,18 @@
 package net.danygames2014.nyatec.recipe;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.item.ItemStack;
+import net.danygames2014.nyatec.recipe.output.RecipeOutput;
 
 public class MaceratorRecipe {
-    public ObjectArrayList<MaceratorRecipeOutput> outputs = new ObjectArrayList<>();
+    public ObjectArrayList<RecipeOutput> outputs;
     public int recipeTime;
-    
-    public record MaceratorRecipeOutput(ItemStack stack, int chance) {
-        
+
+    public MaceratorRecipe(int recipeTime) {
+        this.recipeTime = recipeTime;
+        this.outputs = new ObjectArrayList<>();
+    }
+
+    public MaceratorRecipe() {
+        this(100);
     }
 }
