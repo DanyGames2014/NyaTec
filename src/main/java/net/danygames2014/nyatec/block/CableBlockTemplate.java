@@ -218,12 +218,12 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     // Energy Conductor
     @Override
     public int getBreakdownVoltage(World world, NetworkComponentEntry networkComponentEntry) {
-        return 500;
+        return 300;
     }
 
     @Override
     public int getBreakdownPower(World world, NetworkComponentEntry networkComponentEntry) {
-        return 2000;
+        return 128;
     }
 
     @Override
