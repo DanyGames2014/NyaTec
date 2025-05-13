@@ -50,4 +50,13 @@ public class ItemRecipeInput extends RecipeInput {
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ItemRecipeInput{" +
+                "item=" + item +
+                ", count=" + count +
+                ", meta=" + meta +
+                '}';
+    }
 }

@@ -16,4 +16,11 @@ public class StackRecipeInput extends RecipeInput{
     public boolean matches(ItemStack other) {
         return other.equals(stack);
     }
+
+    @Override
+    public String toString() {
+        return "StackRecipeInput{" +
+                "stack=" + stack +
+                '}';
+    }
 }

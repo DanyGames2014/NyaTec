@@ -35,4 +35,9 @@ public class RangeRecipeOutput extends RecipeOutput {
         stack.count = count;
         return stack;
     }
+
+    @Override
+    public String toString() {
+        return "RangeRecipeOutput { stack=" + getStackString() + ", type=" + type + ", minCount= " + minCount + ", maxCount= " + maxCount + " }";
+    }
 }

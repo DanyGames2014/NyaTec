@@ -35,4 +35,13 @@ public class RecipeOutput {
     public ItemStack getOutput(Random random) {
         return stack.copy();
     }
+
+    public String getStackString() {
+        return stack.toString();
+    }
+    
+    @Override
+    public String toString() {
+        return "RecipeOutput { stack=" + getStackString() + ", type=" + type + " }";
+    }
 }

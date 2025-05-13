@@ -29,4 +29,12 @@ public class TagRecipeInput extends RecipeInput {
         
         return other.isIn(itemTag);
     }
+
+    @Override
+    public String toString() {
+        return "TagRecipeInput{" +
+                "itemTag=" + itemTag +
+                ", count=" + count +
+                '}';
+    }
 }

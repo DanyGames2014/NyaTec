@@ -28,4 +28,9 @@ public class ChanceRecipeOutput extends RecipeOutput {
         
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "RecipeOutput { stack=" + getStackString() + ", type=" + type + ", chance=" + chance + " }";
+    }
 }
