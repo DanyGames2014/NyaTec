@@ -1,5 +1,8 @@
 package net.danygames2014.nyatec.block.entity;
 
+import net.danygames2014.nyatec.recipe.MaceratorRecipe;
+import net.danygames2014.nyatec.recipe.MaceratorRecipeRegistry;
+import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
@@ -51,20 +54,25 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
             }
         }
     }
-    
+
     public boolean canProcess() {
-        return inventory[0] != null;
+        if (inventory[0] == null) {
+            return false;
+        }
+
+        MaceratorRecipe recipe = MaceratorRecipeRegistry.get(new ItemStack[]{this.inventory[0]});
+        return recipe != null;
     }
-    
+
     public void craftRecipe() {
-        if(inventory[0] != null) {
+        if (inventory[0] != null) {
             inventory[0].count--;
-            
-            if (inventory[0].count <= 0){
+
+            if (inventory[0].count <= 0) {
                 inventory[0] = null;
             }
         }
-        
+
     }
 
     // Energy

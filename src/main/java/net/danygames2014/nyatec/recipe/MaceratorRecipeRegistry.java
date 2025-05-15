@@ -42,14 +42,18 @@ public class MaceratorRecipeRegistry {
     }
 
     public static MaceratorRecipe get(ItemStack[] input) {
+        long startTime = System.nanoTime();
+        
         var r = getInstance();
 
         for (var recipe : r.registry.entrySet()) {
             if (recipe.getValue().matches(input)) {
+                System.out.println("Match time: " + (System.nanoTime() - startTime) / 1000 + "μs");
                 return recipe.getValue();
             }
         }
 
+        System.out.println("Match time: " + (System.nanoTime() - startTime) / 1000 + "μs");
         return null;
     }
 }

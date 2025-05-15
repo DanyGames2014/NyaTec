@@ -16,6 +16,9 @@
   "entrypoints": {
     "stationapi:event_bus": [
       "net.danygames2014.nyatec.NyaTec",
+      "net.danygames2014.nyatec.init.InitListener",
+      "net.danygames2014.nyatec.init.RecipeListener",
+      "net.danygames2014.nyatec.init.AfterBlockAndItemListener",
       "net.danygames2014.nyatec.init.WorldGenListener",
       "net.danygames2014.nyatec.world.ChunkDecorationListener",
       "net.danygames2014.nyatec.init.WrenchModeListener"

@@ -22,34 +22,38 @@ public class MachineRecipe {
         this(100);
     }
 
-    public boolean addInput(RecipeInput input) {
+    public MachineRecipe addInput(RecipeInput input) {
         for (RecipeInput i : inputs) {
             if (i.equals(input)) {
                 NyaTec.LOGGER.warn("Input already exists in recipe " + input);
-                return false;
+                return this;
             }
         }
         
-        return inputs.add(input);
+        inputs.add(input);
+        return this;
     }
 
-    public boolean addOutput(RecipeOutput output) {
+    public MachineRecipe addOutput(RecipeOutput output) {
         for (RecipeOutput i : outputs) {
             if (i.equals(output)) {
                 NyaTec.LOGGER.warn("Output already exists in recipe " + output);
-                return false;
+                return this;
             }
         }
         
-        return outputs.add(output);
+        outputs.add(output);
+        return this;
     }
 
     public boolean matches(ItemStack[] inputs) {
-        long startTime = System.nanoTime();
-
         // This is used to keep track of whether an ingredient has already been "consumed"
         boolean[] used = new boolean[inputs.length];
 
+        if(this.inputs.isEmpty()) {
+            return false;
+        }
+        
         // Loop over the required ingredients
         for (RecipeInput input : this.inputs) {
             // Check all the provided ingredients
@@ -74,12 +78,10 @@ public class MachineRecipe {
 
             // If not satisfied, return false
             if (!satisfied) {
-                System.out.println("Match time: " + (System.nanoTime() - startTime) / 1000 + "μs");
                 return false;
             }
         }
 
-        System.out.println("Match time: " + (System.nanoTime() - startTime) / 1000 + "μs");
         return true;
     }
 }
