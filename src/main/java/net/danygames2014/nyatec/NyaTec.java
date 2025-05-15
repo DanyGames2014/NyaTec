@@ -5,10 +5,12 @@ import net.danygames2014.nyatec.block.*;
 import net.danygames2014.nyatec.block.entity.ElectricFurnaceBlockEntity;
 import net.danygames2014.nyatec.block.entity.EnergyTrashCanBlockEntity;
 import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
+import net.danygames2014.nyatec.block.entity.MaceratorBlockEntity;
 import net.danygames2014.nyatec.block.material.CableMaterial;
 import net.danygames2014.nyatec.item.MultimeterItem;
 import net.danygames2014.nyatec.screen.ElectricFurnaceScreen;
 import net.danygames2014.nyatec.screen.GeneratorScreen;
+import net.danygames2014.nyatec.screen.MaceratorScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.glasslauncher.mods.gcapi3.api.ConfigRoot;
@@ -56,6 +58,7 @@ public class NyaTec {
     public static Block energyTrashCanBlock;
     public static Block testCable;
     public static Block electricFurnaceBlock;
+    public static Block maceratorBlock;
     
     public static Material cableMaterial = new CableMaterial(MapColor.LIGHT_GRAY).setTransparent();
     
@@ -79,6 +82,7 @@ public class NyaTec {
         energyTrashCanBlock = new EnergyTrashCanBlock(NAMESPACE.id("energy_trash_can"), Material.METAL).setTranslationKey(NAMESPACE, "energy_trash_can").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         generatorBlock = new GeneratorBlock(NAMESPACE.id("generator"), Material.METAL).setTranslationKey(NAMESPACE, "generator").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         electricFurnaceBlock = new ElectricFurnaceBlock(NAMESPACE.id("electric_furnace"), Material.METAL).setTranslationKey(NAMESPACE, "electric_furnace").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
+        maceratorBlock = new MaceratorBlock(NAMESPACE.id("macerator"), Material.METAL).setTranslationKey(NAMESPACE, "macerator").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
     }
 
     @EventListener
@@ -86,6 +90,7 @@ public class NyaTec {
         event.register(GeneratorBlockEntity.class, NAMESPACE.id("generator").toString());
         event.register(EnergyTrashCanBlockEntity.class, NAMESPACE.id("energy_trash_can").toString());
         event.register(ElectricFurnaceBlockEntity.class, NAMESPACE.id("electric_furnace").toString());
+        event.register(MaceratorBlockEntity.class, NAMESPACE.id("macerator").toString());
     }
 
     @Environment(EnvType.CLIENT)
@@ -93,6 +98,12 @@ public class NyaTec {
     public void registerScreenHandlers(GuiHandlerRegistryEvent event) {
         event.register(NAMESPACE.id("generator"), new GuiHandler((GuiHandler.ScreenFactoryNoMessage) this::openGenerator, GeneratorBlockEntity::new));
         event.register(NAMESPACE.id("electric_furnace"), new GuiHandler((GuiHandler.ScreenFactoryNoMessage) this::openElectricFurnace, ElectricFurnaceBlockEntity::new));
+        event.register(NAMESPACE.id("macerator"), new GuiHandler((GuiHandler.ScreenFactoryNoMessage) this::openMacerator, MaceratorBlockEntity::new));
+    }
+
+    @Environment(EnvType.CLIENT)
+    private Screen openMacerator(PlayerEntity player, Inventory inventory) {
+        return new MaceratorScreen(player, (MaceratorBlockEntity) inventory);
     }
 
     @Environment(EnvType.CLIENT)

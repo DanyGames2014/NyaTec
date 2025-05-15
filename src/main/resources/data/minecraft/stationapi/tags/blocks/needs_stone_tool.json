@@ -1,5 +1,7 @@
 {
   "values": [
-    "nyatec:copper_ore"
+    "nyatec:copper_ore",
+    "nyatec:electric_furnace",
+    "nyatec:macerator"
   ]  
 }
