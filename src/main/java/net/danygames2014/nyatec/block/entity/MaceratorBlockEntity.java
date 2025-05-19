@@ -11,6 +11,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     public int progress;
     public static final int MAX_PROGRESS = 100;
     public int processingSpeed = 2;
+    public MaceratorRecipe currentRecipe = null;
 
     public MaceratorBlockEntity() {
         super(2);
@@ -55,13 +56,19 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
         }
     }
 
+    ItemStack lastInputStack = null;
+    
     public boolean canProcess() {
         if (inventory[0] == null) {
             return false;
         }
 
-        MaceratorRecipe recipe = MaceratorRecipeRegistry.get(new ItemStack[]{this.inventory[0]});
-        return recipe != null;
+        if(!lastInputStack.equals(inventory[0])) {
+            currentRecipe = MaceratorRecipeRegistry.get(new ItemStack[]{this.inventory[0]});
+            lastInputStack = inventory[0];
+        }
+        
+        return currentRecipe != null;
     }
 
     public void craftRecipe() {
