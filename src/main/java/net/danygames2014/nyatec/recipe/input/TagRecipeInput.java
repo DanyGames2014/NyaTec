@@ -31,6 +31,11 @@ public class TagRecipeInput extends RecipeInput {
     }
 
     @Override
+    public int getRequiredAmount() {
+        return count;
+    }
+
+    @Override
     public String toString() {
         return "TagRecipeInput{" +
                 "itemTag=" + itemTag +

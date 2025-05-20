@@ -18,6 +18,11 @@ public class StackRecipeInput extends RecipeInput{
     }
 
     @Override
+    public int getRequiredAmount() {
+        return stack.count;
+    }
+
+    @Override
     public String toString() {
         return "StackRecipeInput{" +
                 "stack=" + stack +

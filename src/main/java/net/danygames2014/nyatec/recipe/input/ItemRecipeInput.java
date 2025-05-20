@@ -52,6 +52,11 @@ public class ItemRecipeInput extends RecipeInput {
     }
 
     @Override
+    public int getRequiredAmount() {
+        return count;
+    }
+
+    @Override
     public String toString() {
         return "ItemRecipeInput{" +
                 "item=" + item +

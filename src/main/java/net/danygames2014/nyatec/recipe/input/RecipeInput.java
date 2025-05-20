@@ -7,4 +7,6 @@ import net.minecraft.item.ItemStack;
  */
 public abstract class RecipeInput {
     public abstract boolean matches(ItemStack other);
+    
+    public abstract int getRequiredAmount();
 }

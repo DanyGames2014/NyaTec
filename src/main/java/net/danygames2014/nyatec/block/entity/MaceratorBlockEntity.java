@@ -70,16 +70,16 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
         
         return currentRecipe != null;
     }
+    
+    public boolean canOutput() {
+        return true;
+    }
 
     public void craftRecipe() {
-        if (inventory[0] != null) {
-            inventory[0].count--;
-
-            if (inventory[0].count <= 0) {
-                inventory[0] = null;
-            }
+        if (canProcess() && canOutput()) {
+            currentRecipe.consume(new ItemStack[]{inventory[0]});
+            
         }
-
     }
 
     // Energy
