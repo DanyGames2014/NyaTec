@@ -62,7 +62,7 @@ public class ElectricFurnaceScreenHandler extends ScreenHandler {
     public void addListener(ScreenHandlerListener listener) {
         super.addListener(listener);
         listener.onPropertyUpdate(this, 0, this.blockEntity.energy);
-        listener.onPropertyUpdate(this, 1, this.blockEntity.cookProgress);
+        listener.onPropertyUpdate(this, 1, this.blockEntity.progress);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class ElectricFurnaceScreenHandler extends ScreenHandler {
                     listener.onPropertyUpdate(this, 0, this.energy);
                 }
 
-                if (this.cookProgress != this.blockEntity.cookProgress) {
-                    this.cookProgress = this.blockEntity.cookProgress;
+                if (this.cookProgress != this.blockEntity.progress) {
+                    this.cookProgress = this.blockEntity.progress;
                     listener.onPropertyUpdate(this, 1, this.cookProgress);
                 }
             }
@@ -92,7 +92,7 @@ public class ElectricFurnaceScreenHandler extends ScreenHandler {
                 this.blockEntity.energy = value;
             }
             case 1 -> {
-                this.blockEntity.cookProgress = value;
+                this.blockEntity.progress = value;
             }
         }
     }

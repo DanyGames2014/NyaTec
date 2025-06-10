@@ -8,13 +8,10 @@ import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
 public class MaceratorBlockEntity extends BaseMachineBlockEntity {
-    public int progress;
-    public static final int MAX_PROGRESS = 100;
-    public int processingSpeed = 2;
     public MaceratorRecipe currentRecipe = null;
 
     public MaceratorBlockEntity() {
-        super(2);
+        super(2, 100, 2);
     }
 
     @Override
@@ -22,31 +19,6 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
         super.tick();
 
         if (!world.isRemote) {
-            // Check if we can smelt
-            if (canProcess()) {
-                // Check if we have energy
-                if (this.energy > 0) {
-                    // If we have energy and we can cook, we cookin
-                    progress += removeEnergy(processingSpeed);
-                } else {
-                    // If we don't have energy, slowly revert progress
-                    progress -= 2;
-                }
-            } else {
-                // We can't smelt, reset the progress
-                progress = 0;
-            }
-
-            // Check the cook progress
-            if (progress < 0) {
-                // If it's less than zero, can it to zero
-                progress = 0;
-            } else if (progress >= MAX_PROGRESS) {
-                // If we have reached the max cook time, craft the recipe
-                progress = 0;
-                craftRecipe();
-            }
-
             // Update lit state
             if (progress <= 0 && world.getBlockState(this.x, this.y, this.z).get(Properties.LIT)) {
                 world.setBlockStateWithNotify(this.x, this.y, this.z, world.getBlockState(this.x, this.y, this.z).with(Properties.LIT, false));
@@ -76,9 +48,8 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     }
 
     public void craftRecipe() {
-        if (canProcess() && canOutput()) {
+        if (canProcess()) {
             currentRecipe.consume(new ItemStack[]{inventory[0]});
-            
         }
     }
 

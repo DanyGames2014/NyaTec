@@ -8,9 +8,57 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 
 public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTemplate implements Inventory {
-    public BaseMachineBlockEntity(int inventorySize) {
+    // Progress
+    public int progress;
+    public int maxProgress;
+    
+    // Properties
+    public int processingSpeed;
+    
+    public BaseMachineBlockEntity(int inventorySize, int maxProgress, int processingSpeed) {
         this.inventory = new ItemStack[inventorySize];
+
+        // Progress
+        this.progress = 0;
+        this.maxProgress = maxProgress;
+        
+        // Properties
+        this.processingSpeed = processingSpeed;
     }
+
+    @Override
+    public void tick() {
+        super.tick();
+        
+        if (!world.isRemote) {
+            // Check if we can process the current input
+            if (canProcess()) {
+                if (this.energy > 0) {
+                    // If we can process and have the energy, process the recipe
+                    progress += removeEnergy(processingSpeed);
+                } else {
+                    // If we can process but don't have the energy, slowly revert
+                    progress -= 2;
+                }
+            } else {
+                // If we can't process, revert progress to 0
+                progress = 0;
+            }
+
+            if (progress < 0) {
+                // If progress is less than zero, clamp it to zero
+                progress = 0;
+            } else if (progress >= maxProgress) {
+                // If the progress has reached maximum, craft the recipe
+                progress = 0;
+                craftRecipe();
+            }
+        }
+    }
+
+    public abstract boolean canProcess();
+
+    public abstract void craftRecipe();
 
     // Inventory
     public ItemStack[] inventory;
