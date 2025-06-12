@@ -10,8 +10,13 @@ import org.jetbrains.annotations.Nullable;
 public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     public MaceratorRecipe currentRecipe = null;
 
+    // Inventory
+    // 0 - Input
+    // 1 - Primary Output
+    // 2 - Secondary Output
+    
     public MaceratorBlockEntity() {
-        super(2, 100, 2);
+        super(3, 100, 2);
     }
 
     @Override
@@ -44,6 +49,14 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     }
     
     public boolean canOutput() {
+        if(inventory[1] != null) {
+            return false;
+        }
+        
+        if(inventory[2] != null) {
+            return false;
+        }
+        
         return true;
     }
 

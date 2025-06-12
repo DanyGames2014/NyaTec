@@ -120,6 +120,16 @@ public class MachineRecipe {
         return false;
     }
 
+    public ObjectArrayList<ItemStack> getMaxOutputs() {
+        ObjectArrayList<ItemStack> outputs = new ObjectArrayList<>();
+
+        for (RecipeOutput recipeOutput : this.outputs) {
+            outputs.add(recipeOutput.getMaxOutput());
+        }
+
+        return outputs;
+    }
+
     public ObjectArrayList<ItemStack> getOutputs(Random random) {
         ObjectArrayList<ItemStack> outputs = new ObjectArrayList<>();
 

@@ -37,6 +37,13 @@ public class RangeRecipeOutput extends RecipeOutput {
     }
 
     @Override
+    public ItemStack getMaxOutput() {
+        ItemStack stack = super.getMaxOutput();
+        stack.count = maxCount;
+        return stack;
+    }
+
+    @Override
     public String toString() {
         return "RangeRecipeOutput { stack=" + getStackString() + ", type=" + type + ", minCount= " + minCount + ", maxCount= " + maxCount + " }";
     }

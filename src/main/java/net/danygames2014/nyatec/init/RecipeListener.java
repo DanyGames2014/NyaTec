@@ -4,9 +4,11 @@ import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.event.MaceratorRecipeRegisterEvent;
 import net.danygames2014.nyatec.recipe.MaceratorRecipe;
 import net.danygames2014.nyatec.recipe.input.ItemRecipeInput;
+import net.danygames2014.nyatec.recipe.output.ChanceRecipeOutput;
 import net.danygames2014.nyatec.recipe.output.RecipeOutput;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class RecipeListener {
@@ -17,6 +19,8 @@ public class RecipeListener {
                 (MaceratorRecipe) new MaceratorRecipe()
                         .addInput(new ItemRecipeInput(Block.COBBLESTONE.asItem()))
                         .addOutput(new RecipeOutput(new ItemStack(Block.SAND)))
+                        .addOutput(new ChanceRecipeOutput(new ItemStack(Block.SAND), 4))
+                        .addOutput(new ChanceRecipeOutput(new ItemStack(Item.FLINT), 4))
         );
     }
 }
