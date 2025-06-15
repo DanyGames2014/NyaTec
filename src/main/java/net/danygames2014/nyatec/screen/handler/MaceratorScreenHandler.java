@@ -56,7 +56,7 @@ public class MaceratorScreenHandler extends ScreenHandler {
         // Output Slot
         this.addSlot(new Slot(macerator, 1, 116, 35));
 
-        this.addSlot(new Slot(macerator, 1, 116, 60));
+        this.addSlot(new Slot(macerator, 2, 116, 60));
     }
 
     @Environment(EnvType.SERVER)

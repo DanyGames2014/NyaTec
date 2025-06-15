@@ -2,6 +2,7 @@ package net.danygames2014.nyatec.block.entity;
 
 import net.danygames2014.nyatec.recipe.MaceratorRecipe;
 import net.danygames2014.nyatec.recipe.MaceratorRecipeRegistry;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.math.Direction;
@@ -14,7 +15,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     // 0 - Input
     // 1 - Primary Output
     // 2 - Secondary Output
-    
+
     public MaceratorBlockEntity() {
         super(3, 100, 2);
     }
@@ -34,35 +35,49 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     }
 
     ItemStack lastInputStack = null;
-    
+
     public boolean canProcess() {
         if (inventory[0] == null) {
             return false;
         }
 
-        if(!lastInputStack.equals(inventory[0])) {
+        if (lastInputStack != inventory[0] || !lastInputStack.equals(inventory[0])) {
             currentRecipe = MaceratorRecipeRegistry.get(new ItemStack[]{this.inventory[0]});
             lastInputStack = inventory[0];
         }
-        
-        return currentRecipe != null;
+
+        if (currentRecipe == null) {
+            return false;
+        }
+
+        return canOutput();
     }
-    
+
     public boolean canOutput() {
-        if(inventory[1] != null) {
+        if (inventory[1] != null) {
             return false;
         }
-        
-        if(inventory[2] != null) {
+
+        if (inventory[2] != null) {
             return false;
         }
-        
+
         return true;
     }
 
     public void craftRecipe() {
         if (canProcess()) {
             currentRecipe.consume(new ItemStack[]{inventory[0]});
+
+            if (inventory[0].count <= 0) {
+                inventory[0] = null;
+            }
+
+            for (ItemStack output : currentRecipe.getOutputs(random)) {
+                if (output != null) {
+                    this.world.spawnEntity(new ItemEntity(world, this.x + 0.5, this.y + 1, this.z + 0.5, output));
+                }
+            }
         }
     }
 

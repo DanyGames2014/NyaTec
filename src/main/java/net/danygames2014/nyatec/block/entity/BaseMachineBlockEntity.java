@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 
+import java.util.Random;
+
 public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTemplate implements Inventory {
     // Progress
     public int progress;
@@ -14,6 +16,9 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
     
     // Properties
     public int processingSpeed;
+    
+    // Random
+    public Random random;
     
     public BaseMachineBlockEntity(int inventorySize, int maxProgress, int processingSpeed) {
         this.inventory = new ItemStack[inventorySize];
@@ -24,6 +29,9 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         
         // Properties
         this.processingSpeed = processingSpeed;
+        
+        // Random
+        this.random = new Random();
     }
 
     @Override
