@@ -66,17 +66,19 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     }
 
     public void craftRecipe() {
-        if (canProcess()) {
-            currentRecipe.consume(new ItemStack[]{inventory[0]});
+        if (!canProcess()) {
+            return;
+        }
 
-            if (inventory[0].count <= 0) {
-                inventory[0] = null;
-            }
+        currentRecipe.consume(new ItemStack[]{inventory[0]});
 
-            for (ItemStack output : currentRecipe.getOutputs(random)) {
-                if (output != null) {
-                    this.world.spawnEntity(new ItemEntity(world, this.x + 0.5, this.y + 1, this.z + 0.5, output));
-                }
+        if (inventory[0].count <= 0) {
+            inventory[0] = null;
+        }
+
+        for (ItemStack output : currentRecipe.getOutputs(random)) {
+            if (output != null) {
+                this.world.spawnEntity(new ItemEntity(world, this.x + 0.5, this.y + 1, this.z + 0.5, output));
             }
         }
     }
