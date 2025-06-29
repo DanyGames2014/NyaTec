@@ -1,6 +1,7 @@
 package net.danygames2014.nyatec.screen.handler;
 
 import net.danygames2014.nyatec.block.entity.MaceratorBlockEntity;
+import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,11 +13,11 @@ import net.minecraft.screen.slot.Slot;
 public class MaceratorScreenHandler extends ScreenHandler {
     public PlayerEntity player;
     public Inventory playerInventory;
-    
+
     public MaceratorBlockEntity macerator;
     private int energy;
     private int progress;
-    
+
     public MaceratorScreenHandler(PlayerEntity player, MaceratorBlockEntity macerator) {
         this.player = player;
         this.macerator = macerator;
@@ -51,12 +52,12 @@ public class MaceratorScreenHandler extends ScreenHandler {
         }
 
         // Input Slot
-        this.addSlot(new Slot(macerator, 0, 56, 17));
+        this.addSlot(new Slot(macerator, macerator.getInputIndex(0), 56, 17));
 
         // Output Slot
-        this.addSlot(new Slot(macerator, 1, 116, 35));
+        this.addSlot(new Slot(macerator, macerator.getOutputIndex(RecipeOutputType.PRIMARY, 0), 116, 35));
 
-        this.addSlot(new Slot(macerator, 2, 116, 60));
+        this.addSlot(new Slot(macerator, macerator.getOutputIndex(RecipeOutputType.SECONDARY, 0), 116, 60));
     }
 
     @Environment(EnvType.SERVER)
@@ -98,7 +99,7 @@ public class MaceratorScreenHandler extends ScreenHandler {
             }
         }
     }
-    
+
     @Override
     public boolean canUse(PlayerEntity player) {
         return true;

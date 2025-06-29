@@ -17,6 +17,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
         this.addInput();
         this.addOutput(RecipeOutputType.PRIMARY);
         this.addOutput(RecipeOutputType.SECONDARY);
+        this.inventory = new  ItemStack[inventoryIndex];
     }
 
     @Override

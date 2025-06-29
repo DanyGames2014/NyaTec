@@ -85,23 +85,27 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
 
     public void addInput() {
         // Create a new array that is larger by one
-        var newArray = new int[inputs.length + 1];
+        int[] newArray = new int[inputs.length + 1];
 
         // Copy values from old array into new one
         System.arraycopy(inputs, 0, newArray, 0, inputs.length);
+        newArray[newArray.length - 1] = inventoryIndex;
+
         this.inputs = newArray;
         this.inventoryIndex++;
     }
 
     public void addOutput(RecipeOutputType type) {
         // Fetch the old array
-        var oldArray = outputs.get(type);
+        int[] oldArray = outputs.get(type);
 
         // Create a new array that is larger by one
-        var newArray = new int[oldArray.length + 1];
+        int[] newArray = new int[oldArray.length + 1];
 
         // Copy values from old array into new one
         System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+        newArray[newArray.length - 1] = inventoryIndex;
+        
         outputs.put(type, newArray);
         this.inventoryIndex++;
     }
