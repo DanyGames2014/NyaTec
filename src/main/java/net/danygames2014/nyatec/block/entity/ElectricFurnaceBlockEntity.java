@@ -45,19 +45,20 @@ public class ElectricFurnaceBlockEntity extends BaseMachineBlockEntity {
     }
 
     public void craftRecipe() {
-        if (this.canProcess()) {
-            ItemStack craftedItem = SmeltingRecipeManager.getInstance().craft(this.inventory[0].getItem().id);
-            if (this.inventory[1] == null) {
-                this.inventory[1] = craftedItem.copy();
-            } else if (this.inventory[1].isItemEqual(craftedItem)) {
-                this.inventory[1].count++;
-            }
+        if (!canProcess()) {
+            return;
+        }
 
-            this.inventory[0].count--;
-            if (this.inventory[0].count <= 0) {
-                this.inventory[0] = null;
-            }
+        ItemStack craftedItem = SmeltingRecipeManager.getInstance().craft(this.inventory[0].getItem().id);
+        if (this.inventory[1] == null) {
+            this.inventory[1] = craftedItem.copy();
+        } else if (this.inventory[1].isItemEqual(craftedItem)) {
+            this.inventory[1].count++;
+        }
 
+        this.inventory[0].count--;
+        if (this.inventory[0].count <= 0) {
+            this.inventory[0] = null;
         }
     }
 
