@@ -6,9 +6,14 @@ import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
+import static net.danygames2014.nyatec.recipe.output.RecipeOutputType.*;
+
 public class ElectricFurnaceBlockEntity extends BaseMachineBlockEntity {
     public ElectricFurnaceBlockEntity() {
-        super(2, 200, 2);
+        super(200, 2);
+        addInput();
+        addOutput(PRIMARY);
+        this.inventory = new  ItemStack[inventoryIndex];
     }
 
     @Override
@@ -26,21 +31,21 @@ public class ElectricFurnaceBlockEntity extends BaseMachineBlockEntity {
     }
 
     public boolean canProcess() {
-        if (this.inventory[0] == null) {
+        if (getInput(0) == null) {
             return false;
         }
 
-        ItemStack craftedItem = SmeltingRecipeManager.getInstance().craft(this.inventory[0].getItem().id);
+        ItemStack craftedItem = SmeltingRecipeManager.getInstance().craft(getInput(0).getItem().id);
         if (craftedItem == null) {
             return false;
-        } else if (this.inventory[1] == null) {
+        } else if (getOutput(PRIMARY, 0) == null) {
             return true;
-        } else if (!this.inventory[1].isItemEqual(craftedItem)) {
+        } else if (!getOutput(PRIMARY, 0).isItemEqual(craftedItem)) {
             return false;
-        } else if (this.inventory[1].count < this.getMaxCountPerStack() && this.inventory[1].count < this.inventory[1].getMaxCount()) {
+        } else if (getOutput(PRIMARY, 0).count < this.getMaxCountPerStack() && getOutput(PRIMARY, 0).count < getOutput(PRIMARY, 0).getMaxCount()) {
             return true;
         } else {
-            return this.inventory[1].count < craftedItem.getMaxCount();
+            return getOutput(PRIMARY, 0).count < craftedItem.getMaxCount();
         }
     }
 
@@ -49,16 +54,16 @@ public class ElectricFurnaceBlockEntity extends BaseMachineBlockEntity {
             return;
         }
 
-        ItemStack craftedItem = SmeltingRecipeManager.getInstance().craft(this.inventory[0].getItem().id);
-        if (this.inventory[1] == null) {
-            this.inventory[1] = craftedItem.copy();
-        } else if (this.inventory[1].isItemEqual(craftedItem)) {
-            this.inventory[1].count++;
+        ItemStack craftedItem = SmeltingRecipeManager.getInstance().craft(getInput(0).getItem().id);
+        if (getOutput(PRIMARY, 0) == null) {
+            setOutput(PRIMARY, 0, craftedItem.copy());
+        } else if (getOutput(PRIMARY, 0).isItemEqual(craftedItem)) {
+            getOutput(PRIMARY, 0).count++;
         }
 
-        this.inventory[0].count--;
-        if (this.inventory[0].count <= 0) {
-            this.inventory[0] = null;
+        getInput(0).count--;
+        if (getInput(0).count <= 0) {
+            setInput(0, null);
         }
     }
 
@@ -92,10 +97,6 @@ public class ElectricFurnaceBlockEntity extends BaseMachineBlockEntity {
     public int getEnergyCapacity() {
         return 100;
     }
-
-    // Inventory
-    // 0 Input
-    // 1 Output
 
     @Override
     public String getName() {

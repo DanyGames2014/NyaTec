@@ -1,6 +1,7 @@
 package net.danygames2014.nyatec.screen.handler;
 
 import net.danygames2014.nyatec.block.entity.ElectricFurnaceBlockEntity;
+import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,10 +52,10 @@ public class ElectricFurnaceScreenHandler extends ScreenHandler {
         }
         
         // Input Slot
-        this.addSlot(new Slot(blockEntity, 0, 56, 17));
+        this.addSlot(new Slot(blockEntity, blockEntity.getInputIndex(0), 56, 17));
         
         // Output Slot
-        this.addSlot(new Slot(blockEntity, 1, 116, 35));
+        this.addSlot(new Slot(blockEntity, blockEntity.getOutputIndex(RecipeOutputType.PRIMARY, 0), 116, 35));
     }
 
     @Environment(EnvType.SERVER)
