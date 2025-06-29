@@ -39,7 +39,6 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         for (var outputType : RecipeOutputType.values()) {
             this.outputs.put(outputType, new int[]{});
         }
-        this.inventory = new ItemStack[inventoryIndex];
     }
 
     @Override
@@ -81,7 +80,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
     public int inventoryIndex;
     
     private int[] inputs;
-    private HashMap<RecipeOutputType, int[]> outputs;
+    private final HashMap<RecipeOutputType, int[]> outputs;
 
     public void addInput() {
         // Create a new array that is larger by one
@@ -93,6 +92,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
 
         this.inputs = newArray;
         this.inventoryIndex++;
+        this.inventory = new ItemStack[inventoryIndex];
     }
 
     public void addOutput(RecipeOutputType type) {
@@ -108,6 +108,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         
         outputs.put(type, newArray);
         this.inventoryIndex++;
+        this.inventory = new ItemStack[inventoryIndex];
     }
 
     public ItemStack getInput(int index) {
