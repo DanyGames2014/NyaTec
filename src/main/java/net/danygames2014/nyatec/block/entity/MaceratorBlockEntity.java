@@ -2,6 +2,7 @@ package net.danygames2014.nyatec.block.entity;
 
 import net.danygames2014.nyatec.recipe.MaceratorRecipe;
 import net.danygames2014.nyatec.recipe.MaceratorRecipeRegistry;
+import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.state.property.Properties;
@@ -18,6 +19,9 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
 
     public MaceratorBlockEntity() {
         super(3, 100, 2);
+        this.addInput();
+        this.addOutput(RecipeOutputType.PRIMARY);
+        this.addOutput(RecipeOutputType.SECONDARY);
     }
 
     @Override
@@ -37,13 +41,13 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     ItemStack lastInputStack = null;
 
     public boolean canProcess() {
-        if (inventory[0] == null) {
+        if (getInput(0) == null) {
             return false;
         }
 
-        if (lastInputStack != inventory[0] || !lastInputStack.equals(inventory[0])) {
-            currentRecipe = MaceratorRecipeRegistry.get(new ItemStack[]{this.inventory[0]});
-            lastInputStack = inventory[0];
+        if (lastInputStack != getInput(0) || !lastInputStack.equals(getInput(0))) {
+            currentRecipe = MaceratorRecipeRegistry.get(new ItemStack[]{getInput(0)});
+            lastInputStack = getInput(0);
         }
 
         if (currentRecipe == null) {
@@ -54,11 +58,11 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     }
 
     public boolean canOutput() {
-        if (inventory[1] != null) {
+        if (getOutput(RecipeOutputType.PRIMARY, 0) != null) {
             return false;
         }
 
-        if (inventory[2] != null) {
+        if (getOutput(RecipeOutputType.SECONDARY, 0) != null) {
             return false;
         }
 
@@ -70,10 +74,10 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
             return;
         }
 
-        currentRecipe.consume(new ItemStack[]{inventory[0]});
+        currentRecipe.consume(new ItemStack[]{getInput(0)});
 
-        if (inventory[0].count <= 0) {
-            inventory[0] = null;
+        if (getInput(0).count <= 0) {
+            setInput(0, null);
         }
 
         for (ItemStack output : currentRecipe.getOutputs(random)) {
