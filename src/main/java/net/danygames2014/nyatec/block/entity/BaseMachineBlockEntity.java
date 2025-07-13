@@ -242,7 +242,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         // Inventory
         NbtList itemsNbt = nbt.getList("Items");
 
-        for (int slot = 0; slot < inventory.length; slot++) {
+        for (int slot = 0; slot < itemsNbt.size(); slot++) {
             NbtCompound stackNbt = (NbtCompound) itemsNbt.get(slot);
             byte slotIndex = stackNbt.getByte("Slot");
             if (slotIndex >= 0 && slotIndex < inventory.length) {
