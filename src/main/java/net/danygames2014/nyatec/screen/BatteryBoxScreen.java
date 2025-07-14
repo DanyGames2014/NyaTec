@@ -28,11 +28,16 @@ public class BatteryBoxScreen extends HandledScreen {
     }
 
     protected void drawBackground(float tickDelta) {
-        int bgTextureId = minecraft.textureManager.getTextureId("/assets/nyatec/stationapi/textures/gui/generator.png");
+        int bgTextureId = minecraft.textureManager.getTextureId("/assets/nyatec/stationapi/textures/gui/energy_storage.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         minecraft.textureManager.bindTexture(bgTextureId);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawTexture(x, y, 0, 0, backgroundWidth, backgroundHeight);
+
+        if (blockEntity.energy > 0) {
+            int energyProgress = (int) (((float) blockEntity.energy / (float) blockEntity.getEnergyCapacity()) * 24F);
+            drawTexture(x + 79, y + 34, 176, 14, energyProgress, 16);
+        }
     }
 }

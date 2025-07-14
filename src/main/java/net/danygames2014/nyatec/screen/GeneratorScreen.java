@@ -41,5 +41,10 @@ public class GeneratorScreen extends HandledScreen {
             int flameProgress = (int) (((float) blockEntity.fuel / (float) blockEntity.fuelBuffer) * 14F);
             drawTexture(x + 66, y + 36 + (14 - flameProgress), 176, 14 - flameProgress, 14, flameProgress);
         }
+        
+        if (blockEntity.energy > 0) {
+            int energyProgress = (int) (((float) blockEntity.energy / (float) blockEntity.getEnergyCapacity()) * 24F);
+            drawTexture(x + 94, y + 35, 176, 14, energyProgress, 16);
+        }
     }
 }
