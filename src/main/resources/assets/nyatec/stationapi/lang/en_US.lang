@@ -8,6 +8,7 @@ tile.nyatec.energy_trsh_can.name=Energy Trash Can
 tile.nyatec.generator.name=Generator
 tile.nyatec.electric_furnace.name=Electric Furnace
 tile.nyatec.macerator.name=Macerator
+tile.nyatec.battery_box.name=Battery Box
 
 wrenchmode.nyatec.flow.name=Flow
 wrenchmode.nyatec.battery.name=Battery

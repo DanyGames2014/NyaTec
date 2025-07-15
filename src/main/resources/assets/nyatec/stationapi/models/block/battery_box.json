@@ -1,0 +1,30 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "nyatec:block/basic_machine_side",
+    "up": "nyatec:block/battery_box_output",
+    "north": "nyatec:block/basic_machine_side",
+    "east": "nyatec:block/basic_machine_side",
+    "south": "nyatec:block/basic_machine_side",
+    "west": "nyatec:block/basic_machine_side"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [75, 45, 90],
+      "translation": [0, 2.5, 0],
+      "scale": [0.375, 0.375, 0.375]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 45, 90],
+      "scale": [0.4, 0.4, 0.4]
+    },
+    "gui": {
+      "rotation": [30, 45, 90],
+      "scale": [0.625, 0.625, 0.625]
+    },
+    "ground": {
+      "rotation": [0, 0, 90],
+      "scale": [0.375, 0.375, 0.375]
+    }
+  }
+}
