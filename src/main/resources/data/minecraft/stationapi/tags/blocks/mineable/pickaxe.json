@@ -4,6 +4,7 @@
     "nyatec:generator",
     "nyatec:energy_trash_can",
     "nyatec:electric_furnace",
-    "nyatec:macerator"
+    "nyatec:macerator",
+    "nyatec:battery_box"
   ]  
 }
