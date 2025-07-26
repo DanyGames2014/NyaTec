@@ -35,6 +35,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
 
     ItemStack lastInputStack = null;
 
+    @Override
     public boolean canProcess() {
         if (getInput(0) == null) {
             return false;
@@ -64,6 +65,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
         return true;
     }
 
+    @Override
     public void craftRecipe() {
         if (!canProcess()) {
             return;

@@ -43,4 +43,9 @@ public class NyaTecAMIPlugin implements ModPluginProvider {
     public SyncableRecipe deserializeRecipe(NbtCompound nbtCompound) {
         return null;
     }
+
+    @Override
+    public void updateBlacklist(AMIHelpers amiHelpers) {
+        
+    }
 }
