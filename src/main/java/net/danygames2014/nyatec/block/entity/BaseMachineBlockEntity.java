@@ -47,28 +47,32 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         super.tick();
 
         if (!world.isRemote) {
-            // Check if we can process the current input
-            if (canProcess()) {
-                if (this.energy > 0) {
-                    // If we can process and have the energy, process the recipe
-                    progress += removeEnergy(processingSpeed);
-                } else {
-                    // If we can process but don't have the energy, slowly revert
-                    progress -= 2;
-                }
+            processTick();
+        }
+    }
+    
+    public void processTick() {
+        // Check if we can process the current input
+        if (canProcess()) {
+            if (this.energy > 0) {
+                // If we can process and have the energy, process the recipe
+                progress += removeEnergy(processingSpeed);
             } else {
-                // If we can't process, revert progress to 0
-                progress = 0;
+                // If we can process but don't have the energy, slowly revert
+                progress -= 2;
             }
+        } else {
+            // If we can't process, revert progress to 0
+            progress = 0;
+        }
 
-            if (progress < 0) {
-                // If progress is less than zero, clamp it to zero
-                progress = 0;
-            } else if (progress >= maxProgress) {
-                // If the progress has reached maximum, craft the recipe
-                progress = 0;
-                craftRecipe();
-            }
+        if (progress < 0) {
+            // If progress is less than zero, clamp it to zero
+            progress = 0;
+        } else if (progress >= maxProgress) {
+            // If the progress has reached maximum, craft the recipe
+            progress = 0;
+            craftRecipe();
         }
     }
 
@@ -79,10 +83,13 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
     // Machine Inventory
     public ItemStack[] inventory;
     public int inventoryIndex;
-    
+
     private int[] inputs;
     private final HashMap<RecipeOutputType, int[]> outputs;
 
+    /**
+     * Adds a new input slot
+     */
     public void addInput() {
         // Create a new array that is larger by one
         int[] newArray = new int[inputs.length + 1];
@@ -96,6 +103,10 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         this.inventory = new ItemStack[inventoryIndex];
     }
 
+    /**
+     * Adds a new output slot of the specified type
+     * @param type The type of output to add 
+     */
     public void addOutput(RecipeOutputType type) {
         // Fetch the old array
         int[] oldArray = outputs.get(type);
@@ -106,12 +117,17 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         // Copy values from old array into new one
         System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
         newArray[newArray.length - 1] = inventoryIndex;
-        
+
         outputs.put(type, newArray);
         this.inventoryIndex++;
         this.inventory = new ItemStack[inventoryIndex];
     }
 
+    /**
+     * Gets the ItemStack in the specified input slot
+     * @param index The index of the input slot
+     * @return The ItemStack in the slot or <code>null</code> if there is no stack or the index is too high 
+     */
     public ItemStack getInput(int index) {
         // If the index is too high, return null
         if (index >= inputs.length) {
@@ -120,22 +136,22 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
 
         return inventory[inputs[index]];
     }
-    
+
     public int getInputIndex(int index) {
         // If the index is too high, return null
         if (index >= inputs.length) {
             return -1;
         }
-        
+
         return inputs[index];
     }
-    
+
     public ItemStack[] getInputs() {
         ArrayList<ItemStack> out = new ArrayList<>();
         for (int inputSlot : inputs) {
             out.add(inventory[inputSlot]);
         }
-        
+
         return out.toArray(new ItemStack[0]);
     }
 
@@ -149,7 +165,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
 
         return inventory[arr[index]];
     }
-    
+
     public int getOutputIndex(RecipeOutputType type, int index) {
         int[] arr = outputs.get(type);
 
@@ -157,19 +173,34 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         if (index >= arr.length) {
             return -1;
         }
-        
+
         return arr[index];
     }
-    
-    public ItemStack[] getOutputs(RecipeOutputType type) {
+
+    public ItemStack[] getOutputs(RecipeOutputType type, boolean copy) {
         ArrayList<ItemStack> out = new ArrayList<>();
         int[] arr = outputs.get(type);
 
         for (int outputSlot : arr) {
-            out.add(inventory[outputSlot]);
+            out.add(copy ? inventory[outputSlot].copy() : inventory[outputSlot]);
         }
-        
+
         return out.toArray(new ItemStack[0]);
+    }
+
+    public boolean setOutputs(RecipeOutputType type, ItemStack[] stacks) {
+        int[] arr = outputs.get(type);
+
+        // If the lengths are not equal, return
+        if (stacks.length != arr.length) {
+            return false;
+        }
+
+        // If the lenths are equal, write the stacks array to the output
+        for (int i = 0; i < arr.length; i++) {
+            inventory[arr[i]] = stacks[i];
+        }
+        return true;
     }
 
     public void setInput(int index, ItemStack stack) {
