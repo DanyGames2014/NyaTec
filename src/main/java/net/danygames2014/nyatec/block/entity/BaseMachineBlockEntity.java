@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -128,6 +129,15 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         
         return inputs[index];
     }
+    
+    public ItemStack[] getInputs() {
+        ArrayList<ItemStack> out = new ArrayList<>();
+        for (int inputSlot : inputs) {
+            out.add(inventory[inputSlot]);
+        }
+        
+        return out.toArray(new ItemStack[0]);
+    }
 
     public ItemStack getOutput(RecipeOutputType type, int index) {
         int[] arr = outputs.get(type);
@@ -149,6 +159,17 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         }
         
         return arr[index];
+    }
+    
+    public ItemStack[] getOutputs(RecipeOutputType type) {
+        ArrayList<ItemStack> out = new ArrayList<>();
+        int[] arr = outputs.get(type);
+
+        for (int outputSlot : arr) {
+            out.add(inventory[outputSlot]);
+        }
+        
+        return out.toArray(new ItemStack[0]);
     }
 
     public void setInput(int index, ItemStack stack) {
