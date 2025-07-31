@@ -182,6 +182,11 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         int[] arr = outputs.get(type);
 
         for (int outputSlot : arr) {
+            if (inventory[outputSlot] == null) {
+                out.add(null);
+                continue;
+            }
+            
             out.add(copy ? inventory[outputSlot].copy() : inventory[outputSlot]);
         }
 

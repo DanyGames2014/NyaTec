@@ -4,8 +4,10 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.recipe.input.RecipeInput;
 import net.danygames2014.nyatec.recipe.output.RecipeOutput;
+import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
 import net.minecraft.item.ItemStack;
 
+import java.util.HashMap;
 import java.util.Random;
 
 @SuppressWarnings("StringConcatenationArgumentToLogCall")
@@ -120,24 +122,21 @@ public class MachineRecipe {
         return false;
     }
 
-    public ObjectArrayList<ItemStack> getMaxOutputs() {
-        ObjectArrayList<ItemStack> outputs = new ObjectArrayList<>();
+    public HashMap<RecipeOutputType, ObjectArrayList<ItemStack>> getOutputs(Random random) {
+        HashMap<RecipeOutputType, ObjectArrayList<ItemStack>> out = new HashMap<>();
 
         for (RecipeOutput recipeOutput : this.outputs) {
-            outputs.add(recipeOutput.getMaxOutput());
+            if (!out.containsKey(recipeOutput.type)) {
+                out.put(recipeOutput.type, new ObjectArrayList<>());
+            }
+
+            ItemStack outputStack = recipeOutput.getOutput(random);
+            if (outputStack != null) {
+                out.get(recipeOutput.type).add(outputStack);
+            }
         }
 
-        return outputs;
-    }
-
-    public ObjectArrayList<ItemStack> getOutputs(Random random) {
-        ObjectArrayList<ItemStack> outputs = new ObjectArrayList<>();
-
-        for (RecipeOutput recipeOutput : this.outputs) {
-            outputs.add(recipeOutput.getOutput(random));
-        }
-
-        return outputs;
+        return out;
     }
 
     public ObjectArrayList<ItemStack> getCompactOutputs(Random random) {

@@ -4,15 +4,16 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.danygames2014.nyatec.recipe.MaceratorRecipeRegistry;
 import net.danygames2014.nyatec.recipe.MachineRecipe;
 import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+
 public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     public MachineRecipe currentRecipe = null;
-    public ObjectArrayList<ItemStack> currentOutput = null;
+    public HashMap<RecipeOutputType, ObjectArrayList<ItemStack>> currentRecipeOutput = null;
     ItemStack lastInputStack = null;
 
     public MaceratorBlockEntity() {
@@ -38,59 +39,132 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
 
     @Override
     public boolean canProcess() {
-        if(!fetchRecipe()) {
+        long nanoTime = System.nanoTime();
+        
+        if (!fetchRecipe()) {
             return false;
         }
-
-        return canOutput();
+        
+        boolean result = output(true);
+        System.out.println("CANPROCESS CHECK TOOK " + (System.nanoTime() - nanoTime) / 1000 + "μs");
+        return result;
     }
-    
+
     /**
      * Fetches the current recipe according to the input
+     *
      * @return <code>true</code> if a recipe was found or is already present, <code>false</code> if no recipe was found
      */
     public boolean fetchRecipe() {
         // TODO: Do not use hardcoded indexes, but try to figure out a performance efficient way to go about this
-        if (getInput(0) == null) {
-            currentRecipe = null;
-            currentOutput = null;
-            lastInputStack = null;
-            return false;
-        }
-        
+//        if (getInput(0) == null) {
+//            currentRecipe = null;
+//            currentRecipeOutput = null;
+//            lastInputStack = null;
+//            return false;
+//        }
+
         if (inputChanged()) {
+            System.err.println("CHANGED");
             currentRecipe = MaceratorRecipeRegistry.get(new ItemStack[]{getInput(0)});
-            currentOutput = currentRecipe.getOutputs(random);
-            lastInputStack = getInput(0);
-            return true;
+            currentRecipeOutput = currentRecipe != null ? currentRecipe.getOutputs(random) : null;
+            lastInputStack = getInput(0) != null ? getInput(0).copy() : null; 
         }
 
         return currentRecipe != null;
     }
 
     public boolean inputChanged() {
+        if (lastInputStack == null || getInput(0) == null) {
+            return !(lastInputStack == null && getInput(0) == null);
+        }
+
         return !lastInputStack.equals(getInput(0));
     }
 
-    public boolean canOutput() {
-//        for (RecipeOutputType type : RecipeOutputType.values()) {
-//            var outputSlots = this.getOutputs()
-//        }
-        
-        
-        if (getOutput(RecipeOutputType.PRIMARY, 0) != null) {
-            return false;
-        }
+    public boolean output(boolean simulate) {
+        // Loop thru output types
+        for (RecipeOutputType type : RecipeOutputType.values()) {
+            // For each output type get a copy of the output slots
+            ItemStack[] machineSlots = this.getOutputs(type, true);
+            ObjectArrayList<ItemStack> currentRecipeTypeOutput;
 
-        if (getOutput(RecipeOutputType.SECONDARY, 0) != null) {
-            return false;
+            if (!currentRecipeOutput.containsKey(type)) {
+                continue;
+            }
+            
+            if (simulate) {
+                currentRecipeTypeOutput = new ObjectArrayList<>();
+                for (ItemStack item : currentRecipeOutput.get(type)) {
+                    if (item != null) {
+                        currentRecipeTypeOutput.add(item.copy());
+                    } else {
+                        currentRecipeTypeOutput.add(null);
+                    }
+                }
+            } else {
+                currentRecipeTypeOutput = currentRecipeOutput.get(type);
+            }
+
+            // For each stack that needs to be output into the output slots
+            for (int j = 0; j < currentRecipeTypeOutput.size(); j++) {
+                ItemStack outputStack = currentRecipeTypeOutput.get(j);
+
+                //System.err.println(type + " - (" + j + ") " + outputStack);
+
+                if (outputStack == null) {
+                    continue;
+                }
+
+                // First try to find identical stack
+                for (int i = 0; i < machineSlots.length; i++) {
+                    if (outputStack != null && machineSlots[i] != null && outputStack.isItemEqual(machineSlots[i])) {
+                        int movedCount = Math.min(machineSlots[i].getMaxCount() - machineSlots[i].count, outputStack.count);
+
+                        machineSlots[i].count += movedCount;
+                        outputStack.count -= movedCount;
+
+                        if (outputStack.count <= 0) {
+                            currentRecipeTypeOutput.set(j, null);
+                            outputStack = null;
+                        }
+                    }
+                }
+
+                if (outputStack == null) {
+                    continue;
+                }
+
+                // If no identical stack was found, try to find an empty slot
+                for (int i = 0; i < machineSlots.length; i++) {
+                    if (outputStack != null && machineSlots[i] == null) {
+                        machineSlots[i] = outputStack.copy();
+
+                        currentRecipeTypeOutput.set(j, null);
+                        outputStack = null;
+                    }
+                }
+
+                if (outputStack == null) {
+                    continue;
+                }
+
+                // If finding empty slot was not succcesfull, return false
+                return false;
+            }
+
+            if (!simulate) {
+                setOutputs(type, machineSlots);
+            }
         }
 
         return true;
     }
-    
+
     @Override
     public void craftRecipe() {
+        long nanoTime = System.nanoTime();
+        
         if (!canProcess()) {
             return;
         }
@@ -101,11 +175,9 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
             setInput(0, null);
         }
 
-        for (ItemStack output : currentRecipe.getOutputs(random)) {
-            if (output != null) {
-                this.world.spawnEntity(new ItemEntity(world, this.x + 0.5, this.y + 1, this.z + 0.5, output));
-            }
-        }
+        output(false);
+
+        System.out.println("CRAFT TOOK " + (System.nanoTime() - nanoTime) / 1000 + "μs");
     }
 
     // Energy
