@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+@SuppressWarnings("UnusedReturnValue")
 public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTemplate implements Inventory {
     // Progress
     public int progress;
@@ -154,6 +155,10 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
 
         return out.toArray(new ItemStack[0]);
     }
+    
+    public int[] getInputIndexes() {
+        return inputs;
+    }
 
     public ItemStack getOutput(RecipeOutputType type, int index) {
         int[] arr = outputs.get(type);
@@ -191,6 +196,10 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         }
 
         return out.toArray(new ItemStack[0]);
+    }
+    
+    public int[] getOutputIndexes(RecipeOutputType type) {
+        return outputs.get(type);
     }
 
     public boolean setOutputs(RecipeOutputType type, ItemStack[] stacks) {
