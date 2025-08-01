@@ -11,9 +11,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 
+@SuppressWarnings("ForLoopReplaceableByForEach")
 public class MaceratorBlockEntity extends BaseMachineBlockEntity {
+    // TODO: Move this to Base
     public MachineRecipe currentRecipe = null;
+    // TODO: Move this to Base
     public HashMap<RecipeOutputType, ObjectArrayList<ItemStack>> currentRecipeOutput = null;
+    // TODO: Move this to Base
     ItemStack lastInputStack = null;
 
     public MaceratorBlockEntity() {
@@ -27,6 +31,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     public void tick() {
         super.tick();
 
+        // TODO: Make a template machine block with a property and add this to base
         if (!world.isRemote) {
             // Update lit state
             if (progress <= 0 && world.getBlockState(this.x, this.y, this.z).get(Properties.LIT)) {
@@ -45,6 +50,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
             return false;
         }
         
+        // TODO : outputChanged() method so this doesnt run that often
         boolean result = output(true);
         System.out.println("CANPROCESS CHECK TOOK " + (System.nanoTime() - nanoTime) / 1000 + "μs");
         return result;
@@ -75,6 +81,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     }
 
     public boolean inputChanged() {
+        // TODO: Do not use hardcoded indexes, use getInputIndexes()
         if (lastInputStack == null || getInput(0) == null) {
             return !(lastInputStack == null && getInput(0) == null);
         }
@@ -160,6 +167,8 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
 
         return true;
     }
+    
+    // TODO: make a outputChanged() method that uses getOutputIndexes
 
     @Override
     public void craftRecipe() {
@@ -169,8 +178,10 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
             return;
         }
 
+        // TODO: dont use hardcoded indexes
         currentRecipe.consume(new ItemStack[]{getInput(0)});
 
+        // TODO: dont use hardcoded indexes
         if (getInput(0).count <= 0) {
             setInput(0, null);
         }
