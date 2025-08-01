@@ -13,12 +13,11 @@ import java.util.HashMap;
 
 @SuppressWarnings("ForLoopReplaceableByForEach")
 public class MaceratorBlockEntity extends BaseMachineBlockEntity {
-    // TODO: Move this to Base
+    // TODO: Move all of these to Base
     public MachineRecipe currentRecipe = null;
-    // TODO: Move this to Base
     public HashMap<RecipeOutputType, ObjectArrayList<ItemStack>> currentRecipeOutput = null;
-    // TODO: Move this to Base
-    ItemStack lastInputStack = null;
+    private ItemStack[] lastInputStacks = null;
+    private final HashMap<RecipeOutputType, ItemStack[]> lastOutputStacks = new HashMap<>();
 
     public MaceratorBlockEntity() {
         super(100, 2);
@@ -31,7 +30,6 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
     public void tick() {
         super.tick();
 
-        // TODO: Make a template machine block with a property and add this to base
         if (!world.isRemote) {
             // Update lit state
             if (progress <= 0 && world.getBlockState(this.x, this.y, this.z).get(Properties.LIT)) {
@@ -42,18 +40,68 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
         }
     }
 
+    boolean outputAvalible = false;
+
     @Override
     public boolean canProcess() {
-        long nanoTime = System.nanoTime();
-        
+        // Check if a valid recipe exists. If not, we can't process
         if (!fetchRecipe()) {
             return false;
         }
-        
-        // TODO : outputChanged() method so this doesnt run that often
-        boolean result = output(true);
-        System.out.println("CANPROCESS CHECK TOOK " + (System.nanoTime() - nanoTime) / 1000 + "μs");
-        return result;
+
+        // If the output changed, recalculate the outputAvalible field
+        if (outputChanged()) {
+            outputAvalible = output(true);
+
+            for (RecipeOutputType type : RecipeOutputType.values()) {
+                var outIndexes = getOutputIndexes(type);
+                ItemStack[] stacks = new ItemStack[outIndexes.length];
+                for (int i = 0; i < outIndexes.length; i++) {
+                    ItemStack stack = inventory[outIndexes[i]];
+                    stacks[i] = stack != null ? stack.copy() : null;
+                }
+                lastOutputStacks.put(type, stacks);
+            }
+        }
+
+        // Return the value showing if there is space to output the current recipe
+        return outputAvalible;
+    }
+
+    public boolean outputChanged() {
+        for (RecipeOutputType type : RecipeOutputType.values()) {
+            int[] outIndexes = getOutputIndexes(type);
+            ItemStack[] lastStacks = lastOutputStacks.get(type);
+
+            // If lastStacks is null, that means that we haven't ran this check yet
+            if (lastStacks == null) {
+                return true;
+            }
+
+            // This could technically crash if the amount of output slots changes, but if that happens, I wanna know about it
+            for (int i = 0; i < outIndexes.length; i++) {
+                ItemStack currentStack = inventory[outIndexes[i]];
+                ItemStack lastStack = lastStacks[i];
+
+                // Check if one of the stacks is null
+                if (currentStack == null || lastStack == null) {
+                    if (currentStack == null && lastStack == null) {
+                        // If they are both null, then there was no change
+                        continue;
+                    } else {
+                        // If they are not both null, that's a change
+                        return true;
+                    }
+                }
+
+                // Otherwise if both stacks are not null, compare them
+                if (!currentStack.equals(lastStack)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -62,31 +110,52 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
      * @return <code>true</code> if a recipe was found or is already present, <code>false</code> if no recipe was found
      */
     public boolean fetchRecipe() {
-        // TODO: Do not use hardcoded indexes, but try to figure out a performance efficient way to go about this
-//        if (getInput(0) == null) {
-//            currentRecipe = null;
-//            currentRecipeOutput = null;
-//            lastInputStack = null;
-//            return false;
-//        }
-
         if (inputChanged()) {
-            System.err.println("CHANGED");
             currentRecipe = MaceratorRecipeRegistry.get(new ItemStack[]{getInput(0)});
             currentRecipeOutput = currentRecipe != null ? currentRecipe.getOutputs(random) : null;
-            lastInputStack = getInput(0) != null ? getInput(0).copy() : null; 
+
+            int[] inputIndexes = getInputIndexes();
+            lastInputStacks = new ItemStack[inputIndexes.length];
+            for (int i = 0; i < inputIndexes.length; i++) {
+                ItemStack stack = inventory[inputIndexes[i]];
+                lastInputStacks[i] = stack != null ? stack.copy() : null;
+            }
         }
 
         return currentRecipe != null;
     }
 
     public boolean inputChanged() {
-        // TODO: Do not use hardcoded indexes, use getInputIndexes()
-        if (lastInputStack == null || getInput(0) == null) {
-            return !(lastInputStack == null && getInput(0) == null);
+        int[] inputIndexes = getInputIndexes();
+
+        // If lastStacks is null, that means that we haven't ran this check yet
+        if (lastInputStacks == null) {
+            return true;
         }
 
-        return !lastInputStack.equals(getInput(0));
+        // This could technically crash if the amount of output slots changes, but if that happens, I wanna know about it
+        for (int i = 0; i < inputIndexes.length; i++) {
+            ItemStack currentStack = inventory[inputIndexes[i]];
+            ItemStack lastStack = lastInputStacks[i];
+
+            // Check if one of the stacks is null
+            if (currentStack == null || lastStack == null) {
+                if (currentStack == null && lastStack == null) {
+                    // If they are both null, then there was no change
+                    continue;
+                } else {
+                    // If they are not both null, that's a change
+                    return true;
+                }
+            }
+
+            // Otherwise if both stacks are not null, compare them
+            if (!currentStack.equals(lastStack)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public boolean output(boolean simulate) {
@@ -99,7 +168,7 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
             if (!currentRecipeOutput.containsKey(type)) {
                 continue;
             }
-            
+
             if (simulate) {
                 currentRecipeTypeOutput = new ObjectArrayList<>();
                 for (ItemStack item : currentRecipeOutput.get(type)) {
@@ -167,28 +236,23 @@ public class MaceratorBlockEntity extends BaseMachineBlockEntity {
 
         return true;
     }
-    
-    // TODO: make a outputChanged() method that uses getOutputIndexes
 
     @Override
     public void craftRecipe() {
-        long nanoTime = System.nanoTime();
-        
         if (!canProcess()) {
             return;
         }
 
-        // TODO: dont use hardcoded indexes
-        currentRecipe.consume(new ItemStack[]{getInput(0)});
+        currentRecipe.consume(getInputs());
 
-        // TODO: dont use hardcoded indexes
-        if (getInput(0).count <= 0) {
-            setInput(0, null);
+        int[] inputIndexes = getInputIndexes();
+        for (int i = 0; i < inputIndexes.length; i++) {
+            if (inventory[inputIndexes[i]] != null && inventory[inputIndexes[i]].count <= 0) {
+                inventory[inputIndexes[i]] = null;
+            }
         }
 
         output(false);
-
-        System.out.println("CRAFT TOOK " + (System.nanoTime() - nanoTime) / 1000 + "μs");
     }
 
     // Energy
