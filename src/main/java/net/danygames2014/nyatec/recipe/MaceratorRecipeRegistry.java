@@ -48,19 +48,14 @@ public class MaceratorRecipeRegistry {
     }
 
     public static MaceratorRecipe get(ItemStack[] input) {
-        long startTime = System.nanoTime();
-
         var r = getInstance();
 
         // Calculate a hash based on the array contents
         int arrayHash = Arrays.hashCode(input);
         
         // Check if the cache contains this input
-        if (r.cache.containsKey(arrayHash)) {
-            System.out.println("Match time: " + (System.nanoTime() - startTime) / 1000 + "μs [CACHE HIT]");
-        } else {
+        if (!r.cache.containsKey(arrayHash)) {
             r.cache.put(arrayHash, fetch(input));
-            System.out.println("Match time: " + (System.nanoTime() - startTime) / 1000 + "μs");
         }
 
         return r.cache.get(arrayHash);
