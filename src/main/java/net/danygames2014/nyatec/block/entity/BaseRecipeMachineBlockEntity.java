@@ -33,10 +33,65 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
         super(maxProgress, processingSpeed);
     }
 
+    boolean outputAvalible = false;
+
+    @Override
+    public boolean canProcess() {
+        // Check if a valid recipe exists. If not, we can't process
+        if (!fetchRecipe()) {
+            return false;
+        }
+
+        // If the output changed, recalculate the outputAvalible field
+        if (outputChanged()) {
+            outputAvalible = output(true);
+        }
+
+        // Return the value showing if there is space to output the current recipe
+        return outputAvalible;
+    }
+    
+    public abstract boolean fetchRecipe();
+
+    @Override
+    public void craftRecipe() {
+        if (!canProcess()) {
+            return;
+        }
+
+        currentRecipe.consume(getInputs());
+
+        // Clear out stacks with zero (or less?) items
+        int[] inputIndexes = getInputIndexes();
+        //noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < inputIndexes.length; i++) {
+            if (inventory[inputIndexes[i]] != null && inventory[inputIndexes[i]].count <= 0) {
+                inventory[inputIndexes[i]] = null;
+            }
+        }
+
+        output(false);
+    }
+    
+    public boolean inputChanged() {
+        if (checkInputChanged()) {
+            int[] inputIndexes = getInputIndexes();
+            lastInputStacks = new ItemStack[inputIndexes.length];
+            for (int i = 0; i < inputIndexes.length; i++) {
+                ItemStack stack = inventory[inputIndexes[i]];
+                lastInputStacks[i] = stack != null ? stack.copy() : null;
+            }
+            
+            return true;
+        }
+        
+        return false;
+    }
+
     /**
      * @return <code>true</code> if the current machine input is different than the lastInputStacks
      */
-    public boolean inputChanged() {
+    public boolean checkInputChanged() {
         int[] inputIndexes = getInputIndexes();
 
         // If lastStacks is null, that means that we haven't ran this check yet
@@ -69,10 +124,28 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
         return false;
     }
 
+    public boolean outputChanged() {
+        if (checkOutputChanged()) {
+            for (RecipeOutputType type : RecipeOutputType.values()) {
+                var outIndexes = getOutputIndexes(type);
+                ItemStack[] stacks = new ItemStack[outIndexes.length];
+                for (int i = 0; i < outIndexes.length; i++) {
+                    ItemStack stack = inventory[outIndexes[i]];
+                    stacks[i] = stack != null ? stack.copy() : null;
+                }
+                lastOutputStacks.put(type, stacks);
+            }
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
     /**
      * @return <code>true</code> if the current machine output is different than the lastOutputStacks
      */
-    public boolean outputChanged() {
+    public boolean checkOutputChanged() {
         for (RecipeOutputType type : RecipeOutputType.values()) {
             int[] outIndexes = getOutputIndexes(type);
             ItemStack[] lastStacks = lastOutputStacks.get(type);
