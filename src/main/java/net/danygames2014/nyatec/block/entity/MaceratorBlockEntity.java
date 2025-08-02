@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class MaceratorBlockEntity extends BaseRecipeMachineBlockEntity {
     public MaceratorBlockEntity() {
-        super(100, 2);
+        super(200, 2);
         this.addInput();
         this.addOutput(RecipeOutputType.PRIMARY);
         this.addOutput(RecipeOutputType.SECONDARY);
