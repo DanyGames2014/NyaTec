@@ -41,6 +41,7 @@
   "accessWidener": "nyatec.accesswidener",
 
   "depends": {
-    "minecraft": "1.0.0-beta.7.3"
+    "minecraft": "1.0.0-beta.7.3",
+    "stationapi": ">=2.0.0-alpha.4"
   }
 }
