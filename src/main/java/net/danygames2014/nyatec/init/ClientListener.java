@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.client.Minecraft;
 import net.modificationstation.stationapi.api.client.event.render.model.BlockModelPredicateProviderRegistryEvent;
+import net.modificationstation.stationapi.api.client.event.render.model.ItemModelPredicateProviderRegistryEvent;
 
 @Environment(EnvType.CLIENT)
 public class ClientListener {
@@ -13,11 +14,22 @@ public class ClientListener {
     @EventListener
     public void registerBlockModelPredicates(BlockModelPredicateProviderRegistryEvent event) {
         event.registry.register(
-            NyaTec.rubberLeaves, 
-            NyaTec.NAMESPACE.id("graphics"), 
-            (blockState, blockView, blockPos, i) -> {
-                return Minecraft.isFancyGraphicsEnabled() ? 1.0F : 0.0F;
-            }
+                NyaTec.rubberLeaves,
+                NyaTec.NAMESPACE.id("graphics"),
+                (blockState, blockView, blockPos, i) -> {
+                    return Minecraft.isFancyGraphicsEnabled() ? 1.0F : 0.0F;
+                }
+        );
+    }
+
+    @EventListener
+    public void registerItemModelPredicates(ItemModelPredicateProviderRegistryEvent event) {
+        event.registry.register(
+                NyaTec.battery,
+                NyaTec.NAMESPACE.id("charge_level"),
+                (stack, world, entity, seed) -> {
+                    return stack.getStationNbt().getInt("energy");
+                }
         );
     }
 }

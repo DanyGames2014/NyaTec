@@ -1,9 +1,13 @@
 package net.danygames2014.nyatec.block.entity;
 
+import net.danygames2014.nyalib.capability.CapabilityHelper;
+import net.danygames2014.nyalib.capability.item.energyhandler.EnergyStorageItemCapability;
 import net.danygames2014.nyalib.energy.template.block.entity.EnergyConsumerBlockEntityTemplate;
+import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -53,6 +57,8 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
     public void tick() {
         super.tick();
 
+        consumeFuel();
+        
         if (!world.isRemote) {
             processTick();
         }
@@ -80,6 +86,39 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
             // If the progress has reached maximum, craft the recipe
             progress = 0;
             craftRecipe();
+        }
+    }
+    
+    public void consumeFuel() {
+        if (energy == getEnergyCapacity()) {
+            return;
+        }
+
+        ItemStack[] fuelSlots = getSlots(SlotType.FUEL);
+        for (int i = 0; i < fuelSlots.length; i++) {
+            ItemStack fuelStack = fuelSlots[i];
+            
+            if (fuelStack == null) {
+                continue;
+            }
+
+            // Redstone
+            if (fuelStack.getItem() == Item.REDSTONE) {
+                if (energy + NyaTec.MACHINE_CONFIG.redstoneEnergyValue <= getEnergyCapacity()) {
+                    fuelStack.count--;
+                    energy += NyaTec.MACHINE_CONFIG.redstoneEnergyValue;
+                }
+
+                if (fuelStack.count <= 0) {
+                    setSlot(SlotType.FUEL, i, null);
+                }
+            }
+            
+            // Energy Storage Item
+            EnergyStorageItemCapability energyStorage = CapabilityHelper.getCapability(fuelStack, EnergyStorageItemCapability.class);
+            if (energyStorage != null && energyStorage.getEnergyStored() > 0) {
+                addEnergy(energyStorage.extractEnergy(getRemainingCapacity())); 
+            }
         }
     }
 
@@ -142,6 +181,10 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         inventory[arr[index]] = stack;
     }
 
+    public ItemStack[] getSlots(SlotType type) {
+        return getSlots(type, false);
+    }
+    
     public ItemStack[] getSlots(SlotType type, boolean copy) {
         ArrayList<ItemStack> out = new ArrayList<>();
         int[] arr = slots.get(type);

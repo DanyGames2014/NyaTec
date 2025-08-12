@@ -1,0 +1,32 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "nyatec:item/battery_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "nyatec:charge_level": 500
+      },
+      "model": "nyatec:item/basic_battery_1"
+    },
+    {
+      "predicate": {
+        "nyatec:charge_level": 1000
+      },
+      "model": "nyatec:item/basic_battery_2"
+    },
+    {
+      "predicate": {
+        "nyatec:charge_level": 1500
+      },
+      "model": "nyatec:item/basic_battery_3"
+    },
+    {
+      "predicate": {
+        "nyatec:charge_level": 2000
+      },
+      "model": "nyatec:item/basic_battery_4"
+    }
+  ]
+}

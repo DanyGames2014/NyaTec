@@ -4,6 +4,7 @@ import net.danygames2014.nyalib.block.RotateableBlockTemplate;
 import net.danygames2014.nyatec.block.*;
 import net.danygames2014.nyatec.block.entity.*;
 import net.danygames2014.nyatec.block.material.CableMaterial;
+import net.danygames2014.nyatec.item.BatteryItem;
 import net.danygames2014.nyatec.item.MultimeterItem;
 import net.danygames2014.nyatec.screen.BatteryBoxScreen;
 import net.danygames2014.nyatec.screen.ElectricFurnaceScreen;
@@ -62,10 +63,12 @@ public class NyaTec {
     public static Material cableMaterial = new CableMaterial(MapColor.LIGHT_GRAY).setTransparent();
     
     public static Item multimeter;
+    public static Item battery;
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
         multimeter = new MultimeterItem(NAMESPACE.id("multimeter")).setTranslationKey(NAMESPACE, "multimeter");
+        battery = new BatteryItem(NAMESPACE.id("basic_battery"), 2000).setTranslationKey(NAMESPACE, "basic_battery");
     }
 
     @EventListener

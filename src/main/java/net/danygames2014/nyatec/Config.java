@@ -27,6 +27,9 @@ public class Config {
     }
     
     public static class MachineConfig {
+        @ConfigEntry(name = "Redstone Energy Value", description = "How much energy units will redstone yield", minValue = 1, maxValue = 1000)
+        public Integer redstoneEnergyValue = 50;
+        
         @ConfigCategory(name = "Generator")
         public GeneratorConfig generator = new GeneratorConfig();
         

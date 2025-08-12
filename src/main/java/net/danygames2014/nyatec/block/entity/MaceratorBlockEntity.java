@@ -5,6 +5,7 @@ import net.danygames2014.nyatec.recipe.MachineRecipe;
 import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.modificationstation.stationapi.api.registry.BlockRegistry;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
@@ -21,21 +22,6 @@ public class MaceratorBlockEntity extends BaseRecipeMachineBlockEntity {
     @Override
     public void tick() {
         super.tick();
-
-        if (energy <= 90) {
-            if (getSlot(SlotType.FUEL, 0) != null) {
-                ItemStack fuelStack = getSlot(SlotType.FUEL, 0);
-                if (fuelStack.getItem() == Item.REDSTONE) {
-                    fuelStack.count--;
-                    energy += 10;
-                }
-
-                if (fuelStack.count <= 0) {
-                    setSlot(SlotType.FUEL, 0, null);
-                }
-            }
-        }
-
 
         if (!world.isRemote) {
             // Update lit state
