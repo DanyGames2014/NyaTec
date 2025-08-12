@@ -1,6 +1,7 @@
 package net.danygames2014.nyatec.screen.handler;
 
 import net.danygames2014.nyatec.block.entity.MaceratorBlockEntity;
+import net.danygames2014.nyatec.block.entity.SlotType;
 import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -58,6 +59,9 @@ public class MaceratorScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(macerator, macerator.getOutputIndex(RecipeOutputType.PRIMARY, 0), 116, 35));
 
         this.addSlot(new Slot(macerator, macerator.getOutputIndex(RecipeOutputType.SECONDARY, 0), 116, 60));
+        
+        // Fuel Slot
+        this.addSlot(new Slot(macerator, macerator.getSlotInventoryIndex(SlotType.FUEL, 0), 56, 53));
     }
 
     @Environment(EnvType.SERVER)

@@ -15,11 +15,27 @@ public class MaceratorBlockEntity extends BaseRecipeMachineBlockEntity {
         this.addInput();
         this.addOutput(RecipeOutputType.PRIMARY);
         this.addOutput(RecipeOutputType.SECONDARY);
+        this.addSlot(SlotType.FUEL);
     }
 
     @Override
     public void tick() {
         super.tick();
+
+        if (energy <= 90) {
+            if (getSlot(SlotType.FUEL, 0) != null) {
+                ItemStack fuelStack = getSlot(SlotType.FUEL, 0);
+                if (fuelStack.getItem() == Item.REDSTONE) {
+                    fuelStack.count--;
+                    energy += 10;
+                }
+
+                if (fuelStack.count <= 0) {
+                    setSlot(SlotType.FUEL, 0, null);
+                }
+            }
+        }
+
 
         if (!world.isRemote) {
             // Update lit state
