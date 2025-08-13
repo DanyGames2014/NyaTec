@@ -1,32 +1,44 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "nyatec:item/battery_0"
+    "layer0": "nyatec:item/basic_battery"
   },
   "overrides": [
     {
       "predicate": {
-        "nyatec:charge_level": 500
+        "nyatec:charge_level": 100
       },
       "model": "nyatec:item/basic_battery_1"
     },
     {
       "predicate": {
-        "nyatec:charge_level": 1000
+        "nyatec:charge_level": 400
       },
       "model": "nyatec:item/basic_battery_2"
     },
     {
       "predicate": {
-        "nyatec:charge_level": 1500
+        "nyatec:charge_level": 800
       },
       "model": "nyatec:item/basic_battery_3"
     },
     {
       "predicate": {
-        "nyatec:charge_level": 2000
+        "nyatec:charge_level": 1200
       },
       "model": "nyatec:item/basic_battery_4"
+    },
+    {
+      "predicate": {
+        "nyatec:charge_level": 1600
+      },
+      "model": "nyatec:item/basic_battery_5"
+    },
+    {
+      "predicate": {
+        "nyatec:charge_level": 2000
+      },
+      "model": "nyatec:item/basic_battery_6"
     }
   ]
 }
