@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
+    "particle": "nyatec:block/rubber_log_side",
     "side": "nyatec:block/rubber_log_side",
     "end": "nyatec:block/rubber_log_top"
   }

@@ -1,6 +1,7 @@
 {
   "parent": "block/cube",
   "textures": {
+    "particle": "nyatec:block/battery_box_output", 
     "down": "nyatec:block/basic_machine_side",
     "up": "nyatec:block/battery_box_output",
     "north": "nyatec:block/basic_machine_side",

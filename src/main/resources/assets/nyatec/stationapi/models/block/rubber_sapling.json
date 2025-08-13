@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
+    "particle": "nyatec:block/rubber_sapling",
     "cross": "nyatec:block/rubber_sapling"
   }
 }

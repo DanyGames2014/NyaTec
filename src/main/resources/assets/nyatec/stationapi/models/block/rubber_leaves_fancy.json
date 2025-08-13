@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
+    "particle": "nyatec:block/rubber_leaves_fancy",
     "all": "nyatec:block/rubber_leaves_fancy"
   }
 }
