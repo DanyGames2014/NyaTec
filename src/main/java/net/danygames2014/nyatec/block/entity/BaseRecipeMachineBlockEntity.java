@@ -8,12 +8,12 @@ import net.minecraft.item.ItemStack;
 
 import java.util.HashMap;
 
-public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntity{
+public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntity {
     /**
      * This is the current recipe being processed. <code>null</code> if no recipe is being processed
      */
     public MachineRecipe currentRecipe = null;
-    
+
     /**
      * This is the output that the current recipe will yield
      * TODO: prevent recipe rerolling
@@ -88,7 +88,12 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
 
         output(false);
     }
-    
+
+    @Override
+    public int getMaxProgress() {
+        return currentRecipe != null ? currentRecipe.recipeTime : super.getMaxProgress();
+    }
+
     public boolean inputChanged() {
         if (checkInputChanged()) {
             int[] inputIndexes = getInputIndexes();
@@ -97,10 +102,10 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
                 ItemStack stack = inventory[inputIndexes[i]];
                 lastInputStacks[i] = stack != null ? stack.copy() : null;
             }
-            
+
             return true;
         }
-        
+
         return false;
     }
 
@@ -151,13 +156,13 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
                 }
                 lastOutputStacks.put(type, stacks);
             }
-            
+
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * @return <code>true</code> if the current machine output is different than the lastOutputStacks
      */
@@ -199,7 +204,7 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
 
     /**
      * Takes the current recipe output and tries to fit them into the machine output
-     * 
+     *
      * @param simulate If <code>true</code>, the action will be simulated, but not executed
      * @return Whether the action was succesfull
      */

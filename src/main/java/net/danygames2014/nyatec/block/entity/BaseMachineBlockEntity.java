@@ -82,7 +82,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         if (progress < 0) {
             // If progress is less than zero, clamp it to zero
             progress = 0;
-        } else if (progress >= maxProgress) {
+        } else if (progress >= getMaxProgress()) {
             // If the progress has reached maximum, craft the recipe
             progress = 0;
             craftRecipe();
@@ -126,6 +126,10 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
 
     public abstract void craftRecipe();
 
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+    
     // Machine Inventory
     public ItemStack[] inventory;
     public int inventoryIndex;

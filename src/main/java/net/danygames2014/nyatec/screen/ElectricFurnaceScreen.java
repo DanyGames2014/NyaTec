@@ -36,7 +36,7 @@ public class ElectricFurnaceScreen extends HandledScreen {
         }
         
         if (blockEntity.progress > 0) {
-            int cookProgress = (int) (((float) blockEntity.progress / blockEntity.maxProgress) * 22F);
+            int cookProgress = (int) (((float) blockEntity.progress / blockEntity.getMaxProgress()) * 22F);
             drawTexture(x + 80, y + 35, 177, 14, cookProgress, 16);
         }
     }

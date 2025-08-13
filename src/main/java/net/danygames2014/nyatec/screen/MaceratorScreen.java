@@ -37,7 +37,7 @@ public class MaceratorScreen extends HandledScreen {
         }
         
         if (macerator.progress > 0) {
-            int cookProgress = (int) (((float) macerator.progress / macerator.maxProgress) * 22F);
+            int cookProgress = (int) (((float) macerator.progress / macerator.getMaxProgress()) * 22F);
             drawTexture(x + 80, y + 35, 177, 14, cookProgress, 16);
         }
     }
