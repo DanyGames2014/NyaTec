@@ -11,10 +11,18 @@ import org.jetbrains.annotations.NotNull;
 
 public class BatteryItem extends TemplateItem implements EnergyStorageItem, CustomTooltipProvider {
     private final int capacity;
+    private final float multiplier;
 
     public BatteryItem(Identifier identifier, int capacity) {
         super(identifier);
         this.capacity = capacity;
+        this.setMaxDamage(100);
+        this.setMaxCount(16);
+        this.multiplier = (1.0F / capacity) * getMaxDamage();
+    }
+
+    public int getScaledEnergy(ItemStack stack) {
+        return (int) ((float) getRemainingCapacity(stack) * multiplier);
     }
 
     @Override
@@ -28,8 +36,17 @@ public class BatteryItem extends TemplateItem implements EnergyStorageItem, Cust
     }
 
     @Override
+    public int addEnergy(ItemStack stack, int amount) {
+        if (stack.count > 1) {
+            return 0;
+        }
+        return EnergyStorageItem.super.addEnergy(stack, amount);
+    }
+
+    @Override
     public int setEnergy(ItemStack stack, int value) {
         stack.getStationNbt().putInt("energy", value);
+        stack.setDamage(getScaledEnergy(stack));
         return value;
     }
 
