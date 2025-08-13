@@ -29,12 +29,13 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
      * The stacks against which the output is compared to determine if the output has changed
      */
     public final HashMap<RecipeOutputType, ItemStack[]> lastOutputStacks = new HashMap<>();
-    
+
     public BaseRecipeMachineBlockEntity(int maxProgress, int processingSpeed) {
         super(maxProgress, processingSpeed);
     }
 
-    boolean outputAvalible = false;
+    boolean canOutput = false;
+    boolean recipeChanged = false;
 
     @Override
     public boolean canProcess() {
@@ -44,18 +45,20 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
         }
 
         // If the output changed, recalculate the outputAvalible field
-        if (outputChanged()) {
-            outputAvalible = output(true);
+        if (recipeChanged || outputChanged()) {
+            canOutput = output(true);
+            recipeChanged = false;
         }
 
         // Return the value showing if there is space to output the current recipe
-        return outputAvalible;
+        return canOutput;
     }
-    
+
     public boolean checkRecipe() {
         if (inputChanged()) {
             currentRecipe = MaceratorRecipeRegistry.get(getInputs());
             currentRecipeOutput = currentRecipe != null ? currentRecipe.getOutputs(random) : null;
+            recipeChanged = true;
         }
 
         return currentRecipe != null;
