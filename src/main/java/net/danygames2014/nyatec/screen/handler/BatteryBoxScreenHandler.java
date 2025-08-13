@@ -1,8 +1,6 @@
 package net.danygames2014.nyatec.screen.handler;
 
 import net.danygames2014.nyatec.block.entity.BatteryBoxBlockEntity;
-import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
-import net.danygames2014.nyatec.screen.slot.GeneratorFuelSlot;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,6 +49,12 @@ public class BatteryBoxScreenHandler extends ScreenHandler {
                     )
             );
         }
+
+        // Charge Slot
+        this.addSlot(new Slot(blockEntity, 0, 56, 17));
+
+        // Discharge Slot
+        this.addSlot(new Slot(blockEntity, 1, 56, 53));
     }
 
     @Environment(EnvType.SERVER)
