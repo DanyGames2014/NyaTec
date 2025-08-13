@@ -58,7 +58,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -179,7 +180,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "2d1040f127db6ee7",
+  "active": "b2f9fba8dd4137b0",
   "lastOpenFiles": [
     "Ores/Ore Design Principles.md",
     "Ores/Candidate Ore List.md",
