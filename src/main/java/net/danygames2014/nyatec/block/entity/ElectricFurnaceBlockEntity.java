@@ -13,6 +13,7 @@ public class ElectricFurnaceBlockEntity extends BaseMachineBlockEntity {
         super(200, 2);
         addInput();
         addOutput(PRIMARY);
+        addSlot(SlotType.FUEL);
     }
 
     @Override

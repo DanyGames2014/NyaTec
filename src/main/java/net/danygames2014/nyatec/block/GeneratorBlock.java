@@ -13,11 +13,10 @@ import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.item.ItemPlacementContext;
 import net.modificationstation.stationapi.api.state.StateManager;
-import net.modificationstation.stationapi.api.state.property.BooleanProperty;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-public class GeneratorBlock extends EnergySourceBlockTemplate {
+public class GeneratorBlock extends EnergySourceBlockTemplate implements DropInventoryOnBreak{
     public GeneratorBlock(Identifier identifier, Material material) {
         super(identifier, material);
     }

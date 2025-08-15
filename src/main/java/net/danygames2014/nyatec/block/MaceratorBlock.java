@@ -16,7 +16,7 @@ import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-public class MaceratorBlock extends EnergyConsumerBlockTemplate {
+public class MaceratorBlock extends EnergyConsumerBlockTemplate implements DropInventoryOnBreak {
     public MaceratorBlock(Identifier identifier, Material material) {
         super(identifier, material);
     }

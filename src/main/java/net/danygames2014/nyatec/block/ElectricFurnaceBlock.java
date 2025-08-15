@@ -3,9 +3,7 @@ package net.danygames2014.nyatec.block;
 import net.danygames2014.nyalib.energy.template.block.EnergyConsumerBlockTemplate;
 import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.block.entity.ElectricFurnaceBlockEntity;
-import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
 import net.danygames2014.nyatec.screen.handler.ElectricFurnaceScreenHandler;
-import net.danygames2014.nyatec.screen.handler.GeneratorScreenHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.material.Material;
@@ -18,7 +16,7 @@ import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-public class ElectricFurnaceBlock extends EnergyConsumerBlockTemplate {
+public class ElectricFurnaceBlock extends EnergyConsumerBlockTemplate implements DropInventoryOnBreak {
     public ElectricFurnaceBlock(Identifier identifier, Material material) {
         super(identifier, material);
     }
