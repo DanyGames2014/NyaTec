@@ -56,12 +56,6 @@ public class GeneratorBlock extends EnergySourceBlockTemplate implements DropInv
         return false;
     }
 
-    // DropInventoryOnBreak
-    @Override
-    public boolean shouldDropInventory(World world, int x, int y, int z) {
-        return true;
-    }
-
     // Wrenchable
     @Override
     public boolean wrenchRightClick(ItemStack stack, PlayerEntity player, boolean isSneaking, World world, int x, int y, int z, int side, WrenchMode wrenchMode) {
