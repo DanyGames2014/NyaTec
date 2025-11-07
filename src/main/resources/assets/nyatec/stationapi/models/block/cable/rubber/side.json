@@ -1,0 +1,6 @@
+{
+  "parent": "nyatec:block/cable/template/side_6",
+  "textures": {
+    "texture": "nyatec:block/cable/rubber_6"
+  }
+}

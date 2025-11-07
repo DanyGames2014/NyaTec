@@ -1,6 +1,0 @@
-{
-  "parent": "nyatec:block/cable/template/center",
-  "textures": {
-    "texture": "nyatec:block/test_cable"
-  }
-}
