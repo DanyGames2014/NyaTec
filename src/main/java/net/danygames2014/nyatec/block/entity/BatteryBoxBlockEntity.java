@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
@@ -87,7 +88,13 @@ public class BatteryBoxBlockEntity extends BaseEnergyStorageBlockEntity implemen
 
     @Override
     public boolean canExtractEnergy(@Nullable Direction direction) {
-        return this.world.getBlockState(this.x, this.y, this.z).get(Properties.FACING).equals(direction);
+        BlockState state = world.getBlockState(this.x, this.y, this.z);
+
+        if (!state.isOf(this.getBlock())) {
+            return false;
+        }
+
+        return state.get(Properties.FACING).equals(direction);
     }
 
     @Override
@@ -107,7 +114,13 @@ public class BatteryBoxBlockEntity extends BaseEnergyStorageBlockEntity implemen
 
     @Override
     public boolean canReceiveEnergy(@Nullable Direction direction) {
-        return !this.world.getBlockState(this.x, this.y, this.z).get(Properties.FACING).equals(direction);
+        BlockState state = world.getBlockState(this.x, this.y, this.z);
+        
+        if (!state.isOf(this.getBlock())) {
+            return false;
+        }
+        
+        return !state.get(Properties.FACING).equals(direction);
     }
 
     @Override

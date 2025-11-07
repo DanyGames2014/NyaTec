@@ -2,6 +2,8 @@ package net.danygames2014.nyatec;
 
 import net.danygames2014.nyalib.block.RotateableBlockTemplate;
 import net.danygames2014.nyatec.block.*;
+import net.danygames2014.nyatec.block.cable.GoldenCableBlock;
+import net.danygames2014.nyatec.block.cable.RubberCableBlock;
 import net.danygames2014.nyatec.block.entity.*;
 import net.danygames2014.nyatec.block.material.CableMaterial;
 import net.danygames2014.nyatec.item.BatteryItem;
@@ -30,7 +32,6 @@ import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.template.block.TemplateBlock;
 import net.modificationstation.stationapi.api.util.Namespace;
-import net.modificationstation.stationapi.impl.client.network.StationItemsClientNetworkHandler;
 import org.apache.logging.log4j.Logger;
 
 public class NyaTec {

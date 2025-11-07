@@ -1,4 +1,4 @@
-package net.danygames2014.nyatec.block;
+package net.danygames2014.nyatec.block.cable;
 
 import net.danygames2014.nyalib.energy.EnergyConductor;
 import net.danygames2014.nyalib.network.*;

@@ -6,7 +6,7 @@ import net.danygames2014.nyalib.network.NetworkManager;
 import net.danygames2014.nyalib.network.NetworkType;
 import net.danygames2014.nyalib.network.energy.EnergyNetwork;
 import net.danygames2014.nyatec.NyaTec;
-import net.danygames2014.nyatec.block.CableBlockTemplate;
+import net.danygames2014.nyatec.block.cable.CableBlockTemplate;
 import net.danygames2014.whatsthis.api.IProbeHitData;
 import net.danygames2014.whatsthis.api.IProbeInfo;
 import net.danygames2014.whatsthis.api.IProbeInfoProvider;
