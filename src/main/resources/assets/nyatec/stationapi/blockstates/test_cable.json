@@ -2,12 +2,12 @@
   "multipart": [
     {
       "apply": {
-        "model": "nyatec:block/test_cable_center"
+        "model": "nyatec:block/cable/test/center"
       }
     },
     {
       "apply": {
-        "model": "nyatec:block/test_cable_side",
+        "model": "nyatec:block/cable/test/side",
         "uvlock": false,
         "y": 0
       },
@@ -17,7 +17,7 @@
     },
     {
       "apply": {
-        "model": "nyatec:block/test_cable_side",
+        "model": "nyatec:block/cable/test/side",
         "uvlock": false,
         "y": 90
       },
@@ -27,7 +27,7 @@
     },
     {
       "apply": {
-        "model": "nyatec:block/test_cable_side",
+        "model": "nyatec:block/cable/test/side",
         "uvlock": false,
         "y": 180
       },
@@ -37,7 +37,7 @@
     },
     {
       "apply": {
-        "model": "nyatec:block/test_cable_side",
+        "model": "nyatec:block/cable/test/side",
         "uvlock": false,
         "y": 270
       },
@@ -47,7 +47,7 @@
     },
     {
       "apply": {
-        "model": "nyatec:block/test_cable_top_bottom",
+        "model": "nyatec:block/cable/test/top_bottom",
         "uvlock": false,
         "x": 180
       },
@@ -57,7 +57,7 @@
     },
     {
       "apply": {
-        "model": "nyatec:block/test_cable_top_bottom",
+        "model": "nyatec:block/cable/test/top_bottom",
         "uvlock": false,
         "x": 0
       },
