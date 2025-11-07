@@ -1,5 +1,6 @@
 package net.danygames2014.nyatec.block;
 
+import net.danygames2014.nyalib.block.DropInventoryOnBreak;
 import net.danygames2014.nyalib.energy.template.block.EnergySourceBlockTemplate;
 import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.block.entity.GeneratorBlockEntity;
@@ -16,7 +17,7 @@ import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-public class GeneratorBlock extends EnergySourceBlockTemplate implements DropInventoryOnBreak{
+public class GeneratorBlock extends EnergySourceBlockTemplate implements DropInventoryOnBreak {
     public GeneratorBlock(Identifier identifier, Material material) {
         super(identifier, material);
     }
@@ -49,5 +50,10 @@ public class GeneratorBlock extends EnergySourceBlockTemplate implements DropInv
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean shouldDropInventory(World world, int x, int y, int z) {
+        return true;
     }
 }

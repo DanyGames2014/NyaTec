@@ -1,5 +1,6 @@
 package net.danygames2014.nyatec.block;
 
+import net.danygames2014.nyalib.block.DropInventoryOnBreak;
 import net.danygames2014.nyalib.energy.template.block.EnergyConsumerBlockTemplate;
 import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.block.entity.MaceratorBlockEntity;
@@ -45,5 +46,10 @@ public class MaceratorBlock extends EnergyConsumerBlockTemplate implements DropI
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean shouldDropInventory(World world, int x, int y, int z) {
+        return true;
     }
 }
