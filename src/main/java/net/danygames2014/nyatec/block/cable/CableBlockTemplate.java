@@ -195,9 +195,11 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     @Override
     public boolean wrenchRightClick(ItemStack stack, PlayerEntity player, boolean isSneaking, World world, int x, int y, int z, int side, WrenchMode wrenchMode) {
         if (wrenchMode == WrenchMode.MODE_WRENCH) {
-            if (player.isSneaking()) {
-                this.drop(world, x, y, z, world.getBlockState(x, y, z), world.getBlockMeta(x, y, z));
+            if (isSneaking) {
+                int meta = world.getBlockMeta(x, y, z);
                 world.setBlockStateWithNotify(x, y, z, States.AIR.get());
+                this.dropStacks(world, x, y, z, meta);
+                return true;
             }
         }
 

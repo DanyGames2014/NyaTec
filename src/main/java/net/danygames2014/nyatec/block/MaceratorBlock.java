@@ -5,19 +5,23 @@ import net.danygames2014.nyalib.energy.template.block.EnergyConsumerBlockTemplat
 import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.block.entity.MaceratorBlockEntity;
 import net.danygames2014.nyatec.screen.handler.MaceratorScreenHandler;
+import net.danygames2014.uniwrench.api.WrenchMode;
+import net.danygames2014.uniwrench.api.Wrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
+import net.modificationstation.stationapi.api.block.States;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.item.ItemPlacementContext;
 import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-public class MaceratorBlock extends EnergyConsumerBlockTemplate implements DropInventoryOnBreak {
+public class MaceratorBlock extends EnergyConsumerBlockTemplate implements DropInventoryOnBreak, Wrenchable {
     public MaceratorBlock(Identifier identifier, Material material) {
         super(identifier, material);
     }
@@ -48,8 +52,23 @@ public class MaceratorBlock extends EnergyConsumerBlockTemplate implements DropI
         return false;
     }
 
+    // DropInventoryOnBreak
     @Override
     public boolean shouldDropInventory(World world, int x, int y, int z) {
         return true;
+    }
+
+    // Wrenchable
+    @Override
+    public boolean wrenchRightClick(ItemStack stack, PlayerEntity player, boolean isSneaking, World world, int x, int y, int z, int side, WrenchMode wrenchMode) {
+        if (wrenchMode == WrenchMode.MODE_WRENCH) {
+            if (isSneaking) {
+                int meta = world.getBlockMeta(x, y, z);
+                world.setBlockStateWithNotify(x, y, z, States.AIR.get());
+                this.dropStacks(world, x, y, z, meta);
+                return true;
+            }
+        }
+        return false;
     }
 }
