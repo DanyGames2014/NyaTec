@@ -56,9 +56,14 @@ public abstract class BaseRecipeMachineBlockEntity extends BaseMachineBlockEntit
 
     public boolean checkRecipe() {
         if (inputChanged()) {
-            currentRecipe = MaceratorRecipeRegistry.get(getInputs());
+            currentRecipe = fetchRecipe(getInputs());
             currentRecipeOutput = currentRecipe != null ? currentRecipe.getOutputs(random) : null;
             recipeChanged = true;
+        }
+        
+        if (currentRecipe != null && !currentRecipe.matches(getInputs())) {
+            currentRecipe = null;
+            return false;
         }
 
         return currentRecipe != null;
