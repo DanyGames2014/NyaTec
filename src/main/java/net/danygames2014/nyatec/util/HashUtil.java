@@ -3,7 +3,11 @@ package net.danygames2014.nyatec.util;
 import net.minecraft.item.ItemStack;
 
 public class HashUtil {
-    private static final long C1 = 0x9E3779B97F4A7C15L; // golden ratio constant
+    /**
+     * Golden Ratio Constant. Improves the hash distribution
+     * See <a href="https://softwareengineering.stackexchange.com/questions/402542/">softwareengineering.stackexchange.com/questions/402542/</a>
+     */
+    private static final long C1 = 0x9E3779B97F4A7C15L;
 
     public static long hashStack(ItemStack s) {
         if (s == null) return 0L;
