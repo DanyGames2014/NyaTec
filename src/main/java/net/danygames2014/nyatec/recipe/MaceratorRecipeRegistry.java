@@ -2,7 +2,10 @@ package net.danygames2014.nyatec.recipe;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.danygames2014.nyatec.NyaTec;
+import net.danygames2014.nyatec.util.HashUtil;
 import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.util.Identifier;
 
@@ -12,7 +15,7 @@ import java.util.HashMap;
 @SuppressWarnings("StringConcatenationArgumentToLogCall")
 public class MaceratorRecipeRegistry {
     public final HashMap<Identifier, MaceratorRecipe> registry;
-    public final Int2ObjectMap<MaceratorRecipe> cache;
+    public final Long2ObjectOpenHashMap<MaceratorRecipe> cache;
 
     public static MaceratorRecipeRegistry INSTANCE;
 
@@ -26,7 +29,7 @@ public class MaceratorRecipeRegistry {
 
     public MaceratorRecipeRegistry() {
         this.registry = new HashMap<>();
-        this.cache = new Int2ObjectOpenHashMap<>();
+        this.cache = new Long2ObjectOpenHashMap<>();
     }
 
     public static HashMap<Identifier, MaceratorRecipe> getRegistry() {
@@ -51,7 +54,7 @@ public class MaceratorRecipeRegistry {
         var r = getInstance();
 
         // Calculate a hash based on the array contents
-        int arrayHash = Arrays.hashCode(input);
+        long arrayHash = HashUtil.hashInputs(input);
         
         // Check if the cache contains this input
         if (!r.cache.containsKey(arrayHash)) {
