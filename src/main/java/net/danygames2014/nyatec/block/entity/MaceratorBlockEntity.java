@@ -20,20 +20,6 @@ public class MaceratorBlockEntity extends BaseRecipeMachineBlockEntity {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-
-        if (!world.isRemote) {
-            // Update lit state
-            if (progress <= 0 && world.getBlockState(this.x, this.y, this.z).get(Properties.LIT)) {
-                world.setBlockStateWithNotify(this.x, this.y, this.z, world.getBlockState(this.x, this.y, this.z).with(Properties.LIT, false));
-            } else if (progress > 0 && !world.getBlockState(this.x, this.y, this.z).get(Properties.LIT)) {
-                world.setBlockStateWithNotify(this.x, this.y, this.z, world.getBlockState(this.x, this.y, this.z).with(Properties.LIT, true));
-            }
-        }
-    }
-
-    @Override
     public MachineRecipe fetchRecipe(ItemStack[] input) {
         return MaceratorRecipeRegistry.get(input);
     }

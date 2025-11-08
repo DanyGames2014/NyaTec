@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.modificationstation.stationapi.api.state.property.Properties;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,9 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
 
     // Random
     public Random random;
+
+    // Lit State
+    boolean lit = false;
 
     public BaseMachineBlockEntity(int maxProgress, int processingSpeed) {
         // Progress
@@ -58,9 +62,12 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         super.tick();
 
         consumeFuel();
-        
+
         if (!world.isRemote) {
             processTick();
+            
+            // Update lit state
+            world.setBlockStateWithNotify(this.x, this.y, this.z, world.getBlockState(this.x, this.y, this.z).with(Properties.LIT, lit));
         }
     }
 
@@ -70,13 +77,16 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
             if (this.energy > 0) {
                 // If we can process and have the energy, process the recipe
                 progress += removeEnergy(processingSpeed);
+                lit = true;
             } else {
                 // If we can process but don't have the energy, slowly revert
                 progress -= 2;
+                lit = false;
             }
         } else {
             // If we can't process, revert progress to 0
             progress = 0;
+            lit = false;
         }
 
         if (progress < 0) {
@@ -88,7 +98,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
             craftRecipe();
         }
     }
-    
+
     public void consumeFuel() {
         if (energy == getEnergyCapacity()) {
             return;
@@ -97,7 +107,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
         ItemStack[] fuelSlots = getSlots(SlotType.FUEL);
         for (int i = 0; i < fuelSlots.length; i++) {
             ItemStack fuelStack = fuelSlots[i];
-            
+
             if (fuelStack == null) {
                 continue;
             }
@@ -113,11 +123,11 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
                     setSlot(SlotType.FUEL, i, null);
                 }
             }
-            
+
             // Energy Storage Item
             EnergyStorageItemCapability energyStorage = CapabilityHelper.getCapability(fuelStack, EnergyStorageItemCapability.class);
             if (energyStorage != null && energyStorage.getEnergyStored() > 0) {
-                addEnergy(energyStorage.extractEnergy(getRemainingCapacity())); 
+                addEnergy(energyStorage.extractEnergy(getRemainingCapacity()));
             }
         }
     }
@@ -129,7 +139,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
     public int getMaxProgress() {
         return maxProgress;
     }
-    
+
     // Machine Inventory
     public ItemStack[] inventory;
     public int inventoryIndex;
@@ -188,7 +198,7 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
     public ItemStack[] getSlots(SlotType type) {
         return getSlots(type, false);
     }
-    
+
     public ItemStack[] getSlots(SlotType type, boolean copy) {
         ArrayList<ItemStack> out = new ArrayList<>();
         int[] arr = slots.get(type);
