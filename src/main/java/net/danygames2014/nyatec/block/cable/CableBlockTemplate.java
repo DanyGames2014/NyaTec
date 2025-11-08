@@ -10,7 +10,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
@@ -127,7 +129,7 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
 
         return Box.createCached(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
     }
-
+    
     @Override
     public void addIntersectingBoundingBox(World world, int x, int y, int z, Box box, ArrayList boxes) {
         BlockState state = world.getBlockState(x, y, z);
@@ -166,6 +168,35 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
 
     }
 
+    @Override
+    public HitResult raycast(World world, int x, int y, int z, Vec3d startPos, Vec3d endPos) {
+        Box box = getBoundingBox(world, x, y, z).expand(0.05D, 0.05D, 0.05D);
+        
+        this.updateBoundingBox(world, x, y, z);
+        
+        HitResult hitResult = box.raycast(startPos, endPos);
+        
+        if (hitResult == null) {
+            return null;
+        }
+        
+        if (hitResult.blockX == 0 && hitResult.blockY == 0 && hitResult.blockZ == 0) {
+            return new HitResult(x,y,z,hitResult.side, hitResult.pos);
+        }
+        
+        return hitResult;
+    }
+
+    @Override
+    public boolean isFullCube() {
+        return false;
+    }
+
+    @Override
+    public boolean isOpaque() {
+        return false;
+    }
+
     // Network Node Component
     @Override
     public boolean canConnectTo(World world, int x, int y, int z, @Nullable Network network, Direction dir) {
@@ -179,16 +210,6 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     @Override
     public NetworkType getNetworkType() {
         return NetworkType.ENERGY;
-    }
-
-    @Override
-    public boolean isFullCube() {
-        return false;
-    }
-
-    @Override
-    public boolean isOpaque() {
-        return false;
     }
 
     // Wrenchable
