@@ -1,7 +1,9 @@
 package net.danygames2014.nyatec.init;
 
 import net.danygames2014.nyatec.NyaTec;
+import net.danygames2014.nyatec.event.InductionFurnaceRecipeRegisterEvent;
 import net.danygames2014.nyatec.event.MaceratorRecipeRegisterEvent;
+import net.danygames2014.nyatec.recipe.InductionFurnaceRecipe;
 import net.danygames2014.nyatec.recipe.MaceratorRecipe;
 import net.danygames2014.nyatec.recipe.input.ItemRecipeInput;
 import net.danygames2014.nyatec.recipe.output.ChanceRecipeOutput;
@@ -32,5 +34,16 @@ public class RecipeListener {
                         .addOutput(new RangeRecipeOutput(new ItemStack(Item.DYE, 1, 15), 3, 5))
         );
 
+    }
+    
+    @EventListener
+    public void registerInductionFurnaceRecipes(InductionFurnaceRecipeRegisterEvent event) {
+        event.register(
+                NyaTec.NAMESPACE.id("test"),
+                (InductionFurnaceRecipe) new InductionFurnaceRecipe(100)
+                        .addInput(new ItemRecipeInput(Item.IRON_INGOT, 2))
+                        .addInput(new ItemRecipeInput(Item.GOLD_INGOT))
+                        .addOutput(new RecipeOutput(new ItemStack(Item.BRICK, 2)))
+        );
     }
 }

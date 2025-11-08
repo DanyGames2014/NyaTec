@@ -8,10 +8,7 @@ import net.danygames2014.nyatec.block.entity.*;
 import net.danygames2014.nyatec.block.material.CableMaterial;
 import net.danygames2014.nyatec.item.BatteryItem;
 import net.danygames2014.nyatec.item.MultimeterItem;
-import net.danygames2014.nyatec.screen.BatteryBoxScreen;
-import net.danygames2014.nyatec.screen.ElectricFurnaceScreen;
-import net.danygames2014.nyatec.screen.GeneratorScreen;
-import net.danygames2014.nyatec.screen.MaceratorScreen;
+import net.danygames2014.nyatec.screen.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.glasslauncher.mods.gcapi3.api.ConfigRoot;
@@ -59,6 +56,7 @@ public class NyaTec {
     public static Block electricFurnaceBlock;
     public static Block maceratorBlock;
     public static Block batteryBoxBlock;
+    public static Block inductionFurnaceBlock;
     
     public static Material cableMaterial = new CableMaterial(MapColor.LIGHT_GRAY).setTransparent();
     
@@ -88,6 +86,7 @@ public class NyaTec {
         electricFurnaceBlock = new ElectricFurnaceBlock(NAMESPACE.id("electric_furnace"), Material.METAL).setTranslationKey(NAMESPACE, "electric_furnace").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         maceratorBlock = new MaceratorBlock(NAMESPACE.id("macerator"), Material.METAL).setTranslationKey(NAMESPACE, "macerator").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         batteryBoxBlock = new BatteryBoxBlock(NAMESPACE.id("battery_box"), Material.METAL).setTranslationKey(NAMESPACE, "battery_box").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
+        inductionFurnaceBlock = new InductionFurnaceBlock(NAMESPACE.id("induction_furnace"), Material.METAL).setTranslationKey(NAMESPACE, "induction_furnace").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         
         rubberCable = new RubberCableBlock(NAMESPACE.id("rubber_cable"), cableMaterial).setTranslationKey(NAMESPACE, "rubber_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
         goldenCable = new GoldenCableBlock(NAMESPACE.id("golden_cable"), cableMaterial).setTranslationKey(NAMESPACE, "golden_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
@@ -100,6 +99,7 @@ public class NyaTec {
         event.register(ElectricFurnaceBlockEntity.class, NAMESPACE.id("electric_furnace").toString());
         event.register(MaceratorBlockEntity.class, NAMESPACE.id("macerator").toString());
         event.register(BatteryBoxBlockEntity.class, NAMESPACE.id("battery_box").toString());
+        event.register(InductionFurnaceBlockEntity.class, NAMESPACE.id("induction_furnace").toString());
     }
 
     @Environment(EnvType.CLIENT)
@@ -109,6 +109,12 @@ public class NyaTec {
         event.register(NAMESPACE.id("electric_furnace"), new GuiHandler((GuiHandler.ScreenFactoryNoMessage) this::openElectricFurnace, ElectricFurnaceBlockEntity::new));
         event.register(NAMESPACE.id("macerator"), new GuiHandler((GuiHandler.ScreenFactoryNoMessage) this::openMacerator, MaceratorBlockEntity::new));
         event.register(NAMESPACE.id("battery_box"), new GuiHandler((GuiHandler.ScreenFactoryNoMessage) this::openBatteryBox, BatteryBoxBlockEntity::new));
+        event.register(NAMESPACE.id("induction_furnace"), new GuiHandler((GuiHandler.ScreenFactoryNoMessage) this::openInductionFurnace, InductionFurnaceBlockEntity::new));
+    }
+
+    @Environment(EnvType.CLIENT)
+    private Screen openInductionFurnace(PlayerEntity player, Inventory inventory) {
+        return new InductionFurnaceScreen(player, (InductionFurnaceBlockEntity) inventory);
     }
 
     @Environment(EnvType.CLIENT)
