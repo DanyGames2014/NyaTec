@@ -11,6 +11,9 @@ tile.nyatec.macerator.name=Macerator
 tile.nyatec.battery_box.name=Battery Box
 tile.nyatec.induction_furnace.name=Induction Furnace
 
+tile.nyatec.rubber_cable.name=Rubber Cable
+tile.nyatec.golden_cable.name=Golden Cable
+
 item.nyatec.multimeter.name=Multimeter
 item.nyatec.basic_battery.name=Basic Battery
 item.nyatec.latex.name=Latex
