@@ -8,6 +8,9 @@ public class Config {
         @ConfigCategory(name = "Copper Ore")
         public CopperOreConfig copperOre = new CopperOreConfig();
         
+        @ConfigCategory(name = "Rubber Tree")
+        public RubberTreeConfig rubberTree = new RubberTreeConfig();
+        
         public static class CopperOreConfig {
             @ConfigEntry(name = "Generate Copper Ore")
             public Boolean generateCopperOre = true;
@@ -23,6 +26,17 @@ public class Config {
             
             @ConfigEntry(name = "Maximum Y Level", maxValue = 256)
             public Integer maximumYLevel = 70;
+        }
+        
+        public static class RubberTreeConfig {
+            @ConfigEntry(name = "Generate Rubber Trees")
+            public Boolean generateRubberTrees = true;
+            
+            @ConfigEntry(name = "Latex spot chance (1 in n)", minValue = 1, maxValue = 16)
+            public Integer latexSpotChance = 4;
+            
+            @ConfigEntry(name = "Maximum Latex Spots", minValue = 1, maxValue = 16)
+            public Integer maximumLatexSpots = 3;
         }
     }
     

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "nyatec:block/rubber_log_side",
+    "down": "nyatec:block/rubber_log_top",
+    "up": "nyatec:block/rubber_log_top",
+    "north": "nyatec:block/rubber_log_side_empty_spot",
+    "east": "nyatec:block/rubber_log_side",
+    "south": "nyatec:block/rubber_log_side",
+    "west": "nyatec:block/rubber_log_side"
+  }
+}

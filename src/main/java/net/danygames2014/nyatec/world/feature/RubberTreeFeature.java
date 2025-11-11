@@ -3,6 +3,7 @@ package net.danygames2014.nyatec.world.feature;
 import net.danygames2014.nyalib.world.structure.CollisionType;
 import net.danygames2014.nyalib.world.structure.TreeStructure;
 import net.danygames2014.nyatec.NyaTec;
+import net.danygames2014.nyatec.world.structure.RubberTreeStructure;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.Feature;
 import net.modificationstation.stationapi.api.block.BlockState;
@@ -12,11 +13,11 @@ import net.modificationstation.stationapi.api.tag.TagKey;
 import java.util.Random;
 
 public class RubberTreeFeature extends Feature {
-    public TreeStructure structure;
+    public RubberTreeStructure structure;
     int rarity;
 
     public RubberTreeFeature(World world, int rarity) {
-        this.structure = new TreeStructure(world, NyaTec.rubberLog.getDefaultState(), CollisionType.REPLACE_BLOCK);
+        this.structure = new RubberTreeStructure(world, NyaTec.rubberLog.getDefaultState(), CollisionType.REPLACE_BLOCK);
         this.rarity = rarity;
         BlockState leavesState = NyaTec.rubberLeaves.getDefaultState();
 
@@ -112,6 +113,8 @@ public class RubberTreeFeature extends Feature {
     public boolean generate(World world, Random random, int x, int y, int z, boolean fromSapling) {
         if (random.nextInt(rarity) == 0 || fromSapling) {
             if (world.getBlockState(x, y - 1, z).isIn(TagKey.of(BlockRegistry.INSTANCE.getKey(), NyaTec.NAMESPACE.id("rubber_tree_generates_on"))) || fromSapling) {
+                structure.latexSpotsGenerated = 0;
+                
                 return structure.generate(world, x, y, z, random.nextInt(5, 9));
             }
         }

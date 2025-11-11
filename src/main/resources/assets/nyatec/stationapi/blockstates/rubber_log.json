@@ -5,8 +5,38 @@
       "x": 90,
       "y": 90
     },
-    "axis=y": {
+    "axis=y,rubber_spot=none": {
       "model": "nyatec:block/rubber_log"
+    },
+    "axis=y,rubber_spot=north,full_spot=false": {
+      "model": "nyatec:block/rubber_log_empty_spot"
+    },
+    "axis=y,rubber_spot=north,full_spot=true": {
+      "model": "nyatec:block/rubber_log_full_spot"
+    },
+    "axis=y,rubber_spot=east,full_spot=false": {
+      "model": "nyatec:block/rubber_log_empty_spot",
+      "y": 90
+    },
+    "axis=y,rubber_spot=east,full_spot=true": {
+      "model": "nyatec:block/rubber_log_full_spot",
+      "y": 90
+    },
+    "axis=y,rubber_spot=south,full_spot=false": {
+      "model": "nyatec:block/rubber_log_empty_spot",
+      "y": 180
+    },
+    "axis=y,rubber_spot=south,full_spot=true": {
+      "model": "nyatec:block/rubber_log_full_spot",
+      "y": 180
+    },
+    "axis=y,rubber_spot=west,full_spot=false": {
+      "model": "nyatec:block/rubber_log_empty_spot",
+      "y": 270
+    },
+    "axis=y,rubber_spot=west,full_spot=true": {
+      "model": "nyatec:block/rubber_log_full_spot",
+      "y": 270
     },
     "axis=z": {
       "model": "nyatec:block/rubber_log",
