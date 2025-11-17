@@ -1,4 +1,4 @@
-package net.danygames2014.nyatec.block;
+package net.danygames2014.nyatec.block.template;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,18 +21,15 @@ import java.util.Random;
 
 public class LeavesBlockTemplate extends TemplateBlock {
     public int saplingDropChance; // 1 in x chance to drop sapling
-    public ItemStack saplingItemStack;
     public Block logBlock;
 
     /**
      * @param identifier       The identifier of the block
      * @param material         The material of the block
-     * @param saplingItemStack The sapling that these leaves can drop
      * @param logBlock         The block that these leaves will consider a log (for decay purposes)
      */
-    public LeavesBlockTemplate(Identifier identifier, Material material, ItemStack saplingItemStack, Block logBlock) {
+    public LeavesBlockTemplate(Identifier identifier, Material material, Block logBlock) {
         super(identifier, material);
-        this.saplingItemStack = saplingItemStack;
         this.logBlock = logBlock;
         this.saplingDropChance = 20;
         this.setTickRandomly(true);
@@ -41,18 +38,21 @@ public class LeavesBlockTemplate extends TemplateBlock {
     /**
      * @param identifier        The identifier of the block
      * @param material          The material of the block
-     * @param saplingItemStack  The sapling that these leaves can drop
      * @param logBlock          The block that these leaves will consider a log (for decay purposes)
      * @param saplingDropChance The 1/x chance of dropping a sapling when decaying or being broken. (4 = 1/4 chance = 25%)
      */
-    public LeavesBlockTemplate(Identifier identifier, Material material, ItemStack saplingItemStack, Block logBlock, int saplingDropChance) {
-        this(identifier, material, saplingItemStack, logBlock);
+    public LeavesBlockTemplate(Identifier identifier, Material material, Block logBlock, int saplingDropChance) {
+        this(identifier, material,  logBlock);
         this.saplingDropChance = saplingDropChance;
     }
     
     public LeavesBlockTemplate setSaplingDropChance(int saplingDropChance){
         this.saplingDropChance = saplingDropChance;
         return this;
+    }
+    
+    public ItemStack getSaplingItemStack() {
+        return null;
     }
 
     // Rendering
@@ -70,12 +70,12 @@ public class LeavesBlockTemplate extends TemplateBlock {
     // Drop
     @Override
     public int getDroppedItemId(int blockMeta, Random random) {
-        return saplingItemStack.itemId;
+        return getSaplingItemStack().itemId;
     }
 
     @Override
     public int getDroppedItemCount(Random random) {
-        return random.nextInt(saplingDropChance) == 0 ? saplingItemStack.count : 0;
+        return random.nextInt(saplingDropChance) == 0 ? getSaplingItemStack().count : 0;
     }
 
     @Override
@@ -168,7 +168,7 @@ public class LeavesBlockTemplate extends TemplateBlock {
     public void decay(World world, int x, int y, int z, Random random) {
         world.setBlockStateWithNotify(x, y, z, States.AIR.get());
         if (this.getDroppedItemCount(random) > 0) {
-            this.dropStack(world, x, y, z, new ItemStack(saplingItemStack.getItem(), saplingItemStack.count));
+            this.dropStack(world, x, y, z, new ItemStack(getSaplingItemStack().getItem(), getSaplingItemStack().count));
         }
     }
 }
