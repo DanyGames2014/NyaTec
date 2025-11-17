@@ -1,8 +1,6 @@
 package net.danygames2014.nyatec.world.structure;
 
 import net.danygames2014.nyalib.world.structure.CollisionType;
-import net.danygames2014.nyalib.world.structure.Structure;
-import net.danygames2014.nyalib.world.structure.StructureBlockEntry;
 import net.danygames2014.nyalib.world.structure.TreeStructure;
 import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.block.RubberLogBlock;

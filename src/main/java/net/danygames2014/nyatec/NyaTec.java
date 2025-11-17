@@ -8,6 +8,7 @@ import net.danygames2014.nyatec.block.entity.*;
 import net.danygames2014.nyatec.block.material.CableMaterial;
 import net.danygames2014.nyatec.item.BatteryItem;
 import net.danygames2014.nyatec.item.MultimeterItem;
+import net.danygames2014.nyatec.item.TreeTapItem;
 import net.danygames2014.nyatec.screen.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -66,12 +67,14 @@ public class NyaTec {
     public static Item multimeter;
     public static Item battery;
     public static Item latex;
+    public static Item treeTap;
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
         multimeter = new MultimeterItem(NAMESPACE.id("multimeter")).setTranslationKey(NAMESPACE, "multimeter");
         battery = new BatteryItem(NAMESPACE.id("basic_battery"), 2000).setTranslationKey(NAMESPACE, "basic_battery");
         latex = new TemplateItem(NAMESPACE.id("latex")).setTranslationKey(NAMESPACE, "latex");
+        treeTap = new TreeTapItem(NAMESPACE.id("tree_tap")).setTranslationKey(NAMESPACE, "tree_tap");
     }
 
     @EventListener

@@ -5,16 +5,18 @@ import net.modificationstation.stationapi.api.util.StringIdentifiable;
 import java.util.Random;
 
 public enum RubberSpot implements StringIdentifiable {
-    EAST("east"),
-    WEST("west"),
-    NORTH("north"),
-    SOUTH("south"),
-    NONE("none");
+    EAST("east", 5),
+    WEST("west", 4),
+    NORTH("north", 2),
+    SOUTH("south", 3),
+    NONE("none", -1);
 
     private final String name;
+    public final int side;
     
-    RubberSpot(String minediver) {
-        this.name = minediver;
+    RubberSpot(String name, int side) {
+        this.name = name;
+        this.side = side;
     }
     
     public static RubberSpot getRandomSide(Random random) {

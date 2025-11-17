@@ -7,20 +7,16 @@ import net.danygames2014.uniwrench.api.event.WrenchModeRegistryEvent;
 import net.mine_diver.unsafeevents.listener.EventListener;
 
 public class WrenchModeListener {
-    public static WrenchMode FLOW_MODE;
-    public static WrenchMode BATTERY_MODE;
-    public static WrenchMode DEBUG_MODE;
     public static WrenchMode flowMode;
     public static WrenchMode batteryMode;
     public static WrenchMode debugMode;
+    public static WrenchMode treeTapMode;
     
     @EventListener
     public void registerWrenchModes(WrenchModeRegistryEvent event) {
-        FLOW_MODE = new WrenchMode(NyaTec.NAMESPACE.id("flow"));
-        BATTERY_MODE = new WrenchMode(NyaTec.NAMESPACE.id("battery"));
-        DEBUG_MODE = new WrenchMode(NyaTec.NAMESPACE.id("debug"));
         flowMode = new WrenchMode(NyaTec.NAMESPACE.id("flow"));
         batteryMode = new WrenchMode(NyaTec.NAMESPACE.id("battery"));
         debugMode = new WrenchMode(NyaTec.NAMESPACE.id("debug"));
+        treeTapMode = new TreeTapWrenchMode(NyaTec.NAMESPACE.id("tree_tap"));
     }
 }
