@@ -10,20 +10,19 @@ import net.danygames2014.uniwrench.item.WrenchBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.modificationstation.stationapi.api.template.item.TemplateItem;
 import net.modificationstation.stationapi.api.util.Identifier;
 
 public class MultimeterItem extends WrenchBase {
     public MultimeterItem(Identifier identifier) {
         super(identifier);
-        this.addWrenchMode(WrenchModeListener.FLOW_MODE);
-        this.addWrenchMode(WrenchModeListener.BATTERY_MODE);
-        this.addWrenchMode(WrenchModeListener.DEBUG_MODE);
+        this.addWrenchMode(WrenchModeListener.flowMode);
+        this.addWrenchMode(WrenchModeListener.batteryMode);
+        this.addWrenchMode(WrenchModeListener.debugMode);
     }
 
     @Override
     public boolean wrenchRightClick(ItemStack stack, PlayerEntity player, boolean isSneaking, World world, int x, int y, int z, int side, WrenchMode wrenchMode) {
-        if (wrenchMode == WrenchModeListener.FLOW_MODE) {
+        if (wrenchMode == WrenchModeListener.flowMode) {
             if (!world.isRemote) {
                 Network net = NetworkManager.getAt(world.dimension, x, y, z, NetworkType.ENERGY.getIdentifier());
                 if (net instanceof EnergyNetwork energyNet) {

@@ -224,7 +224,7 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
             }
         }
 
-        if (wrenchMode == WrenchModeListener.DEBUG_MODE) {
+        if (wrenchMode == WrenchModeListener.debugMode) {
             ArrayList<Network> networks = NetworkManager.getAt(world.dimension, x, y, z, this.getNetworkTypes());
             StringBuilder sb = new StringBuilder();
             sb.append("This block (x:" + x + " y:" + y + " z:" + z + ") is in networks:");
