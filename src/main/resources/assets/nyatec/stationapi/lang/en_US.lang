@@ -1,6 +1,7 @@
 tile.nyatec.rubber_log.name=Rubber Wood
 tile.nyatec.rubber_planks.name=Rubber Planks
 tile.nyatec.rubber_leaves.name=Rubber Leaves
+tile.nyatec.rubber_sapling.name=Rubber Sapling
 tile.nyatec.copper_ore.name=Copper Ore
 
 tile.nyatec.test_cable.name=Test Cable
@@ -17,7 +18,9 @@ tile.nyatec.golden_cable.name=Golden Cable
 item.nyatec.multimeter.name=Multimeter
 item.nyatec.basic_battery.name=Basic Battery
 item.nyatec.latex.name=Latex
+item.nyatec.treetap.name=Treetap
 
 wrenchmode.nyatec.flow.name=Flow
 wrenchmode.nyatec.battery.name=Battery
 wrenchmode.nyatec.debug.name=Debug
+wrenchmode.nyatec.treetap.name=Treetap

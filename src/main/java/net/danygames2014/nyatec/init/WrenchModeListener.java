@@ -17,6 +17,6 @@ public class WrenchModeListener {
         flowMode = new WrenchMode(NyaTec.NAMESPACE.id("flow"));
         batteryMode = new WrenchMode(NyaTec.NAMESPACE.id("battery"));
         debugMode = new WrenchMode(NyaTec.NAMESPACE.id("debug"));
-        treeTapMode = new TreeTapWrenchMode(NyaTec.NAMESPACE.id("tree_tap"));
+        treeTapMode = new TreeTapWrenchMode(NyaTec.NAMESPACE.id("treetap"));
     }
 }
