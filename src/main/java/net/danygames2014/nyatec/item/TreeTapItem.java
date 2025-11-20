@@ -17,11 +17,18 @@ public class TreeTapItem extends WrenchBase {
     @Override
     public boolean useOnBlock(ItemStack stack, PlayerEntity player, World world, int x, int y, int z, int side) {
         boolean result = super.useOnBlock(stack, player, world, x, y, z, side);
-        
+
         if (result) {
             stack.damage(1, player);
         }
-        
+
         return result;
+    }
+
+    @Override
+    public String[] getTooltip(ItemStack stack, String originalTooltip) {
+        return new String[]{
+                originalTooltip
+        };
     }
 }
