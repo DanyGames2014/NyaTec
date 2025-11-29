@@ -1,7 +1,9 @@
 package net.danygames2014.nyatec.block.entity;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.SmeltingRecipeManager;
+import net.modificationstation.stationapi.api.recipe.SmeltingRegistry;
 import net.modificationstation.stationapi.api.state.property.Properties;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
@@ -22,7 +24,7 @@ public class ElectricFurnaceBlockEntity extends BaseMachineBlockEntity {
             return false;
         }
 
-        ItemStack craftedItem = SmeltingRecipeManager.getInstance().craft(getInput(0).getItem().id);
+        ItemStack craftedItem = SmeltingRegistry.getResultFor(getInput(0));
         if (craftedItem == null) {
             return false;
         } else if (getOutput(PRIMARY, 0) == null) {
@@ -42,7 +44,7 @@ public class ElectricFurnaceBlockEntity extends BaseMachineBlockEntity {
             return;
         }
 
-        ItemStack craftedItem = SmeltingRecipeManager.getInstance().craft(getInput(0).getItem().id);
+        ItemStack craftedItem = SmeltingRegistry.getResultFor(getInput(0));
         if (getOutput(PRIMARY, 0) == null) {
             setOutput(PRIMARY, 0, craftedItem.copy());
         } else if (getOutput(PRIMARY, 0).isItemEqual(craftedItem)) {
