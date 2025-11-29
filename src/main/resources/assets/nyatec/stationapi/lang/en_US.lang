@@ -17,8 +17,9 @@ tile.nyatec.golden_cable.name=Golden Cable
 
 item.nyatec.multimeter.name=Multimeter
 item.nyatec.basic_battery.name=Basic Battery
-item.nyatec.latex.name=Latex
 item.nyatec.treetap.name=Treetap
+item.nyatec.latex.name=Latex
+item.nyatec.rubber.name=Rubber
 
 wrenchmode.nyatec.flow.name=Flow
 wrenchmode.nyatec.battery.name=Battery

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "nyatec:latex"
+  },
+  "result": {
+    "item": "nyatec:rubber",
+    "count": 1
+  }
+}

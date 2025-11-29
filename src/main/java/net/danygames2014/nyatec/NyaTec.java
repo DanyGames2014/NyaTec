@@ -65,9 +65,10 @@ public class NyaTec {
     public static Block goldenCable;
     
     public static Item multimeter;
+    public static Item treeTap;
     public static Item battery;
     public static Item latex;
-    public static Item treeTap;
+    public static Item rubber;
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
@@ -75,6 +76,7 @@ public class NyaTec {
         battery = new BatteryItem(NAMESPACE.id("basic_battery"), 2000).setTranslationKey(NAMESPACE, "basic_battery");
         latex = new TemplateItem(NAMESPACE.id("latex")).setTranslationKey(NAMESPACE, "latex");
         treeTap = new TreeTapItem(NAMESPACE.id("treetap")).setTranslationKey(NAMESPACE, "treetap");
+        rubber = new TemplateItem(NAMESPACE.id("rubber")).setTranslationKey(NAMESPACE, "rubber");
     }
 
     @EventListener
