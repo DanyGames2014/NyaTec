@@ -2,6 +2,7 @@ package net.danygames2014.nyatec.compat.ami.generator;
 
 import net.danygames2014.nyatec.NyaTec;
 import net.glasslauncher.mods.alwaysmoreitems.api.gui.AMIDrawable;
+import net.glasslauncher.mods.alwaysmoreitems.api.gui.GuiItemStackGroup;
 import net.glasslauncher.mods.alwaysmoreitems.api.gui.RecipeLayout;
 import net.glasslauncher.mods.alwaysmoreitems.api.recipe.RecipeCategory;
 import net.glasslauncher.mods.alwaysmoreitems.api.recipe.RecipeWrapper;
@@ -15,7 +16,7 @@ public class GeneratorFuelCategory implements RecipeCategory {
     
     public GeneratorFuelCategory() {
         super();
-        background = DrawableHelper.createDrawable("/gui/furnace.png", 55, 38, 18, 32, 0, 0, 0, 80);
+        background = DrawableHelper.createDrawable("/gui/furnace.png", 55, 38, 18, 32, 0, 0, 0, 100);
     }
 
     @Override
@@ -35,7 +36,7 @@ public class GeneratorFuelCategory implements RecipeCategory {
 
     @Override
     public void drawExtras(Minecraft minecraft) {
-
+        
     }
 
     @Override
@@ -45,6 +46,9 @@ public class GeneratorFuelCategory implements RecipeCategory {
 
     @Override
     public void setRecipe(@NotNull RecipeLayout recipeLayout, @NotNull RecipeWrapper recipeWrapper) {
+        GuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
+        guiItemStacks.init(1, true, 0, 14);
+        guiItemStacks.setFromRecipe(1, recipeWrapper.getInputs());
     }
 }

@@ -31,6 +31,9 @@
     "gcapi3": [
       "net.danygames2014.nyatec.NyaTec"
     ],
+    "alwaysmoreitems:plugin": [
+      "net.danygames2014.nyatec.compat.ami.NyaTecAMIPlugin"
+    ],
     "whatsthis": [
       "net.danygames2014.nyatec.init.ProbeInfoProviderListener"
     ]
