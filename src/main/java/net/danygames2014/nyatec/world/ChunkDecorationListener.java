@@ -17,6 +17,7 @@ public class ChunkDecorationListener {
     public static ArrayList<OreGenEntry> oreGenEntries;
 
     public static VanillaOreFeature copperVanillaOreFeature;
+    public static VanillaOreFeature tinVanillaOreFeature;
 
     @EventListener
     public void decorate(WorldGenEvent.ChunkDecoration event) {
@@ -38,6 +39,11 @@ public class ChunkDecorationListener {
         if (WORLDGEN_CONFIG.copperOre.generateCopperOre) {
             copperVanillaOreFeature = new VanillaOreFeature(NyaTec.copperOre, WORLDGEN_CONFIG.copperOre.oreCount);
             oreGenEntries.add(new OreGenEntry(copperVanillaOreFeature, WORLDGEN_CONFIG.copperOre.oreCount, WORLDGEN_CONFIG.copperOre.oreVeinsPerChunk, WORLDGEN_CONFIG.copperOre.minimumYLevel, WORLDGEN_CONFIG.copperOre.maximumYLevel));
+        }
+        
+        if (WORLDGEN_CONFIG.tinOre.generateTinOre) {
+            tinVanillaOreFeature = new VanillaOreFeature(NyaTec.tinOre, WORLDGEN_CONFIG.tinOre.oreCount);
+            oreGenEntries.add(new OreGenEntry(tinVanillaOreFeature, WORLDGEN_CONFIG.tinOre.oreCount, WORLDGEN_CONFIG.tinOre.oreVeinsPerChunk, WORLDGEN_CONFIG.tinOre.minimumYLevel, WORLDGEN_CONFIG.tinOre.maximumYLevel));
         }
     }
 
