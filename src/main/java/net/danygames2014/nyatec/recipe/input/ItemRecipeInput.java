@@ -3,6 +3,9 @@ package net.danygames2014.nyatec.recipe.input;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemRecipeInput extends RecipeInput {
     /**
      * The item required
@@ -22,11 +25,11 @@ public class ItemRecipeInput extends RecipeInput {
         this.count = count;
         this.meta = meta;
     }
-    
+
     public ItemRecipeInput(Item item, int count) {
         this(item, count, -1);
     }
-    
+
     public ItemRecipeInput(Item item) {
         this(item, 1);
     }
@@ -37,14 +40,14 @@ public class ItemRecipeInput extends RecipeInput {
         if (item != other.getItem()) {
             return false;
         }
-        
+
         // If item count is lower than required, return false
         if (other.count < count) {
             return false;
         }
-        
+
         // If meta is not -1 and item meta doesn't match, return false
-        if (meta != -1 && meta != other.getDamage()){
+        if (meta != -1 && meta != other.getDamage()) {
             return false;
         }
 
@@ -54,6 +57,11 @@ public class ItemRecipeInput extends RecipeInput {
     @Override
     public int getRequiredAmount() {
         return count;
+    }
+
+    @Override
+    public List<ItemStack> getRepresentingStacks() {
+        return List.of(new ItemStack(item, count, meta));
     }
 
     @Override

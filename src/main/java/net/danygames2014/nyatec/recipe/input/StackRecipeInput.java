@@ -2,12 +2,14 @@ package net.danygames2014.nyatec.recipe.input;
 
 import net.minecraft.item.ItemStack;
 
+import java.util.List;
+
 /**
  * Recipe Input which compares to a stack using the ItemStack.equals method
  */
-public class StackRecipeInput extends RecipeInput{
+public class StackRecipeInput extends RecipeInput {
     public final ItemStack stack;
-    
+
     public StackRecipeInput(ItemStack stack) {
         this.stack = stack;
     }
@@ -20,6 +22,11 @@ public class StackRecipeInput extends RecipeInput{
     @Override
     public int getRequiredAmount() {
         return stack.count;
+    }
+
+    @Override
+    public List<ItemStack> getRepresentingStacks() {
+        return List.of(new ItemStack[]{stack});
     }
 
     @Override

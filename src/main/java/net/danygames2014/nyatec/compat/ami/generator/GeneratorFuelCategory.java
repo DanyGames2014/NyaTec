@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 public class GeneratorFuelCategory implements RecipeCategory {
     private final AMIDrawable background;
     
-    
     public GeneratorFuelCategory() {
         super();
         background = DrawableHelper.createDrawable("/gui/furnace.png", 55, 38, 18, 32, 0, 0, 0, 100);
