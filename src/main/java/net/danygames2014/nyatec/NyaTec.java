@@ -60,6 +60,9 @@ public class NyaTec {
     public static Block batteryBoxBlock;
     public static Block inductionFurnaceBlock;
     
+    public static Block electricLight;
+    public static Block electricLightFixture;
+    
     public static Material cableMaterial = new CableMaterial(MapColor.LIGHT_GRAY).setTransparent();
     
     public static Block rubberCable;
@@ -97,6 +100,8 @@ public class NyaTec {
         batteryBoxBlock = new BatteryBoxBlock(NAMESPACE.id("battery_box"), Material.METAL).setTranslationKey(NAMESPACE, "battery_box").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         inductionFurnaceBlock = new InductionFurnaceBlock(NAMESPACE.id("induction_furnace"), Material.METAL).setTranslationKey(NAMESPACE, "induction_furnace").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         
+        electricLight = new ElectricLightBlock(NAMESPACE.id("electric_light"), Material.GLASS).setTranslationKey(NAMESPACE, "electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
+        
         rubberCable = new RubberCableBlock(NAMESPACE.id("rubber_cable"), cableMaterial).setTranslationKey(NAMESPACE, "rubber_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
         goldenCable = new GoldenCableBlock(NAMESPACE.id("golden_cable"), cableMaterial).setTranslationKey(NAMESPACE, "golden_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
     }
@@ -109,6 +114,7 @@ public class NyaTec {
         event.register(MaceratorBlockEntity.class, NAMESPACE.id("macerator").toString());
         event.register(BatteryBoxBlockEntity.class, NAMESPACE.id("battery_box").toString());
         event.register(InductionFurnaceBlockEntity.class, NAMESPACE.id("induction_furnace").toString());
+        event.register(ElectricLightBlockEntity.class, NAMESPACE.id("electric_light").toString());
     }
 
     @Environment(EnvType.CLIENT)
