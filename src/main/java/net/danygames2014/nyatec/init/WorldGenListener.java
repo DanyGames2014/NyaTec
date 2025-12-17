@@ -1,5 +1,6 @@
 package net.danygames2014.nyatec.init;
 
+import net.danygames2014.nyatec.NyaTec;
 import net.danygames2014.nyatec.world.feature.RubberTreeFeature;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.world.biome.Biome;
@@ -12,7 +13,9 @@ public class WorldGenListener {
 
     @EventListener
     public void initFeatures(WorldEvent.Init event) {
-        rubberTreeFeature = new RubberTreeFeature(event.world, 1);
+        if (NyaTec.WORLDGEN_CONFIG.rubberTree.generateRubberTrees) {
+            rubberTreeFeature = new RubberTreeFeature(event.world, 1);
+        }
     }
     
     @EventListener

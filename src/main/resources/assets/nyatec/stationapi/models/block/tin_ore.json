@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "nyatec:block/tin_ore", 
+    "down": "nyatec:block/tin_ore",
+    "up": "nyatec:block/tin_ore",
+    "north": "nyatec:block/tin_ore",
+    "east": "nyatec:block/tin_ore",
+    "south": "nyatec:block/tin_ore",
+    "west": "nyatec:block/tin_ore"
+  }
+}

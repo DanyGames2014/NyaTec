@@ -8,6 +8,9 @@ public class Config {
         @ConfigCategory(name = "Copper Ore")
         public CopperOreConfig copperOre = new CopperOreConfig();
         
+        @ConfigCategory(name = "Tin Ore")
+        public TinOreConfig tinOre = new TinOreConfig();
+        
         @ConfigCategory(name = "Rubber Tree")
         public RubberTreeConfig rubberTree = new RubberTreeConfig();
         
@@ -19,13 +22,30 @@ public class Config {
             public Integer oreCount = 12;
             
             @ConfigEntry(name = "Ore veins per Chunk", maxValue = 32)
-            public Integer oreVeinsPerChunk = 20;
+            public Integer oreVeinsPerChunk = 10;
             
             @ConfigEntry(name = "Minimum Y Level", maxValue = 256)
             public Integer minimumYLevel = 40;
             
             @ConfigEntry(name = "Maximum Y Level", maxValue = 256)
             public Integer maximumYLevel = 70;
+        }
+
+        public static class TinOreConfig {
+            @ConfigEntry(name = "Generate Tin Ore")
+            public Boolean generateTinOre = true;
+
+            @ConfigEntry(name = "Ore Count", comment = "The maximum amount of ores that can generate", maxValue = 32)
+            public Integer oreCount = 12;
+
+            @ConfigEntry(name = "Ore veins per Chunk", maxValue = 32)
+            public Integer oreVeinsPerChunk = 10;
+
+            @ConfigEntry(name = "Minimum Y Level", maxValue = 256)
+            public Integer minimumYLevel = 30;
+
+            @ConfigEntry(name = "Maximum Y Level", maxValue = 256)
+            public Integer maximumYLevel = 60;
         }
         
         public static class RubberTreeConfig {
