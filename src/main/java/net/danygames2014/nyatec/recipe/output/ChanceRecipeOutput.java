@@ -22,16 +22,15 @@ public class ChanceRecipeOutput extends RecipeOutput {
 
     @Override
     public ItemStack getOutput(Random random) {
+        if (random == null) {
+            return super.getOutput(null);
+        }
+        
         if (random.nextInt(chance) == 0) {
             return super.getOutput(random);
         }
         
         return null;
-    }
-
-    @Override
-    public ItemStack getMaxOutput() {
-        return super.getMaxOutput();
     }
 
     @Override

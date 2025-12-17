@@ -31,7 +31,7 @@ public class MaceratorRecipeWrapper implements RecipeWrapper {
     public List<?> getOutputs() {
         ArrayList<Object> outputs = new ArrayList<>();
         for (RecipeOutput output : recipe.outputs) {
-            outputs.add(output.getMaxOutput());
+            outputs.add(output.getOutput(null));
         }
         return outputs;
     }

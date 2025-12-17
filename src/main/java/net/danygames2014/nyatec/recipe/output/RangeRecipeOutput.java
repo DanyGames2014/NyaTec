@@ -25,6 +25,12 @@ public class RangeRecipeOutput extends RecipeOutput {
 
     @Override
     public ItemStack getOutput(Random random) {
+        if (random == null) {
+            ItemStack stack = super.getOutput(null);
+            stack.count = maxCount;
+            return stack;
+        }
+        
         int count = random.nextInt(minCount, maxCount + 1);
 
         if (count == 0) {
@@ -33,13 +39,6 @@ public class RangeRecipeOutput extends RecipeOutput {
 
         ItemStack stack = super.getOutput(random);
         stack.count = count;
-        return stack;
-    }
-
-    @Override
-    public ItemStack getMaxOutput() {
-        ItemStack stack = super.getMaxOutput();
-        stack.count = maxCount;
         return stack;
     }
 

@@ -87,7 +87,7 @@ public class MaceratorRecipeCategory implements RecipeCategory {
                     }
                 }
 
-                ItemStack stack = output.getMaxOutput();
+                ItemStack stack = output.getOutput(null);
                 guiItemStacks.set(i, stack);
                 slotToOutputMap.put(stack, output);
             }

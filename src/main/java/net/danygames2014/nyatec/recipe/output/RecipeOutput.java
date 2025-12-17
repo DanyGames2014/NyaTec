@@ -29,15 +29,10 @@ public class RecipeOutput {
 
     /**
      * Returns a stack which is safe to be used directly
+     * 
+     * @param random The random used to generate the output, if this is <code>null</code>, the maximum output will be returned
      */
     public ItemStack getOutput(Random random) {
-        return stack.copy();
-    }
-
-    /**
-     * Returns a stack which is safe to be used directly which contains the maximum possible output
-     */
-    public ItemStack getMaxOutput() {
         return stack.copy();
     }
 
