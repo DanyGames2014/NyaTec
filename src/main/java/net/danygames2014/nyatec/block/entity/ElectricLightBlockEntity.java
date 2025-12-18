@@ -3,6 +3,7 @@ package net.danygames2014.nyatec.block.entity;
 import net.danygames2014.nyalib.energy.template.block.entity.EnergyConsumerBlockEntityTemplate;
 import net.danygames2014.nyalib.particle.ParticleHelper;
 import net.danygames2014.nyatec.block.ElectricLightBlock;
+import net.danygames2014.nyatec.block.LightLevel;
 import net.modificationstation.stationapi.api.block.States;
 import net.modificationstation.stationapi.api.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +29,7 @@ public class ElectricLightBlockEntity extends EnergyConsumerBlockEntityTemplate 
     public void updateLightLevel(int lightLevel) {
         if (lightLevel != lastLightLevel) {
             luminance = lightLevel * 0.06666667F;
-            world.setBlockStateWithNotify(x,y,z, world.getBlockState(x,y,z).with(ElectricLightBlock.LIGHT_LEVEL, lightLevel));
+            world.setBlockStateWithNotify(x,y,z, world.getBlockState(x,y,z).with(ElectricLightBlock.LIGHT_LEVEL, LightLevel.fromLevel(lightLevel)));
             lastLightLevel = lightLevel;
         }
     }

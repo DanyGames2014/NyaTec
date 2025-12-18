@@ -7,16 +7,16 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.material.Material;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.state.StateManager;
-import net.modificationstation.stationapi.api.state.property.IntProperty;
+import net.modificationstation.stationapi.api.state.property.EnumProperty;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-public class ElectricLightBlock extends EnergyConsumerBlockTemplate {
-    public static final IntProperty LIGHT_LEVEL = IntProperty.of("light_level", 0, 15);
+public abstract class ElectricLightBlock extends EnergyConsumerBlockTemplate {
+    public static final EnumProperty<LightLevel> LIGHT_LEVEL = EnumProperty.of("light_level", LightLevel.class);
     
     public ElectricLightBlock(Identifier identifier, Material material) {
         super(identifier, material);
-        setLuminance(state -> state.get(LIGHT_LEVEL));
-        setDefaultState(getDefaultState().with(LIGHT_LEVEL, 0));
+        setLuminance(state -> state.get(LIGHT_LEVEL).lightLevel);
+        setDefaultState(getDefaultState().with(LIGHT_LEVEL, LightLevel.OFF));
     }
 
     @Override
@@ -24,20 +24,4 @@ public class ElectricLightBlock extends EnergyConsumerBlockTemplate {
         super.appendProperties(builder);
         builder.add(LIGHT_LEVEL);
     }
-
-    @Override
-    protected BlockEntity createBlockEntity() {
-        return new ElectricLightBlockEntity();
-    }
-//
-//    @Override
-//    public float getLuminance(BlockView blockView, int x, int y, int z) {
-//        if (blockView.getBlockEntity(x, y, z) instanceof ElectricLightBlockEntity lightBlockEntity) {
-//            return lightBlockEntity.luminance;    
-//        }
-//        
-//        return super.getLuminance(blockView, x, y, z);
-//    }
-    
-    
 }

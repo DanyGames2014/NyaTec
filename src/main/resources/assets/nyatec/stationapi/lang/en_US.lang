@@ -13,6 +13,9 @@ tile.nyatec.macerator.name=Macerator
 tile.nyatec.battery_box.name=Battery Box
 tile.nyatec.induction_furnace.name=Induction Furnace
 
+tile.nyatec.white_electric_light.name=White Electric Light
+tile.nyatec.pink_electric_light.name=Pink Electric Light
+
 tile.nyatec.rubber_cable.name=Rubber Cable
 tile.nyatec.golden_cable.name=Golden Cable
 
