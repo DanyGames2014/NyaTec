@@ -44,36 +44,40 @@ public class ClientListener {
                 }
         );
     }
-    
+
     @EventListener
     public void registerBlockColors(BlockColorsRegisterEvent event) {
-        event.blockColors.registerColorProvider(new BlockColorProvider() {
-            @Override
-            public int getColor(BlockState state, @Nullable BlockView world, @Nullable BlockPos pos, int tintIndex) {
-                if (tintIndex == 0 && state.getBlock() instanceof ElectricLightBlock light) {
-                    if (state.get(ElectricLightBlock.LIGHT_LEVEL) == LightLevel.OFF) {
-                        return light.offColor;
+        for (var lightBlock : ElectricLightBlock.LIGHT_BLOCKS) {
+            event.blockColors.registerColorProvider(new BlockColorProvider() {
+                @Override
+                public int getColor(BlockState state, @Nullable BlockView world, @Nullable BlockPos pos, int tintIndex) {
+                    if (tintIndex == 0 && state.getBlock() instanceof ElectricLightBlock light) {
+                        if (state.get(ElectricLightBlock.LIGHT_LEVEL) == LightLevel.OFF) {
+                            return light.offColor;
+                        }
+
+                        return light.color;
                     }
-                    
-                    return light.color;
+
+                    return 0;
                 }
-                
-                return 0;
-            }
-        }, NyaTec.whiteElectricLight, NyaTec.pinkElectricLight);
+            }, lightBlock);
+        }
     }
-    
+
     @EventListener
     public void registerItemColors(ItemColorsRegisterEvent event) {
-        event.itemColors.register(new ItemColorProvider() {
-            @Override
-            public int getColor(ItemStack stack, int tintIndex) {
-                if (tintIndex == 0 && stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ElectricLightBlock lightBlock) {
-                    return lightBlock.offColor;
+        for (var lightBlock : ElectricLightBlock.LIGHT_BLOCKS) {
+            event.itemColors.register(new ItemColorProvider() {
+                @Override
+                public int getColor(ItemStack stack, int tintIndex) {
+                    if (tintIndex == 0 && stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ElectricLightBlock lightBlock) {
+                        return lightBlock.offColor;
+                    }
+
+                    return 0;
                 }
-                
-                return 0;
-            }
-        }, NyaTec.whiteElectricLight, NyaTec.pinkElectricLight);        
+            }, lightBlock);
+        }
     }
 }
