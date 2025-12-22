@@ -63,7 +63,7 @@ public class NyaTec {
     public static Block whiteElectricLight;
     public static Block pinkElectricLight;
     public static Block electricLightFixture;
-
+    
     public static Material cableMaterial = new CableMaterial(MapColor.LIGHT_GRAY).setTransparent();
 
     public static Block rubberCable;
@@ -101,8 +101,8 @@ public class NyaTec {
         batteryBoxBlock = new BatteryBoxBlock(NAMESPACE.id("battery_box"), Material.METAL).setTranslationKey(NAMESPACE, "battery_box").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         inductionFurnaceBlock = new InductionFurnaceBlock(NAMESPACE.id("induction_furnace"), Material.METAL).setTranslationKey(NAMESPACE, "induction_furnace").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
 
-        whiteElectricLight = new ElectricLightFullBlock(NAMESPACE.id("white_electric_light"), Material.GLASS, "white").setTranslationKey(NAMESPACE, "white_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
-        pinkElectricLight = new ElectricLightFullBlock(NAMESPACE.id("pink_electric_light"), Material.GLASS, "pink").setTranslationKey(NAMESPACE, "pink_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
+        whiteElectricLight = new ElectricLightFullBlock(NAMESPACE.id("white_electric_light"), Material.GLASS, 0xFFFFFF).setTranslationKey(NAMESPACE, "white_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
+        pinkElectricLight = new ElectricLightFullBlock(NAMESPACE.id("pink_electric_light"), Material.GLASS, 0xF2A1D7).setTranslationKey(NAMESPACE, "pink_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
 
         rubberCable = new RubberCableBlock(NAMESPACE.id("rubber_cable"), cableMaterial).setTranslationKey(NAMESPACE, "rubber_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
         goldenCable = new GoldenCableBlock(NAMESPACE.id("golden_cable"), cableMaterial).setTranslationKey(NAMESPACE, "golden_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);

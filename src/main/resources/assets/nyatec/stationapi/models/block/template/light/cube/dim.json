@@ -1,28 +1,33 @@
 {
   "parent": "block/cube_all",
+  "textures": {
+    "edge": "nyatec:block/light/cube/edge",
+    "middle": "nyatec:block/light/cube/middle",
+    "particle": "nyatec:block/light/cube/middle"
+  },
   "elements": [
     {
       "from": [0, 0, 0],
       "to": [16, 16, 16],
       "faces": {
-        "down": {"texture": "#all", "cullface": "down"},
-        "up": {"texture": "#all", "cullface": "up"},
-        "north": {"texture": "#all", "cullface": "north"},
-        "south": {"texture": "#all", "cullface": "south"},
-        "west": {"texture": "#all", "cullface": "west"},
-        "east": {"texture": "#all", "cullface": "east"}
+        "north": {"uv": [0, 0, 16, 16], "texture": "#edge"},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#edge"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#edge"},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#edge"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#edge"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#edge"}
       }
     },
     {
       "from": [0, 0, 0],
       "to": [16, 16, 16],
       "faces": {
-        "down": {"texture": "#emissive", "cullface": "down", "emission": 0.4},
-        "up": {"texture": "#emissive", "cullface": "up", "emission": 0.4},
-        "north": {"texture": "#emissive", "cullface": "north", "emission": 0.4},
-        "south": {"texture": "#emissive", "cullface": "south", "emission": 0.4},
-        "west": {"texture": "#emissive", "cullface": "west", "emission": 0.4},
-        "east": {"texture": "#emissive", "cullface": "east", "emission": 0.4}
+        "down": {"texture": "#middle", "cullface": "down", "emission": 0.4, "tintindex": 0},
+        "up": {"texture": "#middle", "cullface": "up", "emission": 0.4, "tintindex": 0},
+        "north": {"texture": "#middle", "cullface": "north", "emission": 0.4, "tintindex": 0},
+        "south": {"texture": "#middle", "cullface": "south", "emission": 0.4, "tintindex": 0},
+        "west": {"texture": "#middle", "cullface": "west", "emission": 0.4, "tintindex": 0},
+        "east": {"texture": "#middle", "cullface": "east", "emission": 0.4, "tintindex": 0}
       }
     }
   ]

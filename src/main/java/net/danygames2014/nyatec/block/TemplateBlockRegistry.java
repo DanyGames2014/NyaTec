@@ -6,25 +6,15 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.modificationstation.stationapi.api.util.Identifier;
 
 public class TemplateBlockRegistry {
-    public static void registerCubeLamp(Identifier blockIdentifier, Identifier texture) {
+    public static void registerCubeLamp(Identifier blockIdentifier) {
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER) {
             return;
         }
 
         JsonOverrideRegistry.registerBlockModelOverride(blockIdentifier + "_off", cubeLampOff);
-        JsonOverrideRegistry.registerBlockModelTextureOverride(blockIdentifier + "_off", "all", texture.withSuffixedPath("_off"));
-
         JsonOverrideRegistry.registerBlockModelOverride(blockIdentifier + "_reduced", cubeLampReduced);
-        JsonOverrideRegistry.registerBlockModelTextureOverride(blockIdentifier + "_reduced", "all", texture.withSuffixedPath("_on"));
-        JsonOverrideRegistry.registerBlockModelTextureOverride(blockIdentifier + "_reduced", "emissive", texture.withSuffixedPath("_on_e"));
-
         JsonOverrideRegistry.registerBlockModelOverride(blockIdentifier + "_dim", cubeLampDim);
-        JsonOverrideRegistry.registerBlockModelTextureOverride(blockIdentifier + "_dim", "all", texture.withSuffixedPath("_on"));
-        JsonOverrideRegistry.registerBlockModelTextureOverride(blockIdentifier + "_dim", "emissive", texture.withSuffixedPath("_on_e"));
-
         JsonOverrideRegistry.registerBlockModelOverride(blockIdentifier + "_full", cubeLampFull);
-        JsonOverrideRegistry.registerBlockModelTextureOverride(blockIdentifier + "_full", "all", texture.withSuffixedPath("_on"));
-        JsonOverrideRegistry.registerBlockModelTextureOverride(blockIdentifier + "_full", "emissive", texture.withSuffixedPath("_on_e"));
 
         JsonOverrideRegistry.registerItemModelOverride(blockIdentifier, itemJson.replace("PATH", getBlockModelPath(blockIdentifier) + "_off"));
         
