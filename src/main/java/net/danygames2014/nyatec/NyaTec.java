@@ -61,7 +61,22 @@ public class NyaTec {
     public static Block inductionFurnaceBlock;
 
     public static Block whiteElectricLight;
+    public static Block orangeElectricLight;
+    public static Block magentaElectricLight;
+    public static Block lightBlueElectricLight;
+    public static Block yellowElectricLight;
+    public static Block limeElectricLight;
     public static Block pinkElectricLight;
+    public static Block grayElectricLight;
+    public static Block lightGrayElectricLight;
+    public static Block cyanElectricLight;
+    public static Block purpleElectricLight;
+    public static Block blueElectricLight;
+    public static Block brownElectricLight;
+    public static Block greenElectricLight;
+    public static Block redElectricLight;
+    public static Block blackElectricLight;
+    
     public static Block electricLightFixture;
     
     public static Material cableMaterial = new CableMaterial(MapColor.LIGHT_GRAY).setTransparent();
@@ -102,7 +117,8 @@ public class NyaTec {
         inductionFurnaceBlock = new InductionFurnaceBlock(NAMESPACE.id("induction_furnace"), Material.METAL).setTranslationKey(NAMESPACE, "induction_furnace").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
 
         whiteElectricLight = new ElectricLightFullBlock(NAMESPACE.id("white_electric_light"), Material.GLASS, 0xFFFFFF).setTranslationKey(NAMESPACE, "white_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
-        pinkElectricLight = new ElectricLightFullBlock(NAMESPACE.id("pink_electric_light"), Material.GLASS, 0xF2A1D7).setTranslationKey(NAMESPACE, "pink_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
+        pinkElectricLight = new ElectricLightFullBlock(NAMESPACE.id("pink_electric_light"), Material.GLASS, 0xF285CE).setTranslationKey(NAMESPACE, "pink_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
+        redElectricLight = new ElectricLightFullBlock(NAMESPACE.id("red_electric_light"), Material.GLASS, 0xCC2118).setTranslationKey(NAMESPACE, "red_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
 
         rubberCable = new RubberCableBlock(NAMESPACE.id("rubber_cable"), cableMaterial).setTranslationKey(NAMESPACE, "rubber_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
         goldenCable = new GoldenCableBlock(NAMESPACE.id("golden_cable"), cableMaterial).setTranslationKey(NAMESPACE, "golden_cable").setHardness(0.2F).setResistance(0.5F).setSoundGroup(Block.WOOL_SOUND_GROUP);
