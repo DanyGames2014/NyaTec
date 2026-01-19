@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "enabled=true": {
+      "model": "nyatec:block/creative_energy_source_on"
+    },
+    "enabled=false": {
+      "model": "nyatec:block/creative_energy_source_off"
+    }
+  }
+}

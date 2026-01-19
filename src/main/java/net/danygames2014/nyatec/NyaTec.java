@@ -59,6 +59,8 @@ public class NyaTec {
     public static Block maceratorBlock;
     public static Block batteryBoxBlock;
     public static Block inductionFurnaceBlock;
+    
+    public static Block creativeEnergySourceBlock;
 
     public static Block whiteElectricLight;
     public static Block orangeElectricLight;
@@ -116,6 +118,8 @@ public class NyaTec {
         batteryBoxBlock = new BatteryBoxBlock(NAMESPACE.id("battery_box"), Material.METAL).setTranslationKey(NAMESPACE, "battery_box").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
         inductionFurnaceBlock = new InductionFurnaceBlock(NAMESPACE.id("induction_furnace"), Material.METAL).setTranslationKey(NAMESPACE, "induction_furnace").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
 
+        creativeEnergySourceBlock = new CreativeEnergySourceBlock(NAMESPACE.id("creative_energy_source"), Material.METAL).setTranslationKey(NAMESPACE, "creative_energy_source").setHardness(2.0F).setResistance(2.0F).setSoundGroup(Block.METAL_SOUND_GROUP);
+        
         whiteElectricLight = new ElectricLightFullBlock(NAMESPACE.id("white_electric_light"), Material.GLASS, 0xFFFFFF).setTranslationKey(NAMESPACE, "white_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
         pinkElectricLight = new ElectricLightFullBlock(NAMESPACE.id("pink_electric_light"), Material.GLASS, 0xF285CE).setTranslationKey(NAMESPACE, "pink_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
         redElectricLight = new ElectricLightFullBlock(NAMESPACE.id("red_electric_light"), Material.GLASS, 0xCC2118).setTranslationKey(NAMESPACE, "red_electric_light").setHardness(0.2F).setSoundGroup(Block.GLASS_SOUND_GROUP);
@@ -133,6 +137,7 @@ public class NyaTec {
         event.register(BatteryBoxBlockEntity.class, NAMESPACE.id("battery_box").toString());
         event.register(InductionFurnaceBlockEntity.class, NAMESPACE.id("induction_furnace").toString());
         event.register(ElectricLightBlockEntity.class, NAMESPACE.id("electric_light").toString());
+        event.register(CreativeEnergySourceBlockEntity.class, NAMESPACE.id("creative_energy_source").toString());
     }
 
     @Environment(EnvType.CLIENT)
