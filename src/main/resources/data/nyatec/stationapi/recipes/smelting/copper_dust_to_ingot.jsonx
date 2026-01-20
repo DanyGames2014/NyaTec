@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "minecraft:dust/copper"
+  },
+  "result": {
+    "item": "nyatec:copper_ingot",
+    "count": 1
+  }
+}

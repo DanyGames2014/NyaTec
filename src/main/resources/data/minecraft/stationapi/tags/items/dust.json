@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#minecraft:dust/iron",
+    "#minecraft:dust/gold",
+    "#minecraft:dust/redstone",
+    "#minecraft:dust/coal",
+    "#minecraft:dust/lapis",
+    "#minecraft:dust/diamond",
+    "#minecraft:dust/copper",
+    "#minecraft:dust/tin",
+    "#minecraft:dust/bronze"
+  ]  
+}

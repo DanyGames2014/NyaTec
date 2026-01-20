@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "minecraft:dust/iron"
+  },
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 1
+  }
+}

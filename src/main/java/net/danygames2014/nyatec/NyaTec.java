@@ -91,6 +91,12 @@ public class NyaTec {
     public static Item battery;
     public static Item latex;
     public static Item rubber;
+    
+    public static Item ironDust;
+    public static Item copperDust;
+    public static Item tinDust;
+    public static Item goldDust;
+    public static Item bronzeDust;
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
@@ -99,6 +105,12 @@ public class NyaTec {
         latex = new TemplateItem(NAMESPACE.id("latex")).setTranslationKey(NAMESPACE, "latex");
         treeTap = new TreeTapItem(NAMESPACE.id("treetap")).setTranslationKey(NAMESPACE, "treetap");
         rubber = new TemplateItem(NAMESPACE.id("rubber")).setTranslationKey(NAMESPACE, "rubber");
+        
+        ironDust = new TemplateItem(NAMESPACE.id("iron_dust")).setTranslationKey(NAMESPACE, "iron_dust");
+        copperDust = new TemplateItem(NAMESPACE.id("copper_dust")).setTranslationKey(NAMESPACE, "copper_dust");
+        tinDust = new TemplateItem(NAMESPACE.id("tin_dust")).setTranslationKey(NAMESPACE, "tin_dust");
+        goldDust = new TemplateItem(NAMESPACE.id("gold_dust")).setTranslationKey(NAMESPACE, "gold_dust");
+        bronzeDust = new TemplateItem(NAMESPACE.id("bronze_dust")).setTranslationKey(NAMESPACE, "bronze_dust");
     }
 
     @EventListener

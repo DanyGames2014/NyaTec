@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "minecraft:dust/tin"
+  },
+  "result": {
+    "item": "nyatec:tin_ingot",
+    "count": 1
+  }
+}
