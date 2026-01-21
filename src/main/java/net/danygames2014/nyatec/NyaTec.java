@@ -92,11 +92,18 @@ public class NyaTec {
     public static Item latex;
     public static Item rubber;
     
+    public static Item coalDust;
     public static Item ironDust;
+    public static Item goldDust;
     public static Item copperDust;
     public static Item tinDust;
-    public static Item goldDust;
     public static Item bronzeDust;
+
+    public static Item copperIngot;
+    public static Item tinIngot;
+    public static Item bronzeIngot;
+    
+    public static Item koruna;
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
@@ -106,11 +113,18 @@ public class NyaTec {
         treeTap = new TreeTapItem(NAMESPACE.id("treetap")).setTranslationKey(NAMESPACE, "treetap");
         rubber = new TemplateItem(NAMESPACE.id("rubber")).setTranslationKey(NAMESPACE, "rubber");
         
+        coalDust = new TemplateItem(NAMESPACE.id("coal_dust")).setTranslationKey(NAMESPACE, "coal_dust");
         ironDust = new TemplateItem(NAMESPACE.id("iron_dust")).setTranslationKey(NAMESPACE, "iron_dust");
-        copperDust = new TemplateItem(NAMESPACE.id("copper_dust")).setTranslationKey(NAMESPACE, "copper_dust");
-        tinDust = new TemplateItem(NAMESPACE.id("tin_dust")).setTranslationKey(NAMESPACE, "tin_dust");
         goldDust = new TemplateItem(NAMESPACE.id("gold_dust")).setTranslationKey(NAMESPACE, "gold_dust");
         bronzeDust = new TemplateItem(NAMESPACE.id("bronze_dust")).setTranslationKey(NAMESPACE, "bronze_dust");
+        copperDust = new TemplateItem(NAMESPACE.id("copper_dust")).setTranslationKey(NAMESPACE, "copper_dust");
+        tinDust = new TemplateItem(NAMESPACE.id("tin_dust")).setTranslationKey(NAMESPACE, "tin_dust");
+        
+        copperIngot = new TemplateItem(NAMESPACE.id("copper_ingot")).setTranslationKey(NAMESPACE, "copper_ingot");
+        tinIngot = new TemplateItem(NAMESPACE.id("tin_ingot")).setTranslationKey(NAMESPACE, "tin_ingot");
+        bronzeIngot = new TemplateItem(NAMESPACE.id("bronze_ingot")).setTranslationKey(NAMESPACE, "bronze_ingot");
+        
+        koruna = new TemplateItem(NAMESPACE.id("koruna")).setTranslationKey(NAMESPACE, "koruna");
     }
 
     @EventListener

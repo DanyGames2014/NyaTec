@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "minecraft:dust/bronze"
+  },
+  "result": {
+    "item": "nyatec:bronze_ingot",
+    "count": 1
+  }
+}

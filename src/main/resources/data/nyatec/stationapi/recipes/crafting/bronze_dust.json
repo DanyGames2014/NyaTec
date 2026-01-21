@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "minecraft:dust/copper"
+    },
+    {
+      "tag": "minecraft:dust/copper"
+    },
+    {
+      "tag": "minecraft:dust/copper"
+    },
+    {
+      "tag": "minecraft:dust/tin"
+    }
+  ],
+  "result": {
+    "item": "nyatec:bronze_dust",
+    "count": 4
+  }
+}

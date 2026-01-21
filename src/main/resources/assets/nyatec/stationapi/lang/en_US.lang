@@ -25,6 +25,19 @@ item.nyatec.treetap.name=Treetap
 item.nyatec.latex.name=Latex
 item.nyatec.rubber.name=Rubber
 
+item.nyatec.coal_dust.name=Coal Dust
+item.nyatec.iron_dust.name=Iron Dust
+item.nyatec.gold_dust.name=Gold Dust
+item.nyatec.copper_dust.name=Copper Dust
+item.nyatec.tin_dust.name=Tin Dust
+item.nyatec.bronze_dust.name=Bronze Dust
+
+item.nyatec.copper_ingot.name=Copper Ingot
+item.nyatec.tin_ingot.name=Tin Ingot
+item.nyatec.bronze_ingot.name=Bronze Ingot
+
+item.nyatec.koruna.name=Koruna
+
 wrenchmode.nyatec.flow.name=Flow
 wrenchmode.nyatec.battery.name=Battery
 wrenchmode.nyatec.debug.name=Debug
