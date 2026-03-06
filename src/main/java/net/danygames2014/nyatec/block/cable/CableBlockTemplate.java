@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @SuppressWarnings({"unused", "StringConcatenationInsideStringBufferAppend"})
-public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComponent, EnergyConductor, Wrenchable {
+public abstract class CableBlockTemplate extends TemplateBlock implements NetworkNodeComponent, EnergyConductor, Wrenchable {
     public static final BooleanProperty UP = BooleanProperty.of("up");
     public static final BooleanProperty DOWN = BooleanProperty.of("down");
     public static final BooleanProperty NORTH = BooleanProperty.of("north");
@@ -239,16 +239,6 @@ public class CableBlockTemplate extends TemplateBlock implements NetworkNodeComp
     }
 
     // Energy Conductor
-    @Override
-    public int getBreakdownVoltage(World world, NetworkComponentEntry networkComponentEntry) {
-        return 300;
-    }
-
-    @Override
-    public int getBreakdownPower(World world, NetworkComponentEntry networkComponentEntry) {
-        return 128;
-    }
-
     @Override
     public void onBreakdownVoltage(World world, NetworkComponentEntry networkComponentEntry, int voltage) {
 
