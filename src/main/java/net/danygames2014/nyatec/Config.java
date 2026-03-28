@@ -22,7 +22,7 @@ public class Config {
             public Integer oreCount = 12;
             
             @ConfigEntry(name = "Ore veins per Chunk", maxValue = 32)
-            public Integer oreVeinsPerChunk = 10;
+            public Integer oreVeinsPerChunk = 8;
             
             @ConfigEntry(name = "Minimum Y Level", maxValue = 256)
             public Integer minimumYLevel = 40;
@@ -39,7 +39,7 @@ public class Config {
             public Integer oreCount = 12;
 
             @ConfigEntry(name = "Ore veins per Chunk", maxValue = 32)
-            public Integer oreVeinsPerChunk = 10;
+            public Integer oreVeinsPerChunk = 8;
 
             @ConfigEntry(name = "Minimum Y Level", maxValue = 256)
             public Integer minimumYLevel = 30;
