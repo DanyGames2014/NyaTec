@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.state.property.Properties;
 
 import java.util.ArrayList;
@@ -67,7 +68,14 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
             processTick();
             
             // Update lit state
-            world.setBlockStateWithNotify(this.x, this.y, this.z, world.getBlockState(this.x, this.y, this.z).with(Properties.LIT, lit));
+            BlockState blockState = world.getBlockState(this.x, this.y, this.z);
+            if (blockState.contains(Properties.LIT)) {
+                if (!lit && blockState.get(Properties.LIT)) {
+                    world.setBlockStateWithNotify(this.x, this.y, this.z, blockState.with(Properties.LIT, false));
+                } else if (lit && !blockState.get(Properties.LIT)) {
+                    world.setBlockStateWithNotify(this.x, this.y, this.z, blockState.with(Properties.LIT, true));
+                }
+            }
         }
     }
 
