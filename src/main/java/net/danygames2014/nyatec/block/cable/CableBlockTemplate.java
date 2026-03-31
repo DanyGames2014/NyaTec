@@ -246,10 +246,10 @@ public abstract class CableBlockTemplate extends TemplateBlock implements Networ
 
     @Override
     public void onBreakdownPower(World world, NetworkComponentEntry networkComponentEntry, int voltage, int power) {
+        Vec3i pos = networkComponentEntry.pos();
         for (int particle = 0; particle < 4; particle++) {
-            Vec3i pos = networkComponentEntry.pos();
             ParticleHelper.addParticle(world, "smoke", pos.x + 0.5D + (world.random.nextDouble() - 0.5D), pos.y + 0.5D, pos.z + 0.5D + (world.random.nextDouble() - 0.5D));
-            world.setBlockState(pos.x, pos.y, pos.z, States.AIR.get());
         }
+        world.setBlockState(pos.x, pos.y, pos.z, States.AIR.get());
     }
 }
