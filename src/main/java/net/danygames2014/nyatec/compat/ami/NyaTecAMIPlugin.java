@@ -50,7 +50,7 @@ public class NyaTecAMIPlugin implements ModPluginProvider {
         registry.addRecipeHandlers(new MaceratorRecipeHandler());
         
         registry.addRecipes(FuelUtil.getGeneratorFuelEntries(itemRegistry, amiHelpers));
-        registry.addRecipes(MaceratorRecipeRegistry.getRegistry().values().stream().toList());
+        registry.addRecipes(MaceratorRecipeRegistry.INSTANCE.registry.values().stream().toList());
     }
 
     @Override

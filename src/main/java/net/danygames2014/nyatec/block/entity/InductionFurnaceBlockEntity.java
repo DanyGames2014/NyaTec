@@ -20,7 +20,7 @@ public class InductionFurnaceBlockEntity extends BaseRecipeMachineBlockEntity {
 
     @Override
     public MachineRecipe fetchRecipe(ItemStack[] input) {
-        return InductionFurnaceRecipeRegistry.get(input);
+        return InductionFurnaceRecipeRegistry.INSTANCE.get(input);
     }
 
     @Override

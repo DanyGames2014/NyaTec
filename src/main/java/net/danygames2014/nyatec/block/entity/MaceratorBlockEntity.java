@@ -21,7 +21,7 @@ public class MaceratorBlockEntity extends BaseRecipeMachineBlockEntity {
 
     @Override
     public MachineRecipe fetchRecipe(ItemStack[] input) {
-        return MaceratorRecipeRegistry.get(input);
+        return MaceratorRecipeRegistry.INSTANCE.get(input);
     }
 
     // Energy

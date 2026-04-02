@@ -11,10 +11,10 @@ public class InductionFurnaceRecipeRegisterEvent extends Event {
     public InductionFurnaceRecipeRegistry registry;
 
     public InductionFurnaceRecipeRegisterEvent() {
-        registry = InductionFurnaceRecipeRegistry.getInstance();
+        registry = InductionFurnaceRecipeRegistry.INSTANCE;
     }
 
     public boolean register(Identifier identifier, InductionFurnaceRecipe recipe) {
-        return InductionFurnaceRecipeRegistry.register(identifier, recipe);
+        return registry.register(identifier, recipe);
     }
 }

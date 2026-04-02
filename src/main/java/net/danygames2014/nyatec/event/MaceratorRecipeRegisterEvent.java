@@ -9,10 +9,10 @@ public class MaceratorRecipeRegisterEvent extends Event {
     public MaceratorRecipeRegistry registry;
 
     public MaceratorRecipeRegisterEvent() {
-        registry = MaceratorRecipeRegistry.getInstance();
+        registry = MaceratorRecipeRegistry.INSTANCE;
     }
 
     public boolean register(Identifier identifier, MaceratorRecipe recipe) {
-        return MaceratorRecipeRegistry.register(identifier, recipe);
+        return registry.register(identifier, recipe);
     }
 }

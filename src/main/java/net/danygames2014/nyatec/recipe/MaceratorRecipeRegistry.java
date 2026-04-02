@@ -13,66 +13,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 @SuppressWarnings("StringConcatenationArgumentToLogCall")
-public class MaceratorRecipeRegistry {
-    public final HashMap<Identifier, MaceratorRecipe> registry;
-    public final Long2ObjectOpenHashMap<MaceratorRecipe> cache;
-
-    public static MaceratorRecipeRegistry INSTANCE;
-
-    public static MaceratorRecipeRegistry getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new MaceratorRecipeRegistry();
-        }
-
-        return INSTANCE;
-    }
-
-    public MaceratorRecipeRegistry() {
-        this.registry = new HashMap<>();
-        this.cache = new Long2ObjectOpenHashMap<>();
-    }
-
-    public static HashMap<Identifier, MaceratorRecipe> getRegistry() {
-        return getInstance().registry;
-    }
-
-    public static boolean register(Identifier identifier, MaceratorRecipe recipe) {
-        if (getInstance().registry.containsKey(identifier)) {
-            NyaTec.LOGGER.warn("Macerator Recipe " + identifier + " already exists!");
-            return false;
-        }
-
-        getInstance().registry.put(identifier, recipe);
-        return true;
-    }
-
-    public static MaceratorRecipe get(Identifier identifier) {
-        return getInstance().registry.getOrDefault(identifier, null);
-    }
-
-    public static MaceratorRecipe get(ItemStack[] input) {
-        var r = getInstance();
-
-        // Calculate a hash based on the array contents
-        long arrayHash = HashUtil.hashInputs(input);
-        
-        // Check if the cache contains this input
-        if (!r.cache.containsKey(arrayHash)) {
-            r.cache.put(arrayHash, fetch(input));
-        }
-
-        return r.cache.get(arrayHash);
-    }
-
-    private static MaceratorRecipe fetch(ItemStack[] input) {
-        var r = getInstance();
-
-        for (var recipe : r.registry.entrySet()) {
-            if (recipe.getValue().matches(input)) {
-                return recipe.getValue();
-            }
-        }
-
-        return null;
-    }
+public class MaceratorRecipeRegistry extends TemplateRecipeRegistry<MaceratorRecipe>{
+    public static MaceratorRecipeRegistry INSTANCE = new MaceratorRecipeRegistry();
 }
