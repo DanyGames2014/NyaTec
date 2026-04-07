@@ -2,10 +2,9 @@ package net.danygames2014.nyatec.block.entity;
 
 import net.danygames2014.nyalib.capability.CapabilityHelper;
 import net.danygames2014.nyalib.capability.item.energyhandler.EnergyStorageItemCapability;
-import net.danygames2014.nyatec.NyaTec;
+import net.danygames2014.nyatec.item.SingleUseEnergyItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -53,10 +52,12 @@ public class BatteryBoxBlockEntity extends BaseEnergyStorageBlockEntity implemen
         }
 
         // Redstone
-        if (inventory[1].getItem() == Item.REDSTONE) {
-            if (energy + NyaTec.MACHINE_CONFIG.redstoneEnergyValue <= getEnergyCapacity()) {
+        if (inventory[1].getItem() instanceof SingleUseEnergyItem singleUseEnergyItem) {
+            int energyValue = singleUseEnergyItem.getEnergyValue(inventory[1]);
+            
+            if (energy + energyValue <= getEnergyCapacity()) {
                 inventory[1].count--;
-                energy += NyaTec.MACHINE_CONFIG.redstoneEnergyValue;
+                energy += energyValue;
             }
 
             if (inventory[1].count <= 0) {
