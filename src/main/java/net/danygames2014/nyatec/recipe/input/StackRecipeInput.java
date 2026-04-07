@@ -16,7 +16,7 @@ public class StackRecipeInput extends RecipeInput {
 
     @Override
     public boolean matches(ItemStack other) {
-        return other.equals(stack);
+        return other.isItemEqual(stack);
     }
 
     @Override
