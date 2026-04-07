@@ -52,14 +52,59 @@ public class NyaTec {
 
     public static Block copperOre;
     public static Block tinOre;
+    // TODO: Uranium Ore
+    // TODO: Iridium Ore
 
-    public static Block generatorBlock;
-    public static Block energyTrashCanBlock;
-    public static Block electricFurnaceBlock;
-    public static Block maceratorBlock;
-    public static Block batteryBoxBlock;
-    public static Block inductionFurnaceBlock;
+    // TODO: Machine Block
+    // TODO: Adanced Machine Block
     
+    public static Block generatorBlock;
+    // TODO: Geothermal Generator
+    // TODO: Fluid Generator (Combustion Generator?)
+    // TODO: Water Mill
+    // TODO: Solar Panel (Improved Version?)
+    // TODO: Wind Mill
+    // TODO: Nuclear Reactor
+    // TODO: Reactor Chamber
+
+    public static Block batteryBoxBlock;
+    // TODO: MFE
+    // TODO: MFSU
+    
+    // TODO: LV Transformer
+    // TODO: MV Transformer
+    // TODO: HV Transformer
+    
+    public static Block electricFurnaceBlock;
+    public static Block inductionFurnaceBlock; // TODO: Rename to alloy furnace
+    // TODO: Induction Furnace
+    public static Block maceratorBlock;
+    // TODO: Rotary Macerator
+    // TODO: Extractor
+    // TODO: Centrifuge Extractor
+    // TODO: Compressor
+    // TODO: Singularity Compressor
+    // TODO: Canning Machine
+    // TODO: Recycler
+    
+    // TODO: Miner
+    // TODO: Pump
+    // TODO: Magnetizer
+    // TODO: Electrolyzer
+    // TODO: Mass Fabricator
+    // TODO: Terraformer
+    // TODO: Teleporter
+    // TODO: Tesla Coil
+    
+    // TODO: LV Charging Bench
+    // TODO: MV Charging Bench
+    // TODO: HV Charging Bench
+    
+    // TODO: LV Charging Pad
+    // TODO: MV Charging Pad
+    // TODO: HV Charging Pad
+    
+    public static Block energyTrashCanBlock;
     public static Block creativeEnergySourceBlock;
 
     public static Block whiteElectricLight;
@@ -80,37 +125,210 @@ public class NyaTec {
     public static Block blackElectricLight;
     
     public static Block electricLightFixture;
+    // TODO: All Electric light fixture colors
+    
+    // TODO: Trade-O-Mat
+    // TODO: Energy-O-Mat
     
     public static Material cableMaterial = new CableMaterial(MapColor.LIGHT_GRAY).setTransparent();
 
-    public static Block rubberCable;
-    public static Block goldenCable;
+    public static Block rubberCable; // TODO: Delete
+    // TODO: Ultra Low Voltage Cable
+    // TODO: Copper Cable
+    // TODO: Insulated Copper Cable
+    // TODO: Golden Cable
+    public static Block goldenCable; // -> Insulated Golden Cable
+    // TODO: Double Insulated Golden Cable
+    // TODO: Steel Cable
+    // TODO: Insulated Steel Cable
+    // TODO: Double Insulated Steel Cable
+    // TODO: Triple Insulated Steel Cable
+    // TODO: Quadruple Insulated Steel Cable
+    // TODO: Glass Fibre Cable
+    // TODO: Detector Cable (Sensing Cable? Meter Cable? (Variable RS Signal Strength))
+    // TODO: Splitter Cable
+    
+    // TODO: Reinforced Alloy
+    // TODO: Reinforced Glass
+    // TODO: Reinforced Doors
+    // TODO: Construction Foam
+    // TODO: Iron Fence
+    // TODO: Scaffold
+    // TODO: Iron Scaffold
+    
+    // TODO: Industrial TNT
+    // TODO: Nuke
+    
+    // TODO: Copper Block
+    // TODO: Tin Block
+    // TODO: Bronze Block
+    // TODO: Uranium Block
 
-    public static Item multimeter;
-    public static Item treeTap;
-    public static Item battery;
     public static Item latex;
     public static Item rubber;
     
+    // TODO: Clay Dust
     public static Item coalDust;
     public static Item ironDust;
     public static Item goldDust;
     public static Item copperDust;
     public static Item tinDust;
     public static Item bronzeDust;
-
+    // TODO: Silver Dust
+    // TODO: Uranium Ore Chunk
+    // TODO: Iridium Ore Chunk
+    
     public static Item copperIngot;
     public static Item tinIngot;
     public static Item bronzeIngot;
+    // TODO: Refined Iron
+    // TODO: Mixed Metal Ingot
+    // TODO: Refined Uranium Ingot
+    // TODO: Iridium Plate
+    
+    // TODO: Coal Ball
+    // TODO: Compressed Coal Ball
+    // TODO: Coal Chunk
+    // TODO: Industrial Diamond
+    
+    // TODO: Hydrated Coal Dust
+    // TODO: Hydrated Coal
+    
+    // TODO: Plantball
+    // TODO: Compressed Plants
+    // TODO: Fertilizer
+    
+    // TODO: Scrap
+    // TODO: UU-Matter
+    // TODO: Scrap Box
+    
+    // TODO: Raw Carbon Fiber (Carbon Clump)
+    // TODO: Raw Carbon Mesh (Carbon Fibers)
+    // TODO: Carbon Plate
+    
+    // TODO: Advanced Alloy
+    
+    // TODO: Electronic Circuit
+    // TODO: Advanced Electronic Circuit
+    
+    // TODO: Integrated Reactor Plating
+    // TODO: Integrated Heat Disperser
+    
+    // TODO: Overclocker Upgrade
+    // TODO: Transformer Upgrade
+    // TODO: Energy Storage Upgrade
+    
+    // TODO: Single Use Battery
+    public static Item battery;
+    // TODO: Energy Crystal
+    // TODO: Lapotron Crystal
+
+    // TODO: Empty Cell
+    // TODO: Water Cell
+    // TODO: Electrolyzed Water Cell
+    // TODO: Lava Cell
+    
+    // TODO: Hydrated Coal Cell
+    // TODO: Bio Cell
+    // TODO: Coalfuel Cell
+    // TODO: Biofuel Cell
+    
+    // TODO: Empty Fuel Can
+    // TODO: Filled Fuel Can
+
+    // TODO: Uranium Cell
+    // TODO: Near Depleted Uranium Cell
+    // TODO: Depleted Isotope Cell
+    // TODO: Re-Enriched Uranium Cell
+    // TODO: Coolant Cell
+    // TODO: Hydration Cell
+    
+    // TODO: Empty Tin Can
+    // TODO: Filled Tin Can
+    
+    // TODO: Dynamite Detonator
+    // TODO: Dynamite
+    // TODO: Sticky Dynamite
+
+    // TODO: Bronze Wrench
+    // TODO: Bronze Pickaxe
+    // TODO: Bronze Axe
+    // TODO: Bronze Shovel
+    // TODO: Bronze Hoe
+    // TODO: Bronze Sword
+    // TODO: Bronze Helmet
+    // TODO: Bronze Chestplate
+    // TODO: Bronze Leggings
+    // TODO: Bronze Boots
+    // TODO: Composite Vest
+    // TODO: Rubber Boots
+
+    // TODO: Industrial Credit
+    
+    // TODO: Toolbox (Open/Closed)
+    
+    // TODO: CF Pellet
+    // TODO: CF Sprayer
+    // TODO: CF Backpack
+    
+    // TODO: Painter
+    // TODO: White Painter
+    // TODO: Orange Painter
+    // TODO: Magenta Painter
+    // TODO: Light Blue Painter
+    // TODO: Yellow Painter
+    // TODO: Lime Painter
+    // TODO: Pink Painter
+    // TODO: Gray Painter
+    // TODO: Light Gray Painter
+    // TODO: Cyan Painter
+    // TODO: Purple Painter
+    // TODO: Blue Painter
+    // TODO: Brown Painter
+    // TODO: Green Painter
+    // TODO: Red Painter
+    // TODO: Black Painter
+    
+    public static Item treeTap;
+    // TODO: Insulation Cutter
+    // TODO: Electric Treetap
+    // TODO: Thermometer
+    // TODO: Digital Thermometer
+    public static Item multimeter;
+    // TODO: Ore Density Scanner
+    // TODO: Ore Value Scanner
+    // TODO: Frequency Transmitter
+    // TODO: Electric Hoe
+    // TODO: Electric Wrench
+    // TODO: Mining Drill
+    // TODO: Chainsaw
+    // TODO: Diamong Mining Drill
+    // TODO: Mining Laser
+    // TODO: Nano Saber
+    // TODO: Mining Laser
+    
+    // TODO: Solar Helmet (every x ticks cache item energy capabilities)
+    // TODO: Batpack
+    // TODO: Lappack
+    // TODO: Jetpack
+    // TODO: Electric Jetpack
+    // TODO: NanoSuit Helmet
+    // TODO: NanoSuit Chestplate
+    // TODO: NanoSuit Leggings
+    // TODO: NanoSuit Boots
+    // TODO: Nightvision Gogglest
+    // TODO: Quantum Suit Helmet
+    // TODO: Quantum Suit Chestplate
+    // TODO: Quantum Suit Leggings
+    // TODO: Quantum Suit Boots
+    // TODO: Quantum Suit Goggles (Night Vision)
+    // TODO: Gravisuit
     
     public static Item koruna;
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
-        multimeter = new MultimeterItem(NAMESPACE.id("multimeter")).setTranslationKey(NAMESPACE, "multimeter");
-        battery = new BatteryItem(NAMESPACE.id("basic_battery"), 2000).setTranslationKey(NAMESPACE, "basic_battery");
         latex = new TemplateItem(NAMESPACE.id("latex")).setTranslationKey(NAMESPACE, "latex");
-        treeTap = new TreeTapItem(NAMESPACE.id("treetap")).setTranslationKey(NAMESPACE, "treetap");
         rubber = new TemplateItem(NAMESPACE.id("rubber")).setTranslationKey(NAMESPACE, "rubber");
         
         coalDust = new TemplateItem(NAMESPACE.id("coal_dust")).setTranslationKey(NAMESPACE, "coal_dust");
@@ -123,6 +341,12 @@ public class NyaTec {
         copperIngot = new TemplateItem(NAMESPACE.id("copper_ingot")).setTranslationKey(NAMESPACE, "copper_ingot");
         tinIngot = new TemplateItem(NAMESPACE.id("tin_ingot")).setTranslationKey(NAMESPACE, "tin_ingot");
         bronzeIngot = new TemplateItem(NAMESPACE.id("bronze_ingot")).setTranslationKey(NAMESPACE, "bronze_ingot");
+
+        battery = new BatteryItem(NAMESPACE.id("basic_battery"), 2000).setTranslationKey(NAMESPACE, "basic_battery");
+        
+        treeTap = new TreeTapItem(NAMESPACE.id("treetap")).setTranslationKey(NAMESPACE, "treetap");
+        
+        multimeter = new MultimeterItem(NAMESPACE.id("multimeter")).setTranslationKey(NAMESPACE, "multimeter");
         
         koruna = new TemplateItem(NAMESPACE.id("koruna")).setTranslationKey(NAMESPACE, "koruna");
     }
