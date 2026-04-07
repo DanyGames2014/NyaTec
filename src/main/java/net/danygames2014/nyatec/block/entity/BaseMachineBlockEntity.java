@@ -4,6 +4,7 @@ import net.danygames2014.nyalib.capability.CapabilityHelper;
 import net.danygames2014.nyalib.capability.item.energyhandler.EnergyStorageItemCapability;
 import net.danygames2014.nyalib.energy.template.block.entity.EnergyConsumerBlockEntityTemplate;
 import net.danygames2014.nyatec.NyaTec;
+import net.danygames2014.nyatec.item.SingleUseEnergyItem;
 import net.danygames2014.nyatec.recipe.output.RecipeOutputType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -121,10 +122,12 @@ public abstract class BaseMachineBlockEntity extends EnergyConsumerBlockEntityTe
             }
 
             // Redstone
-            if (fuelStack.getItem() == Item.REDSTONE) {
-                if (energy + NyaTec.MACHINE_CONFIG.redstoneEnergyValue <= getEnergyCapacity()) {
+            if (fuelStack.getItem() instanceof SingleUseEnergyItem singleUseEnergyItem) {
+                int energyValue = singleUseEnergyItem.getEnergyValue(fuelStack);
+                
+                if (energy + energyValue <= getEnergyCapacity()) {
                     fuelStack.count--;
-                    energy += NyaTec.MACHINE_CONFIG.redstoneEnergyValue;
+                    energy += energyValue;
                 }
 
                 if (fuelStack.count <= 0) {
