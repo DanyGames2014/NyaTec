@@ -19,12 +19,14 @@
       "net.danygames2014.nyatec.init.InitListener",
       "net.danygames2014.nyatec.init.RecipeListener",
       "net.danygames2014.nyatec.init.AfterBlockAndItemListener",
+      "net.danygames2014.nyatec.init.BlockEntityListener",
       "net.danygames2014.nyatec.init.WorldGenListener",
       "net.danygames2014.nyatec.world.ChunkDecorationListener",
       "net.danygames2014.nyatec.init.WrenchModeListener"
     ],
     "stationapi:event_bus_client": [
-      "net.danygames2014.nyatec.init.ClientListener"
+      "net.danygames2014.nyatec.init.ClientListener",
+      "net.danygames2014.nyatec.init.ScreenHandlerListener"
     ],
     "stationapi:event_bus_server": [
     ],
