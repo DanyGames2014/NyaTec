@@ -24,34 +24,34 @@ public class EnergyProbeInfoProvider implements IProbeInfoProvider {
 
     @Override
     public void addProbeInfo(ProbeMode probeMode, IProbeInfo probeInfo, PlayerEntity playerEntity, World world, BlockState state, IProbeHitData iProbeHitData) {
-        BlockPos pos = iProbeHitData.getPos();
+//        BlockPos pos = iProbeHitData.getPos();
         
-        if(world.getBlockEntity(pos.x, pos.y, pos.z) instanceof EnergyStorage energyStorage) {
-            probeInfo.progress(
-                energyStorage.getEnergyStored(), 
-                energyStorage.getEnergyCapacity(), 
-                probeInfo.defaultProgressStyle().suffix(" EU")
-                .borderColor(0xFFF5A9B8)
-                .filledColor(0xFF5BCEFA)
-                .alternateFilledColor(0xFFFFFFFF)
-            );
-        }
+//        if(world.getBlockEntity(pos.x, pos.y, pos.z) instanceof EnergyStorage energyStorage) {
+//            probeInfo.progress(
+//                energyStorage.getEnergyStored(), 
+//                energyStorage.getEnergyCapacity(), 
+//                probeInfo.defaultProgressStyle().suffix(" EU")
+//                .borderColor(0xFFF5A9B8)
+//                .filledColor(0xFF5BCEFA)
+//                .alternateFilledColor(0xFFFFFFFF)
+//            );
+//        }
         
-        if(world.getBlockState(pos).getBlock() instanceof CableBlockTemplate) {
-            Network net = NetworkManager.getAt(world.dimension, pos.x, pos.y, pos.z, NetworkType.ENERGY.getIdentifier());
-            if (net instanceof EnergyNetwork energyNet) {
-                EnergyNetwork.EnergyFlowEntry flowEntry = energyNet.getFlowEntry(pos.x, pos.y, pos.z);
-                if (flowEntry != null) {
-                    probeInfo.progress(
-                        flowEntry.energyFlow, 
-                        flowEntry.conductor.getBreakdownPower(world, flowEntry.componentEntry),
-                        probeInfo.defaultProgressStyle().suffix(" EU/t")
-                        .borderColor(0xFFF5A9B8)
-                        .filledColor(0xFF5BCEFA)
-                        .alternateFilledColor(0xFFFFFFFF)
-                    );
-                }
-            }
-        }
+//        if(world.getBlockState(pos).getBlock() instanceof CableBlockTemplate) {
+//            Network net = NetworkManager.getAt(world.dimension, pos.x, pos.y, pos.z, NetworkType.ENERGY.getIdentifier());
+//            if (net instanceof EnergyNetwork energyNet) {
+//                EnergyNetwork.EnergyFlowEntry flowEntry = energyNet.getFlowEntry(pos.x, pos.y, pos.z);
+//                if (flowEntry != null) {
+//                    probeInfo.progress(
+//                        flowEntry.energyFlow, 
+//                        flowEntry.conductor.getBreakdownPower(world, flowEntry.componentEntry),
+//                        probeInfo.defaultProgressStyle().suffix(" EU/t")
+//                        .borderColor(0xFFF5A9B8)
+//                        .filledColor(0xFF5BCEFA)
+//                        .alternateFilledColor(0xFFFFFFFF)
+//                    );
+//                }
+//            }
+//        }
     }
 }
